@@ -1,0 +1,181 @@
+estacion_id,nombre_estacion,region,cuenca,tipo_fuente,latitud,longitud,fecha_instalacion
+EST-0001,Estación Río Río Coata 1,Puno,Río Coata,Río,-2.97454,-72.51316,2020-02-07
+EST-0002,Estación Reservorio Río Ilave 2,Puno,Río Ilave,Reservorio,-4.24387,-79.68577,2024-05-05
+EST-0003,Estación Río Río Chancay 3,Lambayeque,Río Chancay,Río,-1.78161,-73.1873,2021-06-19
+EST-0004,Estación Río Río Mantaro 4,Junín,Río Mantaro,Río,-14.02332,-74.31223,2023-11-11
+EST-0005,Estación Pozo subterráneo Río Coata 5,Puno,Río Coata,Pozo subterráneo,-4.73346,-76.83297,2023-07-14
+EST-0006,Estación Planta de tratamiento Río Coata 6,Puno,Río Coata,Planta de tratamiento,-4.37829,-78.84755,2020-12-28
+EST-0007,Estación Lago Lago Junín 7,Junín,Lago Junín,Lago,-6.04664,-71.916,2019-03-29
+EST-0008,Estación Río Río Majes 8,Arequipa,Río Majes,Río,-11.51696,-75.3836,2023-05-11
+EST-0009,Estación Río Río Vilcanota 9,Cusco,Río Vilcanota,Río,-14.02909,-72.86034,2019-09-17
+EST-0010,Estación Reservorio Río Rímac 10,Lima,Río Rímac,Reservorio,-5.74536,-77.36418,2023-03-16
+EST-0011,Estación Reservorio Río Chancay 11,Lambayeque,Río Chancay,Reservorio,-11.21913,-77.66707,2020-04-24
+EST-0012,Estación Lago Río Chira 12,Piura,Río Chira,Lago,-17.87116,-71.38475,2019-10-07
+EST-0013,Estación Reservorio Río Chancay 13,Lambayeque,Río Chancay,Reservorio,-4.33724,-75.51766,2022-08-22
+EST-0014,Estación Lago Río Nanay 14,Loreto,Río Nanay,Lago,-15.99572,-72.87812,2022-08-01
+EST-0015,Estación Reservorio Río Mantaro 15,Junín,Río Mantaro,Reservorio,-6.89243,-74.3249,2022-02-04
+EST-0016,Estación Río Río Ilave 16,Puno,Río Ilave,Río,-17.46069,-75.79736,2024-05-19
+EST-0017,Estación Planta de tratamiento Río Vilcanota 17,Cusco,Río Vilcanota,Planta de tratamiento,-13.90606,-80.56539,2021-03-28
+EST-0018,Estación Río Río Chancay 18,Lambayeque,Río Chancay,Río,-6.41646,-74.28139,2020-07-16
+EST-0019,Estación Pozo subterráneo Río Nanay 19,Loreto,Río Nanay,Pozo subterráneo,-10.88823,-71.04334,2020-10-04
+EST-0020,Estación Lago Río Vilcanota 20,Cusco,Río Vilcanota,Lago,-5.35871,-75.48035,2019-02-15
+EST-0021,Estación Río Río Piura 21,Piura,Río Piura,Río,-15.33454,-72.52636,2021-09-18
+EST-0022,Estación Río Lago Junín 22,Junín,Lago Junín,Río,-6.97005,-76.74116,2021-02-01
+EST-0023,Estación Lago Río Rímac 23,Lima,Río Rímac,Lago,-1.16679,-69.85188,2021-09-17
+EST-0024,Estación Planta de tratamiento Río Piura 24,Piura,Río Piura,Planta de tratamiento,-4.37186,-72.26718,2020-06-15
+EST-0025,Estación Río Río Chancay 25,Lambayeque,Río Chancay,Río,-16.31316,-69.92721,2021-06-17
+EST-0026,Estación Lago Río Vilcanota 26,Cusco,Río Vilcanota,Lago,-12.64576,-74.00183,2021-12-29
+EST-0027,Estación Reservorio Río Vilcanota 27,Cusco,Río Vilcanota,Reservorio,-5.4094,-75.85563,2023-09-10
+EST-0028,Estación Pozo subterráneo Río Majes 28,Arequipa,Río Majes,Pozo subterráneo,-6.62768,-80.236,2023-02-23
+EST-0029,Estación Río Río Mantaro 29,Junín,Río Mantaro,Río,-12.22743,-79.479,2019-03-25
+EST-0030,Estación Pozo subterráneo Río Piura 30,Piura,Río Piura,Pozo subterráneo,-15.01462,-69.64349,2024-06-02
+EST-0031,Estación Pozo subterráneo Río Amazonas 31,Loreto,Río Amazonas,Pozo subterráneo,-17.60093,-69.22215,2020-11-24
+EST-0032,Estación Reservorio Lago Junín 32,Junín,Lago Junín,Reservorio,-16.55223,-75.16811,2022-09-04
+EST-0033,Estación Pozo subterráneo Lago Junín 33,Junín,Lago Junín,Pozo subterráneo,-9.71394,-77.93611,2024-02-19
+EST-0034,Estación Río Río Rímac 34,Lima,Río Rímac,Río,-10.31905,-81.02769,2020-12-28
+EST-0035,Estación Planta de tratamiento Río Chancay 35,Lambayeque,Río Chancay,Planta de tratamiento,-15.54564,-74.31914,2020-09-23
+EST-0036,Estación Río Río Ilave 36,Puno,Río Ilave,Río,-6.4601,-72.13987,2022-09-06
+EST-0037,Estación Lago Río Chillón 37,Lima,Río Chillón,Lago,-1.96979,-78.3993,2020-04-17
+EST-0038,Estación Río Lago Titicaca 38,Puno,Lago Titicaca,Río,-3.47868,-71.11603,2022-01-14
+EST-0039,Estación Planta de tratamiento Río Rímac 39,Lima,Río Rímac,Planta de tratamiento,-12.90894,-74.81028,2023-12-17
+EST-0040,Estación Lago Río Majes 40,Arequipa,Río Majes,Lago,-17.21406,-75.81778,2024-02-16
+EST-0041,Estación Planta de tratamiento Río Chillón 41,Lima,Río Chillón,Planta de tratamiento,-4.89936,-70.07601,2020-03-22
+EST-0042,Estación Río Río Rímac 42,Lima,Río Rímac,Río,-4.48978,-72.96307,2021-11-03
+EST-0043,Estación Lago Lago Junín 43,Junín,Lago Junín,Lago,-4.93118,-77.993,2019-01-11
+EST-0044,Estación Lago Río Chillón 44,Lima,Río Chillón,Lago,-3.45553,-79.36862,2020-04-26
+EST-0045,Estación Pozo subterráneo Río Piura 45,Piura,Río Piura,Pozo subterráneo,-2.69516,-78.82492,2020-07-15
+EST-0046,Estación Planta de tratamiento Río Majes 46,Arequipa,Río Majes,Planta de tratamiento,-9.23703,-79.48689,2023-04-04
+EST-0047,Estación Lago Río Rímac 47,Lima,Río Rímac,Lago,-15.69311,-72.7615,2024-04-22
+EST-0048,Estación Pozo subterráneo Río Ramis 48,Puno,Río Ramis,Pozo subterráneo,-7.83046,-78.78283,2021-10-09
+EST-0049,Estación Reservorio Río Chancay 49,Lambayeque,Río Chancay,Reservorio,-5.06778,-79.64867,2023-05-28
+EST-0050,Estación Planta de tratamiento Lago Junín 50,Junín,Lago Junín,Planta de tratamiento,-11.04238,-77.50805,2019-09-22
+EST-0051,Estación Planta de tratamiento Río Mantaro 51,Junín,Río Mantaro,Planta de tratamiento,-12.98719,-69.64741,2022-08-18
+EST-0052,Estación Pozo subterráneo Lago Junín 52,Junín,Lago Junín,Pozo subterráneo,-6.90544,-79.96569,2022-12-17
+EST-0053,Estación Planta de tratamiento Río Apurímac 53,Cusco,Río Apurímac,Planta de tratamiento,-7.56926,-69.54391,2021-04-18
+EST-0054,Estación Río Río Chira 54,Piura,Río Chira,Río,-4.26664,-81.07526,2022-08-20
+EST-0055,Estación Reservorio Río Ramis 55,Puno,Río Ramis,Reservorio,-13.92879,-74.6123,2023-07-17
+EST-0056,Estación Planta de tratamiento Río Chancay 56,Lambayeque,Río Chancay,Planta de tratamiento,-7.44562,-76.1016,2022-04-27
+EST-0057,Estación Río Río Ramis 57,Puno,Río Ramis,Río,-6.59121,-70.36962,2020-07-02
+EST-0058,Estación Lago Río Mantaro 58,Junín,Río Mantaro,Lago,-4.94475,-71.01123,2020-05-10
+EST-0059,Estación Lago Río Rímac 59,Lima,Río Rímac,Lago,-7.59741,-79.45822,2020-01-20
+EST-0060,Estación Río Río Chancay 60,Lambayeque,Río Chancay,Río,-15.48224,-69.69577,2022-04-12
+EST-0061,Estación Lago Río Vilcanota 61,Cusco,Río Vilcanota,Lago,-15.97892,-81.03353,2020-07-23
+EST-0062,Estación Lago Río Piura 62,Piura,Río Piura,Lago,-17.06582,-73.85159,2021-10-28
+EST-0063,Estación Río Río Chira 63,Piura,Río Chira,Río,-9.17079,-70.27494,2021-02-26
+EST-0064,Estación Lago Río Chancay 64,Lambayeque,Río Chancay,Lago,-14.82378,-78.31701,2023-08-30
+EST-0065,Estación Pozo subterráneo Río Vilcanota 65,Cusco,Río Vilcanota,Pozo subterráneo,-10.71541,-80.6794,2019-01-15
+EST-0066,Estación Lago Río Majes 66,Arequipa,Río Majes,Lago,-3.41448,-80.64528,2021-11-13
+EST-0067,Estación Lago Río Mantaro 67,Junín,Río Mantaro,Lago,-3.23744,-69.92657,2020-04-24
+EST-0068,Estación Reservorio Río Rímac 68,Lima,Río Rímac,Reservorio,-6.75654,-71.48465,2023-05-24
+EST-0069,Estación Río Río Piura 69,Piura,Río Piura,Río,-9.0011,-70.49459,2023-07-26
+EST-0070,Estación Pozo subterráneo Río Mantaro 70,Junín,Río Mantaro,Pozo subterráneo,-13.33689,-79.53892,2021-02-09
+EST-0071,Estación Río Lago Junín 71,Junín,Lago Junín,Río,-13.93003,-76.66935,2021-10-07
+EST-0072,Estación Río Río Majes 72,Arequipa,Río Majes,Río,-5.99949,-77.55936,2020-10-16
+EST-0073,Estación Planta de tratamiento Río Chancay 73,Lambayeque,Río Chancay,Planta de tratamiento,-9.58407,-77.16265,2024-03-12
+EST-0074,Estación Reservorio Río Mantaro 74,Junín,Río Mantaro,Reservorio,-6.57972,-71.16466,2022-01-11
+EST-0075,Estación Río Río Nanay 75,Loreto,Río Nanay,Río,-5.13937,-78.7497,2022-06-19
+EST-0076,Estación Planta de tratamiento Río Nanay 76,Loreto,Río Nanay,Planta de tratamiento,-15.6882,-73.55882,2022-06-26
+EST-0077,Estación Lago Río Ilave 77,Puno,Río Ilave,Lago,-1.62105,-79.56866,2022-12-22
+EST-0078,Estación Reservorio Río Chillón 78,Lima,Río Chillón,Reservorio,-7.61056,-71.43894,2024-06-16
+EST-0079,Estación Planta de tratamiento Río Chancay 79,Lambayeque,Río Chancay,Planta de tratamiento,-13.56579,-73.86504,2019-04-11
+EST-0080,Estación Lago Río Ilave 80,Puno,Río Ilave,Lago,-8.11336,-74.08738,2022-05-17
+EST-0081,Estación Río Lago Junín 81,Junín,Lago Junín,Río,-4.63134,-71.22952,2021-11-01
+EST-0082,Estación Planta de tratamiento Lago Junín 82,Junín,Lago Junín,Planta de tratamiento,-15.90466,-79.8245,2022-04-14
+EST-0083,Estación Pozo subterráneo Río Piura 83,Piura,Río Piura,Pozo subterráneo,-10.67435,-71.54355,2020-02-21
+EST-0084,Estación Planta de tratamiento Río Chira 84,Piura,Río Chira,Planta de tratamiento,-4.65569,-77.89126,2020-10-29
+EST-0085,Estación Río Río Chancay 85,Lambayeque,Río Chancay,Río,-15.2418,-79.43793,2020-12-29
+EST-0086,Estación Río Río Coata 86,Puno,Río Coata,Río,-11.2919,-72.10596,2019-12-18
+EST-0087,Estación Reservorio Río Nanay 87,Loreto,Río Nanay,Reservorio,-9.61103,-76.55787,2024-02-16
+EST-0088,Estación Reservorio Río Chira 88,Piura,Río Chira,Reservorio,-1.35409,-79.80717,2020-06-25
+EST-0089,Estación Pozo subterráneo Río Chancay 89,Lambayeque,Río Chancay,Pozo subterráneo,-15.86637,-73.88795,2019-03-06
+EST-0090,Estación Río Río Chira 90,Piura,Río Chira,Río,-3.55551,-77.57848,2019-01-25
+EST-0091,Estación Río Río Rímac 91,Lima,Río Rímac,Río,-12.71627,-69.72763,2023-01-16
+EST-0092,Estación Lago Río Chancay 92,Lambayeque,Río Chancay,Lago,-0.55189,-70.22208,2022-09-30
+EST-0093,Estación Lago Río Majes 93,Arequipa,Río Majes,Lago,-0.51567,-72.91237,2023-08-01
+EST-0094,Estación Lago Río Apurímac 94,Cusco,Río Apurímac,Lago,-2.30192,-80.93461,2020-05-06
+EST-0095,Estación Reservorio Río Vilcanota 95,Cusco,Río Vilcanota,Reservorio,-14.53143,-69.82596,2019-10-14
+EST-0096,Estación Lago Río Majes 96,Arequipa,Río Majes,Lago,-17.90498,-80.64911,2023-06-28
+EST-0097,Estación Lago Río Nanay 97,Loreto,Río Nanay,Lago,-3.13535,-80.57888,2023-05-22
+EST-0098,Estación Planta de tratamiento Río Chira 98,Piura,Río Chira,Planta de tratamiento,-4.4881,-72.50368,2023-06-28
+EST-0099,Estación Lago Río Chancay 99,Lambayeque,Río Chancay,Lago,-14.46881,-79.72596,2022-10-26
+EST-0100,Estación Pozo subterráneo Río Nanay 100,Loreto,Río Nanay,Pozo subterráneo,-3.10521,-79.34432,2023-01-30
+EST-0101,Estación Lago Río Chancay 101,Lambayeque,Río Chancay,Lago,-13.26172,-72.3552,2023-01-09
+EST-0102,Estación Pozo subterráneo Río Nanay 102,Loreto,Río Nanay,Pozo subterráneo,-17.04624,-73.53451,2019-01-09
+EST-0103,Estación Reservorio Lago Titicaca 103,Puno,Lago Titicaca,Reservorio,-14.97026,-80.14432,2023-11-04
+EST-0104,Estación Planta de tratamiento Río Chancay 104,Lambayeque,Río Chancay,Planta de tratamiento,-9.97519,-71.42058,2020-01-03
+EST-0105,Estación Pozo subterráneo Río Majes 105,Arequipa,Río Majes,Pozo subterráneo,-15.46022,-69.38009,2021-12-18
+EST-0106,Estación Pozo subterráneo Río Chili 106,Arequipa,Río Chili,Pozo subterráneo,-6.63842,-69.44851,2022-03-02
+EST-0107,Estación Río Río Vilcanota 107,Cusco,Río Vilcanota,Río,-10.9294,-75.32547,2019-09-16
+EST-0108,Estación Río Río Coata 108,Puno,Río Coata,Río,-12.66767,-75.90842,2019-09-26
+EST-0109,Estación Pozo subterráneo Río Chancay 109,Lambayeque,Río Chancay,Pozo subterráneo,-10.79331,-76.14933,2022-05-06
+EST-0110,Estación Pozo subterráneo Río Chancay 110,Lambayeque,Río Chancay,Pozo subterráneo,-12.45178,-80.84565,2020-03-11
+EST-0111,Estación Río Río Chili 111,Arequipa,Río Chili,Río,-14.05212,-74.08703,2020-12-02
+EST-0112,Estación Pozo subterráneo Río Nanay 112,Loreto,Río Nanay,Pozo subterráneo,-6.58242,-77.3157,2022-11-05
+EST-0113,Estación Río Río Apurímac 113,Cusco,Río Apurímac,Río,-10.45018,-73.41224,2021-11-18
+EST-0114,Estación Reservorio Río Majes 114,Arequipa,Río Majes,Reservorio,-2.48795,-69.69468,2021-10-22
+EST-0115,Estación Río Río Chancay 115,Lambayeque,Río Chancay,Río,-4.00227,-77.33792,2021-10-04
+EST-0116,Estación Río Río Nanay 116,Loreto,Río Nanay,Río,-15.97251,-80.39205,2023-10-04
+EST-0117,Estación Lago Río Chancay 117,Lambayeque,Río Chancay,Lago,-13.0893,-77.08996,2021-09-02
+EST-0118,Estación Reservorio Río Apurímac 118,Cusco,Río Apurímac,Reservorio,-17.74305,-70.87761,2020-09-19
+EST-0119,Estación Río Río Chira 119,Piura,Río Chira,Río,-15.31177,-73.72941,2022-08-29
+EST-0120,Estación Planta de tratamiento Río Ilave 120,Puno,Río Ilave,Planta de tratamiento,-0.57937,-71.57148,2020-12-30
+EST-0121,Estación Pozo subterráneo Lago Junín 121,Junín,Lago Junín,Pozo subterráneo,-5.65539,-76.41319,2024-01-26
+EST-0122,Estación Lago Río Piura 122,Piura,Río Piura,Lago,-8.81095,-79.23673,2019-01-22
+EST-0123,Estación Reservorio Río Piura 123,Piura,Río Piura,Reservorio,-0.69017,-74.29479,2020-02-05
+EST-0124,Estación Planta de tratamiento Río Chancay 124,Lambayeque,Río Chancay,Planta de tratamiento,-15.52207,-75.65211,2023-08-13
+EST-0125,Estación Reservorio Lago Junín 125,Junín,Lago Junín,Reservorio,-10.40887,-75.38648,2019-06-10
+EST-0126,Estación Lago Río Rímac 126,Lima,Río Rímac,Lago,-2.12569,-80.73742,2022-06-18
+EST-0127,Estación Río Río Vilcanota 127,Cusco,Río Vilcanota,Río,-7.73721,-75.08455,2020-08-07
+EST-0128,Estación Lago Lago Titicaca 128,Puno,Lago Titicaca,Lago,-3.2372,-73.26638,2022-01-17
+EST-0129,Estación Reservorio Río Piura 129,Piura,Río Piura,Reservorio,-16.9831,-76.68073,2022-09-02
+EST-0130,Estación Río Río Chira 130,Piura,Río Chira,Río,-3.22162,-75.21959,2021-11-28
+EST-0131,Estación Planta de tratamiento Río Chancay 131,Lambayeque,Río Chancay,Planta de tratamiento,-9.16615,-69.83964,2020-09-01
+EST-0132,Estación Río Río Amazonas 132,Loreto,Río Amazonas,Río,-9.2707,-74.60422,2023-08-28
+EST-0133,Estación Río Río Amazonas 133,Loreto,Río Amazonas,Río,-1.94659,-73.35151,2021-02-22
+EST-0134,Estación Lago Río Vilcanota 134,Cusco,Río Vilcanota,Lago,-17.5656,-69.614,2020-11-08
+EST-0135,Estación Río Río Piura 135,Piura,Río Piura,Río,-7.52665,-81.20784,2021-04-11
+EST-0136,Estación Pozo subterráneo Río Chili 136,Arequipa,Río Chili,Pozo subterráneo,-0.8184,-73.48349,2022-11-07
+EST-0137,Estación Reservorio Río Rímac 137,Lima,Río Rímac,Reservorio,-2.19176,-72.21923,2020-07-23
+EST-0138,Estación Planta de tratamiento Río Chillón 138,Lima,Río Chillón,Planta de tratamiento,-16.00318,-72.07159,2023-04-14
+EST-0139,Estación Pozo subterráneo Río Chancay 139,Lambayeque,Río Chancay,Pozo subterráneo,-6.55321,-69.08033,2021-05-30
+EST-0140,Estación Río Río Coata 140,Puno,Río Coata,Río,-5.15931,-71.85021,2022-06-28
+EST-0141,Estación Lago Río Chili 141,Arequipa,Río Chili,Lago,-4.3965,-75.12978,2019-09-05
+EST-0142,Estación Río Río Chillón 142,Lima,Río Chillón,Río,-0.88645,-76.11414,2019-05-29
+EST-0143,Estación Lago Río Chancay 143,Lambayeque,Río Chancay,Lago,-8.27942,-71.19405,2020-06-16
+EST-0144,Estación Lago Río Rímac 144,Lima,Río Rímac,Lago,-11.47771,-80.6864,2023-07-04
+EST-0145,Estación Pozo subterráneo Río Chili 145,Arequipa,Río Chili,Pozo subterráneo,-5.51798,-71.55112,2019-01-17
+EST-0146,Estación Reservorio Río Chancay 146,Lambayeque,Río Chancay,Reservorio,-3.98475,-80.68306,2023-12-21
+EST-0147,Estación Planta de tratamiento Río Vilcanota 147,Cusco,Río Vilcanota,Planta de tratamiento,-17.92125,-74.81567,2022-05-28
+EST-0148,Estación Lago Río Majes 148,Arequipa,Río Majes,Lago,-10.97628,-70.015,2022-05-06
+EST-0149,Estación Planta de tratamiento Río Piura 149,Piura,Río Piura,Planta de tratamiento,-11.90945,-70.54786,2020-04-20
+EST-0150,Estación Pozo subterráneo Río Rímac 150,Lima,Río Rímac,Pozo subterráneo,-11.05355,-77.8372,2022-01-04
+EST-0151,Estación Lago Río Chillón 151,Lima,Río Chillón,Lago,-12.01628,-72.25775,2020-01-11
+EST-0152,Estación Planta de tratamiento Río Mantaro 152,Junín,Río Mantaro,Planta de tratamiento,-12.81366,-76.15993,2021-12-04
+EST-0153,Estación Planta de tratamiento Río Vilcanota 153,Cusco,Río Vilcanota,Planta de tratamiento,-5.73458,-73.80032,2022-02-23
+EST-0154,Estación Planta de tratamiento Río Ramis 154,Puno,Río Ramis,Planta de tratamiento,-9.30396,-79.60698,2019-07-26
+EST-0155,Estación Lago Río Chili 155,Arequipa,Río Chili,Lago,-17.6908,-75.58867,2019-05-15
+EST-0156,Estación Río Río Chillón 156,Lima,Río Chillón,Río,-10.64332,-69.21396,2024-04-08
+EST-0157,Estación Río Río Chancay 157,Lambayeque,Río Chancay,Río,-13.02053,-69.99784,2021-02-11
+EST-0158,Estación Planta de tratamiento Río Apurímac 158,Cusco,Río Apurímac,Planta de tratamiento,-8.73301,-71.94679,2020-10-12
+EST-0159,Estación Pozo subterráneo Río Apurímac 159,Cusco,Río Apurímac,Pozo subterráneo,-12.76079,-78.25871,2020-08-22
+EST-0160,Estación Planta de tratamiento Río Chili 160,Arequipa,Río Chili,Planta de tratamiento,-13.04318,-74.22523,2019-11-07
+EST-0161,Estación Reservorio Río Majes 161,Arequipa,Río Majes,Reservorio,-10.32824,-75.29916,2024-03-14
+EST-0162,Estación Reservorio Río Chillón 162,Lima,Río Chillón,Reservorio,-2.20531,-71.37637,2022-09-11
+EST-0163,Estación Pozo subterráneo Lago Junín 163,Junín,Lago Junín,Pozo subterráneo,-16.21685,-73.07318,2020-09-29
+EST-0164,Estación Río Río Chillón 164,Lima,Río Chillón,Río,-17.37275,-69.20684,2021-10-22
+EST-0165,Estación Lago Río Piura 165,Piura,Río Piura,Lago,-13.69383,-80.47432,2024-05-23
+EST-0166,Estación Río Lago Junín 166,Junín,Lago Junín,Río,-17.10819,-79.89384,2021-10-29
+EST-0167,Estación Lago Río Piura 167,Piura,Río Piura,Lago,-5.78168,-78.69154,2024-05-08
+EST-0168,Estación Río Río Chili 168,Arequipa,Río Chili,Río,-17.97094,-79.88791,2021-02-27
+EST-0169,Estación Lago Río Mantaro 169,Junín,Río Mantaro,Lago,-9.10707,-75.13227,2019-02-28
+EST-0170,Estación Reservorio Río Chili 170,Arequipa,Río Chili,Reservorio,-3.27894,-78.01961,2021-05-12
+EST-0171,Estación Lago Río Vilcanota 171,Cusco,Río Vilcanota,Lago,-9.60239,-72.69094,2020-10-28
+EST-0172,Estación Planta de tratamiento Río Apurímac 172,Cusco,Río Apurímac,Planta de tratamiento,-17.15004,-75.4943,2020-10-23
+EST-0173,Estación Lago Río Chancay 173,Lambayeque,Río Chancay,Lago,-17.17095,-79.55861,2022-11-24
+EST-0174,Estación Lago Río Coata 174,Puno,Río Coata,Lago,-14.70437,-80.90583,2019-11-04
+EST-0175,Estación Lago Río Ilave 175,Puno,Río Ilave,Lago,-8.03879,-73.86354,2022-05-25
+EST-0176,Estación Lago Río Chira 176,Piura,Río Chira,Lago,-3.06603,-73.4991,2021-07-04
+EST-0177,Estación Planta de tratamiento Río Apurímac 177,Cusco,Río Apurímac,Planta de tratamiento,-13.55039,-69.7232,2023-03-26
+EST-0178,Estación Pozo subterráneo Río Amazonas 178,Loreto,Río Amazonas,Pozo subterráneo,-0.76863,-76.74465,2023-01-08
+EST-0179,Estación Río Río Chancay 179,Lambayeque,Río Chancay,Río,-4.01376,-73.73075,2020-08-15
+EST-0180,Estación Río Río Apurímac 180,Cusco,Río Apurímac,Río,-16.6331,-80.92408,2021-04-08
