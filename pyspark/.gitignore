@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Variables de entorno (contiene el token real; .env.example si se versiona)
+.env
+
+# Datos: lecturas_agua.csv pesa ~208 MB, supera el limite de 100 MB de GitHub
+sesiones/*/data/
+
+# Otros
+.DS_Store
+sesiones/*/artifacts/
