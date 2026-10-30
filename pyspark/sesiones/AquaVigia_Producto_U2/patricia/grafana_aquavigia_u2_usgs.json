@@ -1,0 +1,630 @@
+{
+ "__inputs": [
+  {
+   "name": "DS_PROMETHEUS",
+   "label": "Prometheus",
+   "description": "",
+   "type": "datasource",
+   "pluginId": "prometheus",
+   "pluginName": "Prometheus"
+  }
+ ],
+ "title": "AquaVigia U2 USGS (Equipo 02)",
+ "uid": "aquavigia-u2-usgs",
+ "tags": [
+  "aquavigia",
+  "u2",
+  "usgs"
+ ],
+ "timezone": "browser",
+ "schemaVersion": 39,
+ "version": 2,
+ "refresh": "30s",
+ "time": {
+  "from": "now-3h",
+  "to": "now"
+ },
+ "description": "Pipeline en tiempo real con datos USGS: dos dimensiones (Patricia, Jhenderson).",
+ "panels": [
+  {
+   "type": "row",
+   "title": "Patricia Apaza: temperatura y oxigeno disuelto",
+   "collapsed": false,
+   "gridPos": {
+    "x": 0,
+    "y": 0,
+    "w": 24,
+    "h": 1
+   },
+   "panels": [],
+   "id": 1,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   }
+  },
+  {
+   "type": "stat",
+   "title": "Eventos USGS procesados",
+   "gridPos": {
+    "x": 0,
+    "y": 1,
+    "w": 6,
+    "h": 4
+   },
+   "targets": [
+    {
+     "expr": "usgs_eventos_total{integrante=\"patricia\"}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {},
+    "overrides": []
+   },
+   "id": 2,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   }
+  },
+  {
+   "type": "stat",
+   "title": "Retraso de publicacion (min)",
+   "gridPos": {
+    "x": 6,
+    "y": 1,
+    "w": 6,
+    "h": 4
+   },
+   "targets": [
+    {
+     "expr": "usgs_retraso_min{integrante=\"patricia\"}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "m",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "orange",
+        "value": 60
+       },
+       {
+        "color": "red",
+        "value": 85
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "id": 3,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "options": {
+    "colorMode": "value",
+    "graphMode": "area"
+   },
+   "description": "Verde hasta 60 min, naranja hasta 85, rojo desde 85 min: el watermark elegido de Spark (85 min). Si el retraso lo supera, se descartarian datos."
+  },
+  {
+   "type": "stat",
+   "title": "Total ordenes de inspeccion",
+   "gridPos": {
+    "x": 12,
+    "y": 1,
+    "w": 6,
+    "h": 4
+   },
+   "targets": [
+    {
+     "expr": "usgs_alertas_total{integrante=\"patricia\"}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {},
+    "overrides": []
+   },
+   "id": 4,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   }
+  },
+  {
+   "type": "stat",
+   "title": "Duracion del lote (s)",
+   "gridPos": {
+    "x": 18,
+    "y": 1,
+    "w": 6,
+    "h": 4
+   },
+   "targets": [
+    {
+     "expr": "usgs_duracion_lote_s{integrante=\"patricia\"}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {},
+    "overrides": []
+   },
+   "id": 5,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   }
+  },
+  {
+   "type": "timeseries",
+   "title": "Ultimo valor por estacion",
+   "gridPos": {
+    "x": 0,
+    "y": 5,
+    "w": 12,
+    "h": 8
+   },
+   "targets": [
+    {
+     "expr": "usgs_ultimo_valor{integrante=\"patricia\"}",
+     "legendFormat": "{{estacion}} {{variable}}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short"
+    },
+    "overrides": []
+   },
+   "id": 6,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   }
+  },
+  {
+   "type": "timeseries",
+   "title": "Pronostico a 1 hora",
+   "gridPos": {
+    "x": 12,
+    "y": 5,
+    "w": 12,
+    "h": 8
+   },
+   "targets": [
+    {
+     "expr": "usgs_pronostico_1h{integrante=\"patricia\"}",
+     "legendFormat": "{{estacion}} {{variable}}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short"
+    },
+    "overrides": []
+   },
+   "id": 7,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   }
+  },
+  {
+   "type": "timeseries",
+   "title": "Riesgo de salir del rango (0 a 1)",
+   "gridPos": {
+    "x": 0,
+    "y": 13,
+    "w": 12,
+    "h": 8
+   },
+   "targets": [
+    {
+     "expr": "usgs_riesgo{integrante=\"patricia\"}",
+     "legendFormat": "{{estacion}} {{variable}}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "percentunit",
+     "max": 1,
+     "min": 0,
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "yellow",
+        "value": 0.01
+       },
+       {
+        "color": "red",
+        "value": 0.5
+       }
+      ]
+     },
+     "custom": {
+      "thresholdsStyle": {
+       "mode": "dashed"
+      }
+     }
+    },
+    "overrides": []
+   },
+   "id": 8,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "description": "Amarillo 0.01 = umbral de demostracion; rojo 0.5 = umbral de operacion."
+  },
+  {
+   "type": "timeseries",
+   "title": "Retraso de publicacion USGS (min)",
+   "gridPos": {
+    "x": 12,
+    "y": 13,
+    "w": 12,
+    "h": 8
+   },
+   "targets": [
+    {
+     "expr": "usgs_retraso_min{integrante=\"patricia\"}",
+     "legendFormat": "patricia",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "m",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "red",
+        "value": 85
+       }
+      ]
+     },
+     "custom": {
+      "thresholdsStyle": {
+       "mode": "line"
+      }
+     }
+    },
+    "overrides": []
+   },
+   "id": 9,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "description": "La linea roja es el watermark (85 min). Los picos altos vienen de lotes reproducidos desde el inicio del topico, no del retraso en vivo."
+  },
+  {
+   "type": "row",
+   "title": "Jhenderson Machaca: pH y turbidez",
+   "collapsed": false,
+   "gridPos": {
+    "x": 0,
+    "y": 21,
+    "w": 24,
+    "h": 1
+   },
+   "panels": [],
+   "id": 10,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   }
+  },
+  {
+   "type": "stat",
+   "title": "Eventos USGS procesados",
+   "gridPos": {
+    "x": 0,
+    "y": 22,
+    "w": 6,
+    "h": 4
+   },
+   "targets": [
+    {
+     "expr": "usgs_eventos_total{integrante=\"jhenderson\"}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {},
+    "overrides": []
+   },
+   "id": 11,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   }
+  },
+  {
+   "type": "stat",
+   "title": "Retraso de publicacion (min)",
+   "gridPos": {
+    "x": 6,
+    "y": 22,
+    "w": 6,
+    "h": 4
+   },
+   "targets": [
+    {
+     "expr": "usgs_retraso_min{integrante=\"jhenderson\"}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "m",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "orange",
+        "value": 60
+       },
+       {
+        "color": "red",
+        "value": 85
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "id": 12,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "options": {
+    "colorMode": "value",
+    "graphMode": "area"
+   },
+   "description": "Verde hasta 60 min, naranja hasta 85, rojo desde 85 min: el watermark elegido de Spark (85 min). Si el retraso lo supera, se descartarian datos."
+  },
+  {
+   "type": "stat",
+   "title": "Total alertas de calidad",
+   "gridPos": {
+    "x": 12,
+    "y": 22,
+    "w": 6,
+    "h": 4
+   },
+   "targets": [
+    {
+     "expr": "usgs_alertas_total{integrante=\"jhenderson\"}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {},
+    "overrides": []
+   },
+   "id": 13,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   }
+  },
+  {
+   "type": "stat",
+   "title": "Duracion del lote (s)",
+   "gridPos": {
+    "x": 18,
+    "y": 22,
+    "w": 6,
+    "h": 4
+   },
+   "targets": [
+    {
+     "expr": "usgs_duracion_lote_s{integrante=\"jhenderson\"}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {},
+    "overrides": []
+   },
+   "id": 14,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   }
+  },
+  {
+   "type": "timeseries",
+   "title": "Ultimo valor por estacion",
+   "gridPos": {
+    "x": 0,
+    "y": 26,
+    "w": 12,
+    "h": 8
+   },
+   "targets": [
+    {
+     "expr": "usgs_ultimo_valor{integrante=\"jhenderson\"}",
+     "legendFormat": "{{estacion}} {{variable}}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short"
+    },
+    "overrides": []
+   },
+   "id": 15,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   }
+  },
+  {
+   "type": "timeseries",
+   "title": "Pronostico a 1 hora",
+   "gridPos": {
+    "x": 12,
+    "y": 26,
+    "w": 12,
+    "h": 8
+   },
+   "targets": [
+    {
+     "expr": "usgs_pronostico_1h{integrante=\"jhenderson\"}",
+     "legendFormat": "{{estacion}} {{variable}}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short"
+    },
+    "overrides": []
+   },
+   "id": 16,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   }
+  },
+  {
+   "type": "timeseries",
+   "title": "Riesgo de salir del rango (0 a 1)",
+   "gridPos": {
+    "x": 0,
+    "y": 34,
+    "w": 12,
+    "h": 8
+   },
+   "targets": [
+    {
+     "expr": "usgs_riesgo{integrante=\"jhenderson\"}",
+     "legendFormat": "{{estacion}} {{variable}}",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "percentunit",
+     "max": 1,
+     "min": 0,
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "yellow",
+        "value": 0.01
+       },
+       {
+        "color": "red",
+        "value": 0.5
+       }
+      ]
+     },
+     "custom": {
+      "thresholdsStyle": {
+       "mode": "dashed"
+      }
+     }
+    },
+    "overrides": []
+   },
+   "id": 17,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "description": "Amarillo 0.01 = umbral de demostracion; rojo 0.5 = umbral de operacion."
+  },
+  {
+   "type": "timeseries",
+   "title": "Retraso de publicacion USGS (min)",
+   "gridPos": {
+    "x": 12,
+    "y": 34,
+    "w": 12,
+    "h": 8
+   },
+   "targets": [
+    {
+     "expr": "usgs_retraso_min{integrante=\"jhenderson\"}",
+     "legendFormat": "jhenderson",
+     "refId": "A"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "m",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "red",
+        "value": 85
+       }
+      ]
+     },
+     "custom": {
+      "thresholdsStyle": {
+       "mode": "line"
+      }
+     }
+    },
+    "overrides": []
+   },
+   "id": 18,
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "description": "La linea roja es el watermark (85 min). Los picos altos vienen de lotes reproducidos desde el inicio del topico, no del retraso en vivo."
+  }
+ ],
+ "templating": {
+  "list": []
+ },
+ "annotations": {
+  "list": []
+ }
+}
