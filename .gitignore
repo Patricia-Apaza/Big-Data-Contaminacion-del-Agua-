@@ -14,3 +14,6 @@ sesiones/*/data/
 # Otros
 .DS_Store
 sesiones/*/artifacts/
+
+# Sitio MkDocs generado (se publica en la rama gh-pages)
+site/

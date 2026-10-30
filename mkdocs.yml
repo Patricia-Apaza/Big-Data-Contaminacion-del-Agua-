@@ -1,0 +1,36 @@
+site_name: AquaVigía · Producto de Unidad 2
+site_description: Monitoreo y predicción de la calidad del agua en tiempo real con datos reales del USGS. Equipo 02, Big Data, UPeU.
+site_author: Celia Patricia Apaza Hilasaca y Jhenderson Aaron Machaca Mamani
+site_url: https://patricia-apaza.github.io/Big-Data-Contaminacion-del-Agua-/
+repo_url: https://github.com/Patricia-Apaza/Big-Data-Contaminacion-del-Agua-
+repo_name: Big-Data-Contaminacion-del-Agua-
+docs_dir: docs
+theme:
+  name: material
+  language: es
+  palette:
+    scheme: slate
+    primary: blue grey
+    accent: cyan
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.highlight
+markdown_extensions:
+  - tables
+  - admonition
+  - attr_list
+  - toc:
+      permalink: true
+nav:
+  - Inicio: index.md
+  - Arquitectura: arquitectura.md
+  - Patricia Apaza:
+      - Producto U2: patricia/u2-producto.md
+      - Costos y escalado: patricia/costos.md
+  - Jhenderson Machaca:
+      - Producto U2: jhenderson/u2-producto.md
+      - Costos y escalado: jhenderson/costos.md
+  - Rúbrica: rubrica.md
