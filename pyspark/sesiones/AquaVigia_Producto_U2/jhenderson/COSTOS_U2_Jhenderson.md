@@ -1,6 +1,6 @@
 # Estimación de costos y criterios de escalado (U2, Jhenderson Machaca)
 
-Fecha de consulta de precios: 30-oct-2026. Los precios se consultaron en las páginas oficiales indicadas. **Verifícalos tú abriendo cada enlace antes de la sustentación y corrige si cambiaron.** Los números salen de lo medido en el cuaderno 12c (sección 7).
+Fecha de consulta de precios: 30-oct-2026. Precios y límites verificados ese día en las páginas oficiales indicadas (Confluent Cloud, plan Basic; AWS EC2 t3, US East Norte de Virginia, Linux bajo demanda). Pueden cambiar después de esa fecha. Los volúmenes salen de lo medido en el cuaderno 12c (sección 7).
 
 ## 1. Volumen real medido
 
@@ -44,7 +44,7 @@ Fuente: https://aws.amazon.com/ec2/instance-types/t3/ (consultada el 30-oct-2026
 - t3.medium: USD 0,0418 por hora, o sea unos USD 30,51 al mes si está encendida las 24 horas (0,0418 x 730).
 - t3.large: USD 0,0835 por hora, unos USD 60,96 al mes.
 
-No incluye disco (EBS) ni transferencia de datos: esos precios no se verificaron y deben sumarse si se elige esta opción.
+No incluye disco (EBS) ni transferencia de datos: esos componentes no se cotizaron y deben sumarse si se elige esta opción.
 
 ### Lo que no se usó
 La página de Amazon MSK que se consultó es la de las regiones de China (en yuanes), que no corresponde a este proyecto. No se usan sus precios.
@@ -62,10 +62,10 @@ El volumen actual es muy pequeño: 1 partición alcanza. Se escala cuando ocurra
 3. **El atraso del consumidor crece sin parar** (lag en Kafka UI o en el exportador). Es la señal para añadir particiones y consumidores.
 4. **Crece el número de estaciones o de variables.** El volumen es lineal: cada serie nueva suma 288 eventos al día, unos 93 KB al día. Con 10 veces más series (660) serían unos 61 MB al día, todavía lejos de un límite práctico de una sola partición.
 
-Lo que NO se verificó: los límites de capacidad de una eCKU del plan Basic. Si se quiere afirmar hasta qué volumen alcanza, hay que leerlo en la documentación de Confluent y citarlo.
+Límites del plan Basic, según la página oficial de precios de Confluent (consultada el 30-oct-2026): 250 MBps de entrada y 750 MBps de salida, 1 500 particiones y 5 TB de almacenamiento, con SLA de 99,5 %. El volumen actual (unos 71 bytes por segundo) está muy por debajo de esos límites; incluso con 10 veces más series seguiría siendo una fracción mínima de la capacidad.
 
 ## 5. Qué decir si preguntan
 
 - "El costo estimado con mis datos reales es de unos 0,08 dólares al mes en un servicio administrado, o unos 30 dólares al mes en una máquina propia, sin contar disco ni transferencia."
-- "Esos precios son de las páginas oficiales consultadas el 30 de octubre de 2026 y pueden cambiar."
+- "Esos precios los verifiqué en las páginas oficiales el 30 de octubre de 2026; pueden cambiar después."
 - "El volumen es de 19 008 eventos al día. La cifra bruta de 40 069 incluye la carga inicial y lecturas reenviadas para pruebas, por eso no la uso."

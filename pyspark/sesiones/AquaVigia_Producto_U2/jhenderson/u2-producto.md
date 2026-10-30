@@ -89,7 +89,7 @@ Servicios: `lambda26-kafka`, `lambda26-kafka-exporter`, `lambda26-kafka-ui` (:48
 
 - **Métricas al Pushgateway** (`job/u2_usgs/instance/jhenderson`): eventos, lotes, alertas, retraso medio, duración del lote, y por estación y variable el último valor, el pronóstico a 1 hora y el riesgo. En Grafana mi fila mostró 3 909 eventos procesados, 7 alertas, retraso de publicacion de 33,7 min (promedio del último lote) y lote de 1,46 s.
 - **Volumen real del tópico:** 66 series (estación por variable, las 6 variables del tópico), 322 bytes por evento, regimen estable de 19 008 eventos al día (6,11 MB/día, 0,183 GB/mes). Mis dos variables suman 23 de esas series (12 de pH y 11 de turbidez): 6 624 eventos al día, unos 2,1 MB/día (calculo por multiplicacion, 23 por 288 por 322 bytes).
-- **Costos y criterios de escalado:** ver `COSTOS_U2_Jhenderson.md` (servicio administrado frente a máquina propia, con enlaces y fecha de consulta; precios por verificar).
+- **Costos y criterios de escalado:** ver `COSTOS_U2_Jhenderson.md` (servicio administrado frente a máquina propia, con enlaces; precios y límites verificados el 30-oct-2026).
 
 ## 6. Series de tiempo y BI/ML (12b y tablero)
 
@@ -117,7 +117,7 @@ Mejora del RMSE frente a repetir el último valor: pH **+9,4 %** (material) y tu
 - Las órdenes o alertas se publican solo en Kafka; no se conectaron a ningún servicio de negocio posterior.
 - El modelo se valida con una sola partición cronológica de unas 2,5 semanas (80/20), no con validación repetida. Los umbrales de advertencia son estadísticos (percentiles 5 y 95 del entrenamiento de cada estación), no una norma de calidad del agua.
 - Las pruebas corren en una sola laptop compartida; el cuaderno 12c se ejecutó en modo `reproduccion` (lee lo ya guardado del tópico), por eso `ts_medicion_utc` de un evento puede ser horas anterior a `creado_utc`.
-- Los precios de COSTOS son de las páginas oficiales consultadas el 30-oct-2026 y deben verificarse antes de presentarlos; el costo se calcula con el volumen de todo el tópico (6 variables).
+- Los precios de COSTOS se verificaron en las páginas oficiales el 30-oct-2026 y pueden cambiar después; el costo se calcula con el volumen de todo el tópico (6 variables) y la opción de máquina propia no incluye disco ni transferencia.
 - La clave de la API del USGS se usa solo como variable de entorno y nunca se versióna.
 
 ## 8. Reproducibilidad
