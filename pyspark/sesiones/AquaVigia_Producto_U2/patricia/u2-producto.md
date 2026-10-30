@@ -96,7 +96,7 @@ Capa batch: historial de 90 días (1 309 777 lecturas en total, 646 003 de mis d
 - **Métricas al Pushgateway** (`job/u2_usgs/instance/patricia`): `usgs_eventos_total`, `usgs_lotes_total`, `usgs_alertas_total`, `usgs_retraso_min`, `usgs_duracion_lote_s`, `usgs_ultimo_valor`, `usgs_pronostico_1h` y `usgs_riesgo`. Prometheus las recoge; verificado con la consulta `usgs_eventos_total{integrante="patricia"}` = 2 392.
 - **Tablero** `grafana_aquavigia_u2_usgs.json`: una fila por integrante con eventos procesados, retraso de publicacion, alertas, duración del lote, último valor, pronóstico a 1 hora y riesgo de salir del rango (con la línea de umbral).
 - **Volumen real:** 66 series, 322 bytes por evento, regimen estable de 19 008 eventos al día (6,12 MB/día, 0,183 GB/mes). La medición bruta del tópico (40 069 eventos/día) no se usa: incluye la carga inicial de 6 horas y lecturas reenviadas para pruebas.
-- **Costos y criterios de escalado:** ver `COSTOS_U2_Patricia.md` (servicio administrado frente a máquina propia, con enlaces y fecha de consulta; precios por verificar).
+- **Costos y criterios de escalado:** ver `COSTOS_U2_Patricia.md` (servicio administrado frente a máquina propia, con enlaces; precios y límites verificados el 30-oct-2026).
 
 ## 6. Series de tiempo y BI/ML (12b y tablero)
 
@@ -113,7 +113,7 @@ Pronóstico a 1 hora (12 pasos de 5 min). Variables: valor actual, rezagos (1, 2
 | oxígeno_mgl | **LinearRegression** | **0.1422** | **0.0964** | 0.9888 |
 | oxígeno_mgl | RandomForest | 0.3928 | 0.2064 | 0.9147 |
 
-Mejora del RMSE frente a repetir el último valor: temperatura **+45,1 %**, oxígeno **+32,1 %**. El MAE también mejora. RandomForest rindió peor que la regresión lineal; no verifique la causa.
+Mejora del RMSE frente a repetir el último valor: temperatura **+45,1 %**, oxígeno **+32,1 %**. El MAE también mejora. RandomForest rindió peor que la regresión lineal; no verifiqué la causa.
 
 **Riesgo y evento de negocio (12c, modo reproducción):** el riesgo es la probabilidad de salir del rango de advertencia de la estación (percentil 5 a 95 del entrenamiento), suponiendo error normal con la desviacion igual al RMSE. Con el umbral de operación (0,5) no hubo ninguna orden: el riesgo máximo fue 0,0309 (`USGS-0164579522`, oxígeno). Para poder mostrar un evento en la demo usé un umbral de **0,01**, con el que se emitió **1 orden** (46 pronósticos en 3 lotes, 2 392 eventos). Lo declaro: es un umbral de demostracion, no de operación.
 
@@ -124,7 +124,7 @@ Mejora del RMSE frente a repetir el último valor: temperatura **+45,1 %**, oxí
 - Las órdenes o alertas se publican solo en Kafka; no se conectaron a ningún servicio de negocio posterior.
 - El modelo se valida con una sola partición cronológica de unas 2,5 semanas (80/20), no con validación repetida. Los umbrales de advertencia son estadísticos (percentiles 5 y 95 del entrenamiento de cada estación), no una norma de calidad del agua.
 - Las pruebas corren en una sola laptop compartida; el cuaderno 12c se ejecutó en modo `reproduccion` (lee lo ya guardado del tópico), por eso `ts_medicion_utc` de un evento puede ser horas anterior a `creado_utc`.
-- Los precios de COSTOS son de las páginas oficiales consultadas el 30-oct-2026 y deben verificarse antes de presentarlos; el costo se calcula con el volumen de todo el tópico (6 variables).
+- Los precios de COSTOS se verificaron en las páginas oficiales el 30-oct-2026 y pueden cambiar después; el costo se calcula con el volumen de todo el tópico (6 variables) y la opción de máquina propia no incluye disco ni transferencia.
 - La clave de la API del USGS se usa solo como variable de entorno y nunca se versióna.
 
 ## 8. Hallazgo previo (S11) que motivo la fuente real
