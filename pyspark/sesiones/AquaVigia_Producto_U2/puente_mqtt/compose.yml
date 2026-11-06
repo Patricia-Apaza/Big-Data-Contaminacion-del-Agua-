@@ -1,0 +1,36 @@
+# Dispositivo -> MQTT -> puente -> Kafka (AquaVigia U2, Equipo 02)
+# Levantar:  docker compose up -d --build     (desde esta carpeta)
+# Logs:      docker logs -f lambda26-puente-usgs
+name: lambda26-uso-agua-usgs
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2.0.20
+    container_name: lambda26-mosquitto
+    restart: unless-stopped
+    ports:
+      - "41883:1883"        # el productor en Windows publica en localhost:41883
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+    networks:
+      - lambda26-kafka-net
+
+  puente:
+    build: .
+    container_name: lambda26-puente-usgs
+    restart: unless-stopped
+    environment:
+      MQTT_HOST: mosquitto
+      MQTT_PORT: "1883"
+      MQTT_TOPIC: "aquavigia/equipo02/usgs/#"
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_TOPIC: agua-usgs-eventos-v2
+    depends_on:
+      - mosquitto
+    networks:
+      - lambda26-kafka-net
+
+networks:
+  lambda26-kafka-net:
+    external: true
+    name: lambda26-kafka_default

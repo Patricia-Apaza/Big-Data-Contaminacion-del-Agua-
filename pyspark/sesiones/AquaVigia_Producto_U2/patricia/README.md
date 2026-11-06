@@ -40,3 +40,15 @@ Requisitos: Docker con Kafka, Prometheus, Grafana, Pushgateway y el contenedor d
 - El umbral de alerta de operación es 0.5. Para la demostración se usó 0.01, y con él se publicó una sola orden. Con el umbral de operación no hubo órdenes porque no había riesgo.
 - Las órdenes se publican solo en Kafka, sin conectar el servicio de órdenes de S6.
 - Los modelos vienen de un solo tramo de prueba de unas 3 semanas (desde el 12 de octubre de 2026), no de validación repetida.
+
+## Versión 3 (evaluación S12)
+
+| Archivo | Para qué sirve |
+|---|---|
+| `usgs_productor.py` | Contrato v2 (`version_esquema`, `contexto`) y salida `--salida mqtt`; `reproducir --desde/--hasta` para un episodio |
+| `../puente_mqtt/` | Mosquitto y el puente MQTT a Kafka (`docker compose up -d --build`) |
+| `12d_ingesta_semantica_patricia.ipynb` | S6 a S8: particiones, contrato versionado, key por estación, MQTT, rango físico, deduplicación, ventanas |
+| `12c_negocio_usgs_patricia_v3.ipynb` | Inferencia sin estado, orden de inspección, error en vivo, métricas batch, lag y throughput |
+| `grafana_aquavigia_u2_usgs_v3.json` | Tablero v3 con salud del pipeline, KPIs, predicción y batch frente a streaming |
+
+Tópico nuevo: `agua-usgs-eventos-v2` (3 particiones). Episodio de la demo: `py usgs_productor.py reproducir --archivo historial.jsonl --desde 2026-10-16T22:00 --hasta 2026-10-17T04:00 --velocidad 30 --salida mqtt`.

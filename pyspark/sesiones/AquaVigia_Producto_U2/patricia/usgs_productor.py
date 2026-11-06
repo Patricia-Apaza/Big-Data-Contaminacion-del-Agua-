@@ -17,6 +17,16 @@ intermedios; 'continuous' los trae todos.
 
 Clave API (opcional, gratis): variable de entorno USGS_API_KEY. NUNCA la guardes en git.
 Broker de Kafka desde tu PC: localhost:49092 (el 9092 solo existe dentro de Docker).
+
+Contrato del evento, version 2 (version_esquema = 2):
+  Igual que la version 1 y ademas el campo "contexto", que lleva lo que el modelo
+  necesita para pronosticar con UNA sola lectura (inferencia sin estado en Spark):
+    contexto.rezagos     valores de la MISMA variable 5, 10, 15, 30 y 60 min antes (l1, l2, l3, l6, l12)
+    contexto.simultaneas valores de las OTRAS variables de la estacion en el mismo bloque de 5 min
+  Los consumidores de la version 1 siguen funcionando: solo ignoran el campo nuevo.
+
+Salidas: stdout, kafka (directo, para pruebas) o mqtt (como un dispositivo real:
+publica en MQTT y el puente bridge_mqtt_kafka_usgs.py lo pasa a Kafka).
 """
 import argparse, json, os, statistics, sys, time, uuid, urllib.parse, urllib.request, urllib.error
 from datetime import datetime, timezone, timedelta
@@ -25,6 +35,8 @@ BASE = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/"
 VARS = {"00400": "ph", "00300": "oxigeno_mgl", "63680": "turbidez_fnu",
         "00095": "conductividad_uscm", "00010": "temperatura_c", "99133": "nitrato_mgl"}
 CODES = ",".join(VARS)
+VERSION_ESQUEMA = 2
+REZAGOS = {"l1": 1, "l2": 2, "l3": 3, "l6": 6, "l12": 12}   # en bloques de 5 min
 
 
 def jget(url, tolerar_400=False):
@@ -130,10 +142,24 @@ def descubrir(a):
     print("\nResultado completo guardado en resultados_cadencia.csv (en la carpeta actual).")
 
 
+def bloque5(t):
+    """Instante -> inicio de su bloque de 5 minutos (epoch en segundos)."""
+    return int(t.timestamp()) // 300 * 300
+
+
+def contexto(indice, est, var, t):
+    """indice: {(estacion, variable, bloque5): valor}. Arma el contexto de UNA lectura."""
+    b = bloque5(t)
+    rez = {k: indice[(est, var, b - n * 300)] for k, n in REZAGOS.items() if (est, var, b - n * 300) in indice}
+    sim = {v: indice[(est, v, b)] for v in VARS.values() if v != var and (est, v, b) in indice}
+    return {"rezagos": rez, "simultaneas": sim}
+
+
 def evento(est, cod, valor, t_str, origen, ahora=None):
     ahora = ahora or datetime.now(timezone.utc)
     t = parse_t(t_str)
     return {
+        "version_esquema": VERSION_ESQUEMA,
         "evento_id": str(uuid.uuid4()),
         "estacion_id": est,
         "variable": VARS[cod],
@@ -147,10 +173,18 @@ def evento(est, cod, valor, t_str, origen, ahora=None):
     }
 
 
-def eventos_nuevos(filas, est, vistos, origen="vivo", ahora=None):
+def eventos_nuevos(filas, est, vistos, origen="vivo", ahora=None, con_contexto=False):
     """filas = propiedades devueltas por 'continuous' para UNA estacion.
-    Emite cada (estacion, variable, tiempo) una sola vez, ordenado por tiempo."""
+    Emite cada (estacion, variable, tiempo) una sola vez, ordenado por tiempo.
+    con_contexto=True agrega el campo 'contexto' (version 2) usando las mismas filas."""
     out = []
+    indice = {}
+    if con_contexto:
+        for p in filas:
+            try:
+                indice[(est, VARS[p["parameter_code"]], bloque5(parse_t(p["time"])))] = float(p["value"])
+            except (KeyError, TypeError, ValueError):
+                pass
     for p in filas:
         cod = p.get("parameter_code")
         if cod not in VARS or not p.get("time"):
@@ -163,7 +197,10 @@ def eventos_nuevos(filas, est, vistos, origen="vivo", ahora=None):
         if k in vistos:
             continue
         vistos.add(k)
-        out.append(evento(est, cod, v, p["time"], origen, ahora))
+        e = evento(est, cod, v, p["time"], origen, ahora)
+        if con_contexto:
+            e["contexto"] = contexto(indice, est, VARS[cod], parse_t(p["time"]))
+        out.append(e)
     out.sort(key=lambda e: e["fecha_medicion_utc"])
     return out
 
@@ -189,9 +226,52 @@ def kafka_prod(broker):
                          key_serializer=lambda k: k.encode("utf-8"))
 
 
+class Salida:
+    """Un solo punto de envio: stdout, kafka (directo) o mqtt (hacia el puente)."""
+    def __init__(self, a):
+        self.tipo, self.topic = a.salida, a.topic
+        self.prod = self.cli = None
+        if self.tipo == "kafka":
+            self.prod = kafka_prod(a.broker)
+        elif self.tipo == "mqtt":
+            import paho.mqtt.client as mqtt  # pip install paho-mqtt
+            self.base = a.mqtt_topic.rstrip("/")
+            self.cli = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id=f"usgs-productor-{uuid.uuid4().hex[:8]}")
+            self.cli.connect(a.mqtt_host, a.mqtt_port, keepalive=60)
+            self.cli.loop_start()
+            print(f"MQTT conectado a {a.mqtt_host}:{a.mqtt_port}, topico {self.base}/<estacion_id>", file=sys.stderr, flush=True)
+
+    def enviar(self, e):
+        if self.prod:
+            self.prod.send(self.topic, key=e["estacion_id"], value=e)
+        elif self.cli:
+            # Un topico MQTT por dispositivo (estacion); el puente lo usa como key de Kafka.
+            self.cli.publish(f"{self.base}/{e['estacion_id']}", json.dumps(e, ensure_ascii=False), qos=1).wait_for_publish(10)
+        else:
+            print(json.dumps(e, ensure_ascii=False), flush=True)
+
+    def vaciar(self):
+        if self.prod:
+            self.prod.flush()
+
+    def cerrar(self):
+        self.vaciar()
+        if self.cli:
+            self.cli.loop_stop(); self.cli.disconnect()
+
+
+def opciones_salida(p, por_defecto="stdout"):
+    p.add_argument("--salida", choices=["stdout", "kafka", "mqtt"], default=por_defecto)
+    p.add_argument("--broker", default="localhost:49092")
+    p.add_argument("--topic", default="agua-usgs-eventos-v2")
+    p.add_argument("--mqtt-host", default="localhost", dest="mqtt_host")
+    p.add_argument("--mqtt-port", type=int, default=41883, dest="mqtt_port")
+    p.add_argument("--mqtt-topic", default="aquavigia/equipo02/usgs", dest="mqtt_topic")
+
+
 def publicar(a):
     ids = ids_desde_args(a)
-    prod = kafka_prod(a.broker) if a.salida == "kafka" else None
+    sal = Salida(a)
     vistos, total = set(), 0
     periodo = a.periodo
     print(f"{len(ids)} estaciones; consulta cada {a.cada}s con ventana {periodo}. Ctrl+C para detener.", file=sys.stderr, flush=True)
@@ -204,20 +284,18 @@ def publicar(a):
                     print(f"Formato '{periodo}' no aceptado; uso P1D.", file=sys.stderr, flush=True)
                     periodo = "P1D"
                     filas = serie(est, CODES, periodo) or []
-                for e in eventos_nuevos(filas or [], est, vistos, "vivo"):
-                    if prod:
-                        prod.send(a.topic, key=e["estacion_id"], value=e)
-                    else:
-                        print(json.dumps(e, ensure_ascii=False), flush=True)
+                for e in eventos_nuevos(filas or [], est, vistos, "vivo", con_contexto=True):
+                    sal.enviar(e)
                     nuevos += 1
                 time.sleep(0.3)
-            if prod:
-                prod.flush()
+            sal.vaciar()
             total += nuevos
             print(f"[{datetime.now():%H:%M:%S}] nuevos: {nuevos}  total: {total}", file=sys.stderr, flush=True)
             time.sleep(a.cada)
     except KeyboardInterrupt:
         print(f"\nDetenido. Eventos emitidos: {total}", file=sys.stderr)
+    finally:
+        sal.cerrar()
 
 
 def historial(a):
@@ -257,27 +335,60 @@ def historial(a):
 
 
 def reproducir(a):
-    prod = kafka_prod(a.broker)
+    """Reenvia un historial respetando el orden del tiempo del evento.
+    --desde/--hasta eligen un episodio concreto (tiempo de medicion UTC).
+    --ultimas-horas se cuenta desde la lectura MAS RECIENTE del archivo (no desde ahora),
+    para que funcione con un historial descargado dias atras."""
+    def fecha(l):
+        i = l.find('"fecha_medicion_utc": "')
+        return l[i + 23:i + 48] if i >= 0 else ""
+    # Primera pasada (rapida, sin parsear JSON): la lectura mas reciente del archivo.
+    with open(a.archivo, encoding="utf-8") as fh:
+        maxima = max((fecha(l) for l in fh if l.startswith("{")), default="")
+    if not maxima:
+        sys.exit("El archivo no tiene eventos.")
+    t_max = parse_t(maxima)
+    corte = t_max - timedelta(hours=a.ultimas_horas) if a.ultimas_horas else None
+    fin = None
+    if a.desde:
+        corte = parse_t(a.desde if "+" in a.desde or a.desde.endswith("Z") else a.desde + "+00:00")
+    if a.hasta:
+        fin = parse_t(a.hasta if "+" in a.hasta or a.hasta.endswith("Z") else a.hasta + "+00:00")
+    # El indice incluye 1 hora antes del corte para que las primeras lecturas tengan sus rezagos.
+    margen = corte - timedelta(hours=1) if corte else None
+    m_txt = margen.isoformat() if margen else ""
     evs = []
     with open(a.archivo, encoding="utf-8") as fh:
         for l in fh:
-            if l.startswith("{"):
+            if l.startswith("{") and fecha(l) >= m_txt and (fin is None or fecha(l) < fin.isoformat()):
                 evs.append(json.loads(l))
-    if a.ultimas_horas:
-        corte = (datetime.now(timezone.utc) - timedelta(hours=a.ultimas_horas)).isoformat()
-        evs = [e for e in evs if e["fecha_medicion_utc"] >= corte]
+    indice = {}
+    for e in evs:
+        t = parse_t(e["fecha_medicion_utc"])
+        if margen is None or t >= margen:
+            indice[(e["estacion_id"], e["variable"], bloque5(t))] = e["valor"]
+    if corte:
+        evs = [e for e in evs if parse_t(e["fecha_medicion_utc"]) >= corte]
     evs.sort(key=lambda e: e["fecha_medicion_utc"])
-    print(f"{len(evs)} eventos a reproducir a {a.velocidad:g} eventos/s hacia {a.topic}.", file=sys.stderr, flush=True)
-    for i, e in enumerate(evs, 1):
-        ahora = datetime.now(timezone.utc)
-        e = dict(e, evento_id=str(uuid.uuid4()), fecha_ingesta_utc=ahora.isoformat(), origen="replay",
-                 retraso_min=round((ahora - parse_t(e["fecha_medicion_utc"])).total_seconds() / 60, 1))
-        prod.send(a.topic, key=e["estacion_id"], value=e)
-        if i % 50 == 0:
-            prod.flush()
-            print(f"  enviados {i}/{len(evs)}", file=sys.stderr, flush=True)
-        time.sleep(1.0 / a.velocidad)
-    prod.flush()
+    sal = Salida(a)
+    print(f"{len(evs)} eventos a reproducir a {a.velocidad:g} eventos/s por {a.salida} "
+          f"(desde {evs[0]['fecha_medicion_utc']} hasta {evs[-1]['fecha_medicion_utc']}).", file=sys.stderr, flush=True)
+    try:
+        for i, e in enumerate(evs, 1):
+            ahora = datetime.now(timezone.utc)
+            t = parse_t(e["fecha_medicion_utc"])
+            e = dict(e, version_esquema=VERSION_ESQUEMA, evento_id=str(uuid.uuid4()), fecha_ingesta_utc=ahora.isoformat(),
+                     origen="replay", retraso_min=round((ahora - t).total_seconds() / 60, 1),
+                     contexto=contexto(indice, e["estacion_id"], e["variable"], t))
+            sal.enviar(e)
+            if i % 50 == 0:
+                sal.vaciar()
+                print(f"  enviados {i}/{len(evs)}", file=sys.stderr, flush=True)
+            time.sleep(1.0 / a.velocidad)
+    except KeyboardInterrupt:
+        print("\nDetenido por el usuario.", file=sys.stderr)
+    finally:
+        sal.cerrar()
     print("Reproduccion terminada.", file=sys.stderr)
 
 
@@ -299,9 +410,7 @@ if __name__ == "__main__":
     p = sp.add_parser("publicar"); comun(p)
     p.add_argument("--cada", type=int, default=120, help="segundos entre rondas")
     p.add_argument("--periodo", default="PT6H", help="ventana que se pide en cada ronda (PT6H, P1D)")
-    p.add_argument("--salida", choices=["stdout", "kafka"], default="stdout")
-    p.add_argument("--broker", default="localhost:49092")
-    p.add_argument("--topic", default="agua-usgs-eventos")
+    opciones_salida(p)
     p.set_defaults(f=publicar)
     h = sp.add_parser("historial"); comun(h)
     h.add_argument("--dias", type=int, default=30)
@@ -313,8 +422,9 @@ if __name__ == "__main__":
     r.add_argument("--archivo", required=True)
     r.add_argument("--velocidad", type=float, default=200.0, help="eventos por segundo")
     r.add_argument("--ultimas-horas", type=float, default=0, dest="ultimas_horas", help="solo reproduce las ultimas N horas del archivo (0 = todo)")
-    r.add_argument("--broker", default="localhost:49092")
-    r.add_argument("--topic", default="agua-usgs-eventos")
+    r.add_argument("--desde", default="", help="inicio del episodio, tiempo de medicion UTC (ej. 2026-10-16T22:00)")
+    r.add_argument("--hasta", default="", help="fin del episodio, sin incluir (ej. 2026-10-17T04:00)")
+    opciones_salida(r, por_defecto="kafka")
     r.set_defaults(f=reproducir)
     a = ap.parse_args()
     a.f(a)
