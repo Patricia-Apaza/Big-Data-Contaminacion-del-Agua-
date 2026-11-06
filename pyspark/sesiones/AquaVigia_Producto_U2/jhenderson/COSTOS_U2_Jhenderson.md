@@ -69,3 +69,29 @@ Límites del plan Basic, según la página oficial de precios de Confluent (cons
 - "El costo estimado con mis datos reales es de unos 0,08 dólares al mes en un servicio administrado, o unos 30 dólares al mes en una máquina propia, sin contar disco ni transferencia."
 - "Esos precios los verifiqué en las páginas oficiales el 30 de octubre de 2026; pueden cambiar después."
 - "El volumen es de 19 008 eventos al día. La cifra bruta de 40 069 incluye la carga inicial y lecturas reenviadas para pruebas, por eso no la uso."
+
+## 6. Actualización de la versión 3 (S12)
+
+En la versión 3 el evento IoT lleva el campo `contexto` (rezagos y lecturas simultáneas) para que la inferencia sea sin estado. Eso cambia el tamaño del evento, y por eso el volumen:
+
+| Dato | Versión 1 | Versión 3 |
+|---|---|---|
+| Tamaño medio por evento | 322 bytes | unos 500 bytes (medido sobre 2 221 eventos v2 reales) |
+| Régimen estable | 19 008 eventos/día | 19 008 eventos/día |
+| Volumen diario | 6,12 MB | unos 9,5 MB |
+| Volumen mensual | 0,184 GB | unos 0,285 GB |
+
+Costo del servicio administrado (Confluent Basic) con el volumen nuevo, mismos precios del 30-oct-2026:
+
+| Concepto | Cuenta | USD/mes |
+|---|---|---|
+| Cómputo (1 eCKU) | primera eCKU gratuita | 0,00 |
+| Entrada | 0,285 GB x 0,05 | 0,014 |
+| Salida | 0,285 GB x 2 x 0,05 | 0,029 |
+| Almacenamiento del flujo | 0,285 GB x 0,08 | 0,023 |
+| Almacenamiento del historial | 0,42 GB x 0,08 | 0,034 |
+| **Total** | | **unos 0,10** |
+
+La máquina propia (EC2 t3.medium) sigue en unos 30,51 USD al mes: se paga por hora encendida, no por volumen. El broker MQTT (Mosquitto) corre en la misma máquina y no suma costo de nube en este esquema.
+
+Umbrales del tablero v3 que indican cuándo escalar: lag del consumidor (amarillo 500, rojo 2 000 mensajes), duración del lote frente al disparador de 10 s (amarillo 5 s, rojo 10 s), retraso del USGS frente al watermark (rojo 85 min) y segundos desde el último lote (rojo 60 s). El tópico ya tiene 3 particiones con la estación como key, así que se pueden sumar consumidores sin perder el orden por estación.

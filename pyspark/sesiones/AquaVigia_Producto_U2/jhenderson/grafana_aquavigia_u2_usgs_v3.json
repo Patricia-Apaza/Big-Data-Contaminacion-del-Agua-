@@ -1,0 +1,2183 @@
+{
+ "__inputs": [
+  {
+   "name": "DS_PROMETHEUS",
+   "label": "Prometheus",
+   "description": "",
+   "type": "datasource",
+   "pluginId": "prometheus",
+   "pluginName": "Prometheus"
+  }
+ ],
+ "title": "AquaVigia U2 USGS v3 (Equipo 02)",
+ "uid": "aquavigia-u2-usgs-v3",
+ "tags": [
+  "aquavigia",
+  "u2",
+  "usgs",
+  "v3"
+ ],
+ "timezone": "browser",
+ "schemaVersion": 39,
+ "version": 2,
+ "refresh": "10s",
+ "time": {
+  "from": "now-15m",
+  "to": "now"
+ },
+ "description": "Pipeline en tiempo real con datos USGS por MQTT: infraestructura, salud del streaming, BI y batch frente a streaming.",
+ "templating": {
+  "list": []
+ },
+ "annotations": {
+  "list": []
+ },
+ "panels": [
+  {
+   "id": 1,
+   "type": "row",
+   "title": "Infraestructura compartida: Kafka, Pushgateway e ingesta (S9)",
+   "collapsed": false,
+   "gridPos": {
+    "x": 0,
+    "y": 0,
+    "w": 24,
+    "h": 1
+   },
+   "panels": []
+  },
+  {
+   "id": 2,
+   "type": "stat",
+   "title": "Kafka (exporter)",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 1,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "up{job=\"kafka-exporter\"}",
+     "legendFormat": "kafka-exporter"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "red"
+       },
+       {
+        "value": 1,
+        "color": "green"
+       }
+      ]
+     },
+     "mappings": [
+      {
+       "type": "value",
+       "options": {
+        "0": {
+         "text": "CAIDO",
+         "color": "red"
+        },
+        "1": {
+         "text": "ARRIBA",
+         "color": "green"
+        }
+       }
+      }
+     ]
+    },
+    "overrides": []
+   },
+   "description": "Disponibilidad: Prometheus pudo leer el exporter de Kafka en el ultimo scrape.",
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "auto"
+   }
+  },
+  {
+   "id": 3,
+   "type": "stat",
+   "title": "Pushgateway",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 4,
+    "y": 1,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "up{job=\"pushgateway\"}",
+     "legendFormat": "pushgateway"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "red"
+       },
+       {
+        "value": 1,
+        "color": "green"
+       }
+      ]
+     },
+     "mappings": [
+      {
+       "type": "value",
+       "options": {
+        "0": {
+         "text": "CAIDO",
+         "color": "red"
+        },
+        "1": {
+         "text": "ARRIBA",
+         "color": "green"
+        }
+       }
+      }
+     ]
+    },
+    "overrides": []
+   },
+   "description": "Disponibilidad del Pushgateway, por donde llegan las metricas del job de Spark.",
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "auto"
+   }
+  },
+  {
+   "id": 4,
+   "type": "stat",
+   "title": "Brokers de Kafka",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 8,
+    "y": 1,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "kafka_brokers",
+     "legendFormat": "brokers"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "red"
+       },
+       {
+        "value": 1,
+        "color": "green"
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "auto"
+   }
+  },
+  {
+   "id": 5,
+   "type": "timeseries",
+   "title": "Ingesta a Kafka (mensajes/s, agua-usgs-eventos-v2)",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 12,
+    "y": 1,
+    "w": 12,
+    "h": 8
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "sum(rate(kafka_topic_partition_current_offset{topic=\"agua-usgs-eventos-v2\"}[1m]))",
+     "legendFormat": "mensajes/s que entran"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short"
+    },
+    "overrides": []
+   },
+   "description": "Throughput de entrada medido en Kafka (exporter): crecimiento del ultimo offset.",
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "id": 6,
+   "type": "bargauge",
+   "title": "Mensajes por particion (key = estacion)",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 5,
+    "w": 12,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "kafka_topic_partition_current_offset{topic=\"agua-usgs-eventos-v2\"}",
+     "legendFormat": "particion {{partition}}",
+     "instant": true
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "green"
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "description": "Como se reparten los mensajes entre las 3 particiones: cada estacion cae siempre en la misma.",
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true
+   }
+  },
+  {
+   "id": 7,
+   "type": "row",
+   "title": "Patricia Apaza: temperatura y oxigeno disuelto",
+   "collapsed": false,
+   "gridPos": {
+    "x": 0,
+    "y": 9,
+    "w": 24,
+    "h": 1
+   },
+   "panels": []
+  },
+  {
+   "id": 8,
+   "type": "stat",
+   "title": "Lag del consumidor (mensajes)",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 10,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_kafka_lag_mensajes{integrante=\"patricia\"}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "green"
+       },
+       {
+        "value": 500,
+        "color": "yellow"
+       },
+       {
+        "value": 2000,
+        "color": "red"
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "description": "Mensajes que ya estan en Kafka y Spark aun no proceso. Es la primera alarma de backpressure.",
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "area",
+    "textMode": "value",
+    "justifyMode": "auto"
+   }
+  },
+  {
+   "id": 9,
+   "type": "stat",
+   "title": "Segundos desde el ultimo lote",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 4,
+    "y": 10,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "time() - push_time_seconds{job=\"u2_usgs_stream\", instance=\"patricia\"}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "s",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "green"
+       },
+       {
+        "value": 30,
+        "color": "yellow"
+       },
+       {
+        "value": 60,
+        "color": "red"
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "description": "Si el job de streaming muere, el Pushgateway sigue mostrando el ultimo valor. Este panel lo delata.",
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "auto"
+   }
+  },
+  {
+   "id": 10,
+   "type": "stat",
+   "title": "Duracion del lote (ms)",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 8,
+    "y": 10,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_lote_ms{integrante=\"patricia\"}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "ms",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "green"
+       },
+       {
+        "value": 5000,
+        "color": "yellow"
+       },
+       {
+        "value": 10000,
+        "color": "red"
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "description": "Rojo si un lote tarda mas que el disparador (10 s): el pipeline ya no alcanza.",
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "area",
+    "textMode": "value",
+    "justifyMode": "auto"
+   }
+  },
+  {
+   "id": 11,
+   "type": "stat",
+   "title": "Retraso de publicacion USGS (min)",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 12,
+    "y": 10,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_retraso_min{integrante=\"patricia\"}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "m",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "green"
+       },
+       {
+        "value": 60,
+        "color": "yellow"
+       },
+       {
+        "value": 85,
+        "color": "red"
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "description": "Retraso medio de los eventos en vivo. Sobre 85 min (el watermark) los datos empiezan a descartarse por tardios.",
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "auto"
+   }
+  },
+  {
+   "id": 12,
+   "type": "stat",
+   "title": "Eventos leidos de Kafka",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 16,
+    "y": 10,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_eventos_total{integrante=\"patricia\"}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "blue"
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "auto"
+   }
+  },
+  {
+   "id": 13,
+   "type": "stat",
+   "title": "Ordenes de inspeccion (KPI de negocio)",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 20,
+    "y": 10,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_alertas_total{integrante=\"patricia\"}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "green"
+       },
+       {
+        "value": 1,
+        "color": "orange"
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "auto"
+   }
+  },
+  {
+   "id": 14,
+   "type": "timeseries",
+   "title": "Lag del consumidor",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 14,
+    "w": 8,
+    "h": 7
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_kafka_lag_mensajes{integrante=\"patricia\"}",
+     "legendFormat": "mensajes pendientes"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "green"
+       },
+       {
+        "value": 2000,
+        "color": "red"
+       }
+      ]
+     },
+     "custom": {
+      "thresholdsStyle": {
+       "mode": "line"
+      }
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "id": 15,
+   "type": "timeseries",
+   "title": "Throughput (eventos/s)",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 8,
+    "y": 14,
+    "w": 8,
+    "h": 7
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_entrada_eventos_s{integrante=\"patricia\"}",
+     "legendFormat": "llegan"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "B",
+     "expr": "usgs_procesados_eventos_s{integrante=\"patricia\"}",
+     "legendFormat": "procesados"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short"
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "id": 16,
+   "type": "timeseries",
+   "title": "Estado de Spark y descartes",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 16,
+    "y": 14,
+    "w": 8,
+    "h": 7
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_estado_filas{integrante=\"patricia\"}",
+     "legendFormat": "filas en estado (dedup)"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "B",
+     "expr": "usgs_duplicados_descartados{integrante=\"patricia\"}",
+     "legendFormat": "duplicados descartados"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "C",
+     "expr": "usgs_tardios_descartados{integrante=\"patricia\"}",
+     "legendFormat": "tardios descartados"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short"
+    },
+    "overrides": []
+   },
+   "description": "El unico estado es el de la deduplicacion; la inferencia no guarda nada.",
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "id": 17,
+   "type": "timeseries",
+   "title": "Temperatura (C): valor real y pronostico a 1 h",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 21,
+    "w": 8,
+    "h": 8
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_ultimo_valor{integrante=\"patricia\", variable=\"temperatura_c\"}",
+     "legendFormat": "{{estacion}} real"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "B",
+     "expr": "usgs_pronostico_1h{integrante=\"patricia\", variable=\"temperatura_c\"}",
+     "legendFormat": "{{estacion}} pronostico"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "lineWidth": 2,
+      "showPoints": "never"
+     }
+    },
+    "overrides": [
+     {
+      "matcher": {
+       "id": "byRegexp",
+       "options": ".*pronostico"
+      },
+      "properties": [
+       {
+        "id": "custom.lineStyle",
+        "value": {
+         "fill": "dash",
+         "dash": [
+          8,
+          6
+         ]
+        }
+       },
+       {
+        "id": "custom.lineWidth",
+        "value": 1
+       }
+      ]
+     }
+    ]
+   },
+   "description": "Linea continua: lectura real. Linea punteada: lo que el modelo espera dentro de 1 hora.",
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "id": 18,
+   "type": "timeseries",
+   "title": "Oxigeno disuelto (mg/L): valor real y pronostico a 1 h",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 8,
+    "y": 21,
+    "w": 8,
+    "h": 8
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_ultimo_valor{integrante=\"patricia\", variable=\"oxigeno_mgl\"}",
+     "legendFormat": "{{estacion}} real"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "B",
+     "expr": "usgs_pronostico_1h{integrante=\"patricia\", variable=\"oxigeno_mgl\"}",
+     "legendFormat": "{{estacion}} pronostico"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "lineWidth": 2,
+      "showPoints": "never"
+     }
+    },
+    "overrides": [
+     {
+      "matcher": {
+       "id": "byRegexp",
+       "options": ".*pronostico"
+      },
+      "properties": [
+       {
+        "id": "custom.lineStyle",
+        "value": {
+         "fill": "dash",
+         "dash": [
+          8,
+          6
+         ]
+        }
+       },
+       {
+        "id": "custom.lineWidth",
+        "value": 1
+       }
+      ]
+     }
+    ]
+   },
+   "description": "Linea continua: lectura real. Linea punteada: lo que el modelo espera dentro de 1 hora.",
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "id": 19,
+   "type": "timeseries",
+   "title": "Riesgo de salir del rango (umbral 0.5)",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 16,
+    "y": 21,
+    "w": 8,
+    "h": 8
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_riesgo{integrante=\"patricia\"}",
+     "legendFormat": "{{estacion}} {{variable}}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "percentunit",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "green"
+       },
+       {
+        "value": 0.5,
+        "color": "red"
+       }
+      ]
+     },
+     "min": 0,
+     "max": 1,
+     "custom": {
+      "thresholdsStyle": {
+       "mode": "line+area"
+      }
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "id": 20,
+   "type": "stat",
+   "title": "BATCH (estatico): RMSE de validacion del 12b",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 29,
+    "w": 8,
+    "h": 6
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_rmse_validacion{integrante=\"patricia\"}",
+     "legendFormat": "{{variable}} {{modelo}}",
+     "instant": true
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "none",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "purple"
+       }
+      ]
+     },
+     "decimals": 4
+    },
+    "overrides": []
+   },
+   "description": "Valores fijos: se calcularon una vez con el corte cronologico del 12b.",
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "none",
+    "graphMode": "none",
+    "textMode": "value_and_name",
+    "justifyMode": "auto",
+    "orientation": "horizontal"
+   }
+  },
+  {
+   "id": 21,
+   "type": "stat",
+   "title": "STREAMING (en vivo): RMSE medido en produccion",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 8,
+    "y": 29,
+    "w": 8,
+    "h": 6
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_rmse_vivo{integrante=\"patricia\"}",
+     "legendFormat": "{{variable}} {{modelo}}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "none",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "blue"
+       }
+      ]
+     },
+     "decimals": 4
+    },
+    "overrides": []
+   },
+   "description": "Cada pronostico se compara con la lectura real 1 hora despues; tambien la persistencia.",
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "none",
+    "graphMode": "none",
+    "textMode": "value_and_name",
+    "justifyMode": "auto",
+    "orientation": "horizontal"
+   }
+  },
+  {
+   "id": 22,
+   "type": "timeseries",
+   "title": "Error absoluto del ultimo pronostico comparado",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 16,
+    "y": 29,
+    "w": 8,
+    "h": 6
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_error_abs{integrante=\"patricia\"}",
+     "legendFormat": "{{estacion}} {{variable}}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {},
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "id": 23,
+   "type": "row",
+   "title": "Jhenderson Machaca: pH y turbidez",
+   "collapsed": false,
+   "gridPos": {
+    "x": 0,
+    "y": 35,
+    "w": 24,
+    "h": 1
+   },
+   "panels": []
+  },
+  {
+   "id": 24,
+   "type": "stat",
+   "title": "Lag del consumidor (mensajes)",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 36,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_kafka_lag_mensajes{integrante=\"jhenderson\"}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "green"
+       },
+       {
+        "value": 500,
+        "color": "yellow"
+       },
+       {
+        "value": 2000,
+        "color": "red"
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "description": "Mensajes que ya estan en Kafka y Spark aun no proceso. Es la primera alarma de backpressure.",
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "area",
+    "textMode": "value",
+    "justifyMode": "auto"
+   }
+  },
+  {
+   "id": 25,
+   "type": "stat",
+   "title": "Segundos desde el ultimo lote",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 4,
+    "y": 36,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "time() - push_time_seconds{job=\"u2_usgs_stream\", instance=\"jhenderson\"}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "s",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "green"
+       },
+       {
+        "value": 30,
+        "color": "yellow"
+       },
+       {
+        "value": 60,
+        "color": "red"
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "description": "Si el job de streaming muere, el Pushgateway sigue mostrando el ultimo valor. Este panel lo delata.",
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "auto"
+   }
+  },
+  {
+   "id": 26,
+   "type": "stat",
+   "title": "Duracion del lote (ms)",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 8,
+    "y": 36,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_lote_ms{integrante=\"jhenderson\"}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "ms",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "green"
+       },
+       {
+        "value": 5000,
+        "color": "yellow"
+       },
+       {
+        "value": 10000,
+        "color": "red"
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "description": "Rojo si un lote tarda mas que el disparador (10 s): el pipeline ya no alcanza.",
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "area",
+    "textMode": "value",
+    "justifyMode": "auto"
+   }
+  },
+  {
+   "id": 27,
+   "type": "stat",
+   "title": "Retraso de publicacion USGS (min)",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 12,
+    "y": 36,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_retraso_min{integrante=\"jhenderson\"}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "m",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "green"
+       },
+       {
+        "value": 60,
+        "color": "yellow"
+       },
+       {
+        "value": 85,
+        "color": "red"
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "description": "Retraso medio de los eventos en vivo. Sobre 85 min (el watermark) los datos empiezan a descartarse por tardios.",
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "auto"
+   }
+  },
+  {
+   "id": 28,
+   "type": "stat",
+   "title": "Eventos leidos de Kafka",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 16,
+    "y": 36,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_eventos_total{integrante=\"jhenderson\"}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "blue"
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "auto"
+   }
+  },
+  {
+   "id": 29,
+   "type": "stat",
+   "title": "Alertas de calidad (KPI de negocio)",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 20,
+    "y": 36,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_alertas_total{integrante=\"jhenderson\"}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "green"
+       },
+       {
+        "value": 1,
+        "color": "orange"
+       }
+      ]
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "auto"
+   }
+  },
+  {
+   "id": 30,
+   "type": "timeseries",
+   "title": "Lag del consumidor",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 40,
+    "w": 8,
+    "h": 7
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_kafka_lag_mensajes{integrante=\"jhenderson\"}",
+     "legendFormat": "mensajes pendientes"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "green"
+       },
+       {
+        "value": 2000,
+        "color": "red"
+       }
+      ]
+     },
+     "custom": {
+      "thresholdsStyle": {
+       "mode": "line"
+      }
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "id": 31,
+   "type": "timeseries",
+   "title": "Throughput (eventos/s)",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 8,
+    "y": 40,
+    "w": 8,
+    "h": 7
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_entrada_eventos_s{integrante=\"jhenderson\"}",
+     "legendFormat": "llegan"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "B",
+     "expr": "usgs_procesados_eventos_s{integrante=\"jhenderson\"}",
+     "legendFormat": "procesados"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short"
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "id": 32,
+   "type": "timeseries",
+   "title": "Estado de Spark y descartes",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 16,
+    "y": 40,
+    "w": 8,
+    "h": 7
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_estado_filas{integrante=\"jhenderson\"}",
+     "legendFormat": "filas en estado (dedup)"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "B",
+     "expr": "usgs_duplicados_descartados{integrante=\"jhenderson\"}",
+     "legendFormat": "duplicados descartados"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "C",
+     "expr": "usgs_tardios_descartados{integrante=\"jhenderson\"}",
+     "legendFormat": "tardios descartados"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short"
+    },
+    "overrides": []
+   },
+   "description": "El unico estado es el de la deduplicacion; la inferencia no guarda nada.",
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "id": 33,
+   "type": "timeseries",
+   "title": "pH: valor real y pronostico a 1 h",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 47,
+    "w": 8,
+    "h": 8
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_ultimo_valor{integrante=\"jhenderson\", variable=\"ph\"}",
+     "legendFormat": "{{estacion}} real"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "B",
+     "expr": "usgs_pronostico_1h{integrante=\"jhenderson\", variable=\"ph\"}",
+     "legendFormat": "{{estacion}} pronostico"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "lineWidth": 2,
+      "showPoints": "never"
+     }
+    },
+    "overrides": [
+     {
+      "matcher": {
+       "id": "byRegexp",
+       "options": ".*pronostico"
+      },
+      "properties": [
+       {
+        "id": "custom.lineStyle",
+        "value": {
+         "fill": "dash",
+         "dash": [
+          8,
+          6
+         ]
+        }
+       },
+       {
+        "id": "custom.lineWidth",
+        "value": 1
+       }
+      ]
+     }
+    ]
+   },
+   "description": "Linea continua: lectura real. Linea punteada: lo que el modelo espera dentro de 1 hora.",
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "id": 34,
+   "type": "timeseries",
+   "title": "Turbidez (FNU): valor real y pronostico a 1 h",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 8,
+    "y": 47,
+    "w": 8,
+    "h": 8
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_ultimo_valor{integrante=\"jhenderson\", variable=\"turbidez_fnu\"}",
+     "legendFormat": "{{estacion}} real"
+    },
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "B",
+     "expr": "usgs_pronostico_1h{integrante=\"jhenderson\", variable=\"turbidez_fnu\"}",
+     "legendFormat": "{{estacion}} pronostico"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "custom": {
+      "lineWidth": 2,
+      "showPoints": "never"
+     }
+    },
+    "overrides": [
+     {
+      "matcher": {
+       "id": "byRegexp",
+       "options": ".*pronostico"
+      },
+      "properties": [
+       {
+        "id": "custom.lineStyle",
+        "value": {
+         "fill": "dash",
+         "dash": [
+          8,
+          6
+         ]
+        }
+       },
+       {
+        "id": "custom.lineWidth",
+        "value": 1
+       }
+      ]
+     }
+    ]
+   },
+   "description": "Linea continua: lectura real. Linea punteada: lo que el modelo espera dentro de 1 hora.",
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "id": 35,
+   "type": "timeseries",
+   "title": "Riesgo de salir del rango (umbral 0.5)",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 16,
+    "y": 47,
+    "w": 8,
+    "h": 8
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_riesgo{integrante=\"jhenderson\"}",
+     "legendFormat": "{{estacion}} {{variable}}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "percentunit",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "green"
+       },
+       {
+        "value": 0.5,
+        "color": "red"
+       }
+      ]
+     },
+     "min": 0,
+     "max": 1,
+     "custom": {
+      "thresholdsStyle": {
+       "mode": "line+area"
+      }
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  },
+  {
+   "id": 36,
+   "type": "stat",
+   "title": "BATCH (estatico): RMSE de validacion del 12b",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 55,
+    "w": 8,
+    "h": 6
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_rmse_validacion{integrante=\"jhenderson\"}",
+     "legendFormat": "{{variable}} {{modelo}}",
+     "instant": true
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "none",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "purple"
+       }
+      ]
+     },
+     "decimals": 4
+    },
+    "overrides": []
+   },
+   "description": "Valores fijos: se calcularon una vez con el corte cronologico del 12b.",
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "none",
+    "graphMode": "none",
+    "textMode": "value_and_name",
+    "justifyMode": "auto",
+    "orientation": "horizontal"
+   }
+  },
+  {
+   "id": 37,
+   "type": "stat",
+   "title": "STREAMING (en vivo): RMSE medido en produccion",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 8,
+    "y": 55,
+    "w": 8,
+    "h": 6
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_rmse_vivo{integrante=\"jhenderson\"}",
+     "legendFormat": "{{variable}} {{modelo}}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "none",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "value": null,
+        "color": "blue"
+       }
+      ]
+     },
+     "decimals": 4
+    },
+    "overrides": []
+   },
+   "description": "Cada pronostico se compara con la lectura real 1 hora despues; tambien la persistencia.",
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "none",
+    "graphMode": "none",
+    "textMode": "value_and_name",
+    "justifyMode": "auto",
+    "orientation": "horizontal"
+   }
+  },
+  {
+   "id": 38,
+   "type": "timeseries",
+   "title": "Error absoluto del ultimo pronostico comparado",
+   "datasource": {
+    "type": "prometheus",
+    "uid": "${DS_PROMETHEUS}"
+   },
+   "gridPos": {
+    "x": 16,
+    "y": 55,
+    "w": 8,
+    "h": 6
+   },
+   "targets": [
+    {
+     "datasource": {
+      "type": "prometheus",
+      "uid": "${DS_PROMETHEUS}"
+     },
+     "refId": "A",
+     "expr": "usgs_error_abs{integrante=\"jhenderson\"}",
+     "legendFormat": "{{estacion}} {{variable}}"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {},
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi"
+    }
+   }
+  }
+ ]
+}

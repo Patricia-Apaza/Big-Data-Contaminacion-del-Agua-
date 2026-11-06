@@ -30,3 +30,15 @@ Los cuadernos se ejecutan dentro del contenedor de PySpark del curso, con la car
 - Alertas: 7 alertas de pH con umbral 0,5, ninguna de turbidez. Los umbrales de advertencia son estadísticos (percentiles 5 y 95 por estación), no una norma.
 - El 12c se ejecutó en modo reproducción, sobre lecturas ya guardadas.
 - Las alertas se publican solo en Kafka. El tópico de sensores es compartido y contiene reenvíos de prueba.
+
+## Versión 3 (evaluación S12)
+
+| Archivo | Para qué sirve |
+|---|---|
+| `../patricia/usgs_productor.py` | Contrato v2 (`version_esquema`, `contexto`) y salida `--salida mqtt`; `reproducir --desde/--hasta` para un episodio |
+| `../puente_mqtt/` | Mosquitto y el puente MQTT a Kafka (`docker compose up -d --build`) |
+| `12d_ingesta_semantica_jhenderson.ipynb` | S6 a S8: particiones, contrato versionado, key por estación, MQTT, rango físico, deduplicación, ventanas |
+| `12c_negocio_usgs_jhenderson_v3.ipynb` | Inferencia sin estado, alerta de calidad, error en vivo, métricas batch, lag y throughput |
+| `grafana_aquavigia_u2_usgs_v3.json` | Tablero v3 con salud del pipeline, KPIs, predicción y batch frente a streaming |
+
+Tópico nuevo: `agua-usgs-eventos-v2` (3 particiones). Episodio de la demo: `py usgs_productor.py reproducir --archivo historial.jsonl --desde 2026-10-16T22:00 --hasta 2026-10-17T04:00 --velocidad 30 --salida mqtt`.

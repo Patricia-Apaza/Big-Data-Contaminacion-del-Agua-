@@ -6,6 +6,68 @@ Pipeline en tiempo real de AquaVigía con **datos reales de sensores del USGS** 
 
 Mi dimensión: **pH (`ph`) y turbidez (`turbidez_fnu`)**. Mi evento de negocio es la **alerta de calidad** (`alerta_calidad`, tópico `alerta-eventos`). Todas las cifras salen de mis propias corridas del 30-oct-2026 en la laptop compartida del equipo; donde algo es una limitación o una hipótesis, está dicho.
 
+## Versión 3 para la evaluación S12
+
+Esta sección resume lo que se agregó para cubrir todo el temario de la evaluación S12 (S6 a S11). Las secciones siguientes documentan la ejecución v2 del 30 de octubre, que sigue siendo la evidencia de ventana, watermark medido, checkpoint y dato tardío.
+
+### Evolución desde la Unidad 1
+
+| | Unidad 1 (batch) | Unidad 2 (streaming) |
+|---|---|---|
+| Pregunta | ¿Cuál fue el pH y la turbidez promedio por estación y por mes, y qué valores se esperan el mes siguiente? | ¿Qué pH y turbidez tendrá cada estación dentro de una hora, y con qué probabilidad saldrá de su rango? |
+| Fuente | Muestra simulada con rangos de la ANA | 13 estaciones reales del USGS, una lectura cada 5 min |
+| Proceso | Spark batch, promedios mensuales y regresión sobre la serie mensual | Spark Structured Streaming sobre cada lectura |
+| Salida | Tabla y gráfico de tendencia en el cuaderno | Alerta de calidad en Kafka y fila propia en Grafana |
+| Decisión | Priorizar el mantenimiento del mes | Alerta operativa inmediata |
+| Resultado del modelo | Regresión con R² cercano a 0 (RMSE 0,035): el pH mensual casi no varía | RMSE 9,4 % y 4,2 % menor que la persistencia; riesgo con AUC 0,977 (pH) y 0,987 (turbidez) |
+
+### Qué cubre cada tema del temario
+
+| Sesión | Evidencia |
+|---|---|
+| S6 | `12d_ingesta_semantica_jhenderson`, sección 1: particiones y offsets, contrato con `version_esquema` 2 leído por un consumidor de la versión 1. Alerta de calidad con `version_esquema` 1 y `evento_id` determinista (idempotente). |
+| S7 | Productor por MQTT (`usgs_productor.py --salida mqtt`), Mosquitto y puente `bridge_mqtt_kafka_usgs.py` (carpeta `uso-agua-usgs`). Tópico `agua-usgs-eventos-v2` con 3 particiones y key `estacion_id`. 12d, sección 2: frecuencia frente al evento de negocio, una partición por estación, cabecera `canal = mqtt`, validación de esquema y de rango físico con tres mensajes de prueba. |
+| S8 | 12a v2: ventana de 15 min, watermark de 85 min medido, checkpoint y dato tardío. 12d, secciones 3 y 4: deduplicación dentro del watermark (reenvío de 50 lecturas: +50 sin deduplicar, +0 con deduplicación) y ventana fija frente a deslizante. |
+| S9 | Tablero `grafana_aquavigia_u2_usgs_v3.json`: lag del consumidor, throughput, disponibilidad de Kafka y del Pushgateway, segundos desde el último lote, duración del lote y retraso, con umbrales. |
+| S10 | 12b: persistencia primero y corte cronológico. `12c_negocio_usgs_jhenderson_v3`, sección 2: el pronóstico sale de un solo mensaje. Sección 7.1: el único operador con estado es la deduplicación. |
+| S11 | 12c v3, secciones 4 y 5: error medido en vivo (modelo y persistencia) y panel batch estático con el RMSE de validación, lado a lado en Grafana junto a los KPI. |
+
+### Contrato del evento IoT, versión 2
+
+Igual que la versión 1, más `version_esquema = 2` y `contexto`:
+
+- `contexto.rezagos`: valores de la misma variable 5, 10, 15, 30 y 60 minutos antes (`l1`, `l2`, `l3`, `l6`, `l12`).
+- `contexto.simultaneas`: valores de las otras variables de la estación en el mismo bloque de 5 minutos.
+
+Tamaño medio: unos 500 bytes (medido sobre 2 221 eventos v2 reales), frente a 322 de la versión 1.
+
+### Decisión propia distinta al ejemplo del docente
+
+En el ejemplo del curso, el modelo se valida una vez, fuera de línea, y se lleva a producción. Mi mejora sobre la persistencia es pequeña (+9,4 % en pH y +4,2 % en turbidez, y en MAE no le gana), así que no basta con validarlo una vez. El 12c v3 compara cada pronóstico con la lectura real una hora después, y también lo que habría dicho la persistencia, y lo muestra en Grafana junto al RMSE de validación. La regla: si la persistencia gana de forma sostenida en vivo, se vuelve a ella y se reentrena. Ese registro de pronósticos pendientes es estado de monitoreo, no de inferencia: la inferencia sigue siendo sin estado porque los rezagos viajan en el evento.
+
+### Episodio de la demostración
+
+Se reproduce por MQTT un tramo real del periodo de prueba: del 16-oct-2026 22:00 al 17-oct-2026 04:00 UTC, con el umbral de operación 0,5. En la prueba previa a la sustentación, ese tramo generó 24 alertas de calidad (pH y turbidez en 6 estaciones), y el RMSE en vivo del modelo fue menor que el de la persistencia en las dos variables. Los valores definitivos son los que muestra el cuaderno ejecutado.
+
+### Rúbrica de la Unidad 2 y trazabilidad (u2-producto, Tabla 2)
+
+| Criterio | Peso | CE / Nivel | Evidencia en esta dimensión |
+|---|---|---|---|
+| 1. Ingesta de eventos empresariales mediante Kafka | 12 % | apoyo | Alerta de calidad publicada y consumida en vivo en `alerta-eventos` por el 12c v3; contrato con `version_esquema` y `evento_id` idempotente |
+| 2. Ingesta de eventos IoT/sensores | 10 % | apoyo | USGS por MQTT y puente a `agua-usgs-eventos-v2` (3 particiones, key estación); esquema y rango físico validados (12d) |
+| 3. Procesamiento streaming con Spark Structured Streaming | 14 % | apoyo | Ventana, watermark medido y checkpoint (12a); deduplicación y ventana fija frente a deslizante (12d); watermark, deduplicación y checkpoint activos en el 12c v3 |
+| 4. Observabilidad con métricas y tableros | 12 % | apoyo | Tablero v3: lag, throughput, disponibilidad, duración del lote y segundos desde el último lote, con umbrales |
+| 5. Estimación de costos y criterios de escalado | 8 % | apoyo | Documento de costos con volumen medido (500 B por evento v2), precios oficiales y umbrales de escalado |
+| 6. Salidas BI/ML distribuidas | 12 % | CE044-N3 | KPI de negocio junto a pronóstico y riesgo en la misma sesión; panel batch al lado del error en vivo |
+| 7. Series de tiempo o inferencia validada | 12 % | CE043-N3 (completa) | 12b: persistencia primero y corte cronológico; 12c v3: inferencia sin estado y error en vivo; 12e: ROC del riesgo y curva de aprendizaje |
+| 8. Sustentación | 20 % | CG | Demo en vivo de 3 minutos y respuestas a la Tabla 1 de S12 |
+
+Nota final = suma de (peso x puntos) / 100 x 20. El criterio 6 evidencia CE044 Nivel 3 completo y el criterio 7 completa la segunda mitad de CE043 Nivel 3 (la primera mitad se evidenció en la Unidad 1).
+
+### Archivos de la versión 3
+
+`usgs_productor.py` (contrato v2 y salida MQTT), `uso-agua-usgs/` (Mosquitto y puente), `12d_ingesta_semantica_jhenderson.ipynb`, `12c_negocio_usgs_jhenderson_v3.ipynb`, `12e_evaluacion_riesgo_jhenderson.ipynb` y `grafana_aquavigia_u2_usgs_v3.json`.
+
 ## 0. Qué es real
 
 - **Fuente:** estaciones reales de monitoreo de calidad de agua del USGS (Maryland y Virginia), leídas por su API pública. No son dispositivos propios. El docente aceptó la fuente externa de forma verbal.
@@ -38,16 +100,17 @@ kafka-exporter --> Prometheus :49090 <------- scrape ---------+
 
 Servicios: `lambda26-kafka`, `lambda26-kafka-exporter`, `lambda26-kafka-ui` (:48085), `agua-pyspark` (Jupyter :4488, Spark UI :4042), `lambda26-pushgateway`, `lambda26-prometheus` y `lambda26-grafana`.
 
-## 2. Alcance de S12 (mi evidencia)
+## 2. Alcance de capacidades por sesión (Tabla 1)
 
-| Capacidad | Lo que construí |
-|---|---|
-| Ingesta empresarial | Alerta de calidad publicada en `alerta-eventos` por Spark a partir del riesgo pronosticado (sección 3) |
-| Ingesta IoT | Eventos USGS en `agua-usgs-eventos` con esquema explicito, 100 % válidos (sección 4) |
-| Streaming Spark | Ventana de 15 min, watermark de 85 min, checkpoint, dato tardío y salida Parquet (sección 4) |
-| Observabilidad y costos | Métricas al Pushgateway, tablero en Grafana y [costos](costos.md) (sección 5) |
-| Series de tiempo | Pronóstico a 1 hora de pH y turbidez, validado contra dos referencias (sección 6) |
-| BI/ML | Ultimo valor, pronóstico y riesgo en el mismo tablero (sección 6) |
+| Sesión | Capacidad que agrega | Mi evidencia |
+|---|---|---|
+| S6 | Ingesta de eventos empresariales | Alerta de calidad (`alerta_calidad`) publicada por Spark en `alerta-eventos` a partir del riesgo pronosticado, con contrato versionado y `evento_id` idempotente (sección 3 y 12c v3) |
+| S7 | Ingesta de eventos IoT/sensores | Lecturas USGS de pH y turbidez por MQTT y puente a Kafka, key por estación, esquema y rango físico validados (sección 4 y 12d) |
+| S8 | Procesamiento streaming | Ventana de 15 min, watermark de 85 min medido, checkpoint, dato tardío y Parquet (12a); deduplicación y ventana fija frente a deslizante (12d) |
+| S9 | Observabilidad y costos | Tablero v3 con lag, throughput, disponibilidad y umbrales, y [costos](costos.md) con el volumen medido (sección 5) |
+| S10 | Series de tiempo e inferencia | Pronóstico a 1 hora de pH y turbidez validado contra la persistencia con corte cronológico (12b); inferencia sin estado (12c v3); ROC del riesgo y curva de aprendizaje (12e) |
+| S11 | BI/ML distribuido | Alertas junto a valor, pronóstico y riesgo en el mismo tablero; RMSE de validación al lado del error en vivo (sección 6) |
+| S12 | Pipeline integrado y sustentado | Este documento, los cuadernos 12a, 12b, 12c v3, 12d y 12e, y el tablero `grafana_aquavigia_u2_usgs_v3.json` |
 
 ## 3. Contratos de eventos
 
