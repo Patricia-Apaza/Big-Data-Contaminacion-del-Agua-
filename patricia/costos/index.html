@@ -634,6 +634,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#6-actualizacion-de-la-version-3-s12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Actualización de la versión 3 (S12)
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -912,6 +923,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#6-actualizacion-de-la-version-3-s12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Actualización de la versión 3 (S12)
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1058,6 +1080,83 @@
 <li>"Esos precios los verifiqué en las páginas oficiales el 30 de octubre de 2026; pueden cambiar después."</li>
 <li>"El volumen es de 19 008 eventos al día. La cifra bruta de 40 069 incluye la carga inicial y lecturas reenviadas para pruebas, por eso no la uso."</li>
 </ul>
+<h2 id="6-actualizacion-de-la-version-3-s12">6. Actualización de la versión 3 (S12)<a class="headerlink" href="#6-actualizacion-de-la-version-3-s12" title="Permanent link">&para;</a></h2>
+<p>En la versión 3 el evento IoT lleva el campo <code>contexto</code> (rezagos y lecturas simultáneas) para que la inferencia sea sin estado. Eso cambia el tamaño del evento, y por eso el volumen:</p>
+<table>
+<thead>
+<tr>
+<th>Dato</th>
+<th>Versión 1</th>
+<th>Versión 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tamaño medio por evento</td>
+<td>322 bytes</td>
+<td>unos 500 bytes (medido sobre 2 221 eventos v2 reales)</td>
+</tr>
+<tr>
+<td>Régimen estable</td>
+<td>19 008 eventos/día</td>
+<td>19 008 eventos/día</td>
+</tr>
+<tr>
+<td>Volumen diario</td>
+<td>6,12 MB</td>
+<td>unos 9,5 MB</td>
+</tr>
+<tr>
+<td>Volumen mensual</td>
+<td>0,184 GB</td>
+<td>unos 0,285 GB</td>
+</tr>
+</tbody>
+</table>
+<p>Costo del servicio administrado (Confluent Basic) con el volumen nuevo, mismos precios del 30-oct-2026:</p>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Cuenta</th>
+<th>USD/mes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cómputo (1 eCKU)</td>
+<td>primera eCKU gratuita</td>
+<td>0,00</td>
+</tr>
+<tr>
+<td>Entrada</td>
+<td>0,285 GB x 0,05</td>
+<td>0,014</td>
+</tr>
+<tr>
+<td>Salida</td>
+<td>0,285 GB x 2 x 0,05</td>
+<td>0,029</td>
+</tr>
+<tr>
+<td>Almacenamiento del flujo</td>
+<td>0,285 GB x 0,08</td>
+<td>0,023</td>
+</tr>
+<tr>
+<td>Almacenamiento del historial</td>
+<td>0,42 GB x 0,08</td>
+<td>0,034</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>unos 0,10</strong></td>
+</tr>
+</tbody>
+</table>
+<p>La máquina propia (EC2 t3.medium) sigue en unos 30,51 USD al mes: se paga por hora encendida, no por volumen. El broker MQTT (Mosquitto) corre en la misma máquina y no suma costo de nube en este esquema.</p>
+<p>Umbrales del tablero v3 que indican cuándo escalar: lag del consumidor (amarillo 500, rojo 2 000 mensajes), duración del lote frente al disparador de 10 s (amarillo 5 s, rojo 10 s), retraso del USGS frente al watermark (rojo 85 min) y segundos desde el último lote (rojo 60 s). El tópico ya tiene 3 particiones con la estación como key, así que se pueden sumar consumidores sin perder el orden por estación.</p>
 
 
 
