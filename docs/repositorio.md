@@ -13,7 +13,7 @@ La guía del Proyecto Sello exige topics que identifiquen campus, semestre, lín
 | `linea-cdia` | línea de Ciencia de Datos e IA |
 | `tipo-ps` | tipo de proyecto: Proyecto Sello |
 | `bigdata` | curso |
-| `seccion-g1` | sección (el curso tiene un solo grupo) |
+| `seccion-gu` | sección: grupo único |
 | `grupo-02-aquavigia` | grupo y nombre del proyecto |
 
 Además, según el Brief, el repositorio tiene topics técnicos: `big-data`, `grafana`, `kafka`, `prometheus`, `pyspark`, `spark-structured-streaming`, `time-series`, `upeu` y `usgs`.
