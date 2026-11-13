@@ -45,9 +45,22 @@ Tamaño medio: unos 500 bytes (medido sobre 2 221 eventos v2 reales), frente a 3
 
 En el ejemplo del curso, la inferencia es sin estado porque el modelo no necesita historia. Mi modelo sí la necesita: los rezagos le dan +45,1 % en temperatura y +32,1 % en oxígeno sobre la persistencia. En lugar de guardar un búfer en Spark (como en la v2), el productor adjunta los rezagos al evento. Así la inferencia sigue siendo sin estado y conservo la mejora. El costo es un evento más grande (500 frente a 322 bytes).
 
-### Episodio de la demostración
+### Episodio de la demostración y ejecución guardada
 
-Se reproduce por MQTT un tramo real del periodo de prueba: del 16-oct-2026 22:00 al 17-oct-2026 04:00 UTC, con el umbral de operación 0,5. En la prueba previa a la sustentación, ese tramo generó 6 órdenes de inspección (oxígeno de USGS-02074556, cerca de su límite inferior), y el RMSE en vivo del modelo fue menor que el de la persistencia en las dos variables. Los valores definitivos son los que muestra el cuaderno ejecutado.
+La demo reproduce por MQTT un tramo real del periodo de prueba (16-oct-2026 desde las 20:00 UTC) y, después, recibe las lecturas del USGS en vivo. Umbral de operación 0,5, sin ajustes.
+
+Ejecución guardada en `12c_negocio_usgs_patricia_v3.ipynb` (6-nov-2026, modo reproducción sobre el tópico completo: episodio más lecturas en vivo del USGS):
+
+| Resultado | Valor |
+|---|---|
+| Mensajes leídos de Kafka | 26 925 en 24 lotes |
+| Pronósticos | 2 899 |
+| Órdenes de inspección (umbral 0,5) | 9, la mayoría por oxígeno de USGS-02074556 cerca de su límite inferior (riesgo máximo 0,83) |
+| RMSE en vivo, temperatura | modelo 0,214 frente a persistencia 0,244 (1 158 comparaciones) |
+| RMSE en vivo, oxígeno | modelo 0,162 frente a persistencia 0,187 (1 149 comparaciones) |
+| Único operador con estado | deduplicación dentro del watermark |
+
+El RMSE en vivo es mayor que el de validación porque incluye lecturas de noviembre, más frías que el periodo de entrenamiento; aun así el modelo le gana a la persistencia en las dos variables.
 
 ### Rúbrica de la Unidad 2 y trazabilidad (u2-producto, Tabla 2)
 
