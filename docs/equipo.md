@@ -20,7 +20,7 @@ El Brief aclara que el énfasis es de coordinación: los dos integrantes trabaja
 
 ## Evidencia en el repositorio
 
-Al 13 de noviembre de 2026, el historial tiene 25 commits: 14 de `Patricia-Apaza` y 11 de `JhendersonAaron`, desde el 10 de septiembre de 2026. Cada integrante puede verificarse con:
+Al 13 de noviembre de 2026, el historial tiene 27 commits: 15 de `Patricia-Apaza` y 12 de `JhendersonAaron`, desde el 10 de septiembre de 2026. Cada integrante puede verificarse con:
 
 ```
 git log --author="Patricia-Apaza" --format="%h %ad %s" --date=short
@@ -38,5 +38,6 @@ git log --author="JhendersonAaron" --format="%h %ad %s" --date=short
 | 13-nov | `f3d716d` | Patricia | Infraestructura en el repositorio y hardening |
 | 13-nov | `ce4e8b6`, `1603642` | Patricia, Jhenderson | Ejecución integrada de cada uno |
 | 13-nov | `0f485e9`, `1cec60d` | Patricia, Jhenderson | Hardening aplicado, no regresión y parada ordenada |
+| 13-nov | `7123878`, `70d3959` | Patricia, Jhenderson | Documentación MkDocs de la U3 y rutas de la U2 dentro del repositorio |
 
 En la Unidad 3 el equipo trabajó en una laptop compartida. Cada commit de una dimensión se registró con el usuario de git de su integrante.
