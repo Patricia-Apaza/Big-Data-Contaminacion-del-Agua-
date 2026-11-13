@@ -27,11 +27,14 @@ La Unidad 2 usa lecturas reales de sensores del USGS (EE. UU.) en lugar de datos
 - **Evento de negocio:** orden de inspección (Patricia) y alerta de calidad (Jhenderson) publicadas en Kafka.
 - **Observabilidad:** métricas con Pushgateway y Prometheus, tablero en Grafana y estimación de costos.
 
-Los pasos para reproducirla están en `pyspark/sesiones/AquaVigia_Producto_U2/patricia/README.md`.
+### Unidad 3: integración, DataOps y despliegue (Producto Final)
+Carpeta: `pyspark/sesiones/AquaVigia_Producto_U3/`, con el cuaderno de ejecución integrada de cada integrante. La revisión técnica (hardening) y las evidencias están en `docs/u3/`.
+
+**Documentación completa (instalación, uso, arquitectura, datos, evidencias, equipo y limitaciones):** https://patricia-apaza.github.io/Big-Data-Contaminacion-del-Agua-/ (fuente en `docs/`).
 
 ## Cómo levantar el sistema
 
-Requisitos: Docker Desktop y PowerShell. Desde la raíz del repositorio:
+Requisitos: Docker Desktop y PowerShell. Desde la raíz del repositorio (los pasos completos, incluidos los artefactos y el historial del USGS, están en `docs/instalacion.md`):
 
 ```powershell
 copy pyspark\.env.example pyspark\.env

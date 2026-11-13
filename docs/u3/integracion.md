@@ -40,7 +40,7 @@ flowchart TB
 
 ### Corridas de Patricia
 
-Dos corridas de Patricia el 13/11/2026, mismo cuaderno y mismos parámetros (streaming de 240 s, disparador de 10 s, umbral de riesgo 0,5). Solo cambió el tramo que reprodujo el productor. Los manifiestos completos están en [`evidencias/manifiestos/`](evidencias/manifiestos/).
+Dos corridas de Patricia el 13/11/2026, mismo cuaderno y mismos parámetros (streaming de 240 s, disparador de 10 s, umbral de riesgo 0,5). Solo cambió el tramo que reprodujo el productor. Los manifiestos completos están en [`evidencias/manifiestos/`](https://github.com/Patricia-Apaza/Big-Data-Contaminacion-del-Agua-/tree/main/docs/u3/evidencias/manifiestos).
 
 | Indicador | Corrida 1 | Corrida 2 |
 |---|---|---|
@@ -84,7 +84,7 @@ Dos corridas de Patricia el 13/11/2026, mismo cuaderno y mismos parámetros (str
 | RMSE vivo pH, modelo / persistencia | sin streaming | 0,0570 / 0,0703 (366 comp.) |
 | RMSE vivo turbidez, modelo / persistencia | sin streaming | 6,2517 / 7,8381 (365 comp.) |
 | Métricas confirmadas en Prometheus | no publicó | 15 de 15 |
-| Manifiesto | no se escribe (se detiene antes de la sección 6); evidencia en [texto](evidencias/jhenderson_corrida_fallida_20261113T110211Z.txt) | [`evidencias/manifiestos/`](evidencias/manifiestos/) |
+| Manifiesto | no se escribe (se detiene antes de la sección 6); evidencia en [texto](evidencias/jhenderson_corrida_fallida_20261113T110211Z.txt) | [`evidencias/manifiestos/`](https://github.com/Patricia-Apaza/Big-Data-Contaminacion-del-Agua-/tree/main/docs/u3/evidencias/manifiestos) |
 
 **Lectura.**
 

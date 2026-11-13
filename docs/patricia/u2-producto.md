@@ -213,6 +213,9 @@ En S11, el modelo de plomo tuvo un MAE de 0.0905 sobre el flujo sintético, cont
 
 ## 9. Reproducibilidad
 
+!!! note "Rutas vigentes desde la Unidad 3"
+    Esta sección describe cómo se reprodujo en la Unidad 2, con la carpeta `s12-u2-usgs` del repositorio del curso. Desde la Unidad 3 los cuadernos usan `AquaVigia_Producto_U2/<integrante>/artifacts` y el historial va en `AquaVigia_Producto_U2/data/`. Los pasos vigentes están en la página de Instalación (`docs/instalacion.md`).
+
 1. Docker con Kafka, Prometheus, Grafana, Pushgateway y el contenedor `agua-pyspark` arriba (`docker ps`). Verifica en `http://localhost:49090/targets` que los targets estén UP.
 2. Crear a mano los tópicos (`AUTO_CREATE_TOPICS_ENABLE=false`): `agua-usgs-eventos` y `orden-eventos`.
 3. Clave gratuita del USGS (https://api.waterdata.usgs.gov/signup). Se pone solo como variable de entorno: `set USGS_API_KEY=...` (CMD).

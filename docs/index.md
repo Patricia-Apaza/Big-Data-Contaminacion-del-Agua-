@@ -1,36 +1,50 @@
-# AquaVigía: monitoreo y predicción de la calidad del agua en tiempo real
+# AquaVigía: monitoreo y predicción de la calidad del agua
 
 ![AquaVigía](img/portada.jpg)
 
-**Equipo 02 · Big Data · Universidad Peruana Unión · IX ciclo**
+**Equipo 02 · Big Data · Escuela Profesional de Ingeniería de Sistemas · Universidad Peruana Unión, Juliaca · IX ciclo, 2026-2**
 
-Integrantes: Celia Patricia Apaza Hilasaca y Jhenderson Aaron Machaca Mamani. Docente: Abel Ángel Sullón Macalupú.
+| | |
+|---|---|
+| Integrantes | Celia Patricia Apaza Hilasaca · Jhenderson Aaron Machaca Mamani |
+| Docente | Abel Ángel Sullón Macalupú |
+| Repositorio | [github.com/Patricia-Apaza/Big-Data-Contaminacion-del-Agua-](https://github.com/Patricia-Apaza/Big-Data-Contaminacion-del-Agua-) |
+| Producto | Producto de la Unidad 3 (Producto Final del curso): [u3-producto](u3-producto.md) |
 
-## Qué es
+## Problema
 
-AquaVigía responde una pregunta: **¿cómo anticipar el deterioro de la calidad del agua combinando el histórico con las lecturas en tiempo real?** En la Unidad 1 la respondimos por lotes; en la Unidad 2 la llevamos a tiempo real, con un pipeline que ingiere lecturas **reales** de sensores del USGS (Servicio Geológico de los Estados Unidos), las procesa con Spark Structured Streaming, aplica un modelo de series de tiempo y publica eventos de negocio en Kafka, con observabilidad en Grafana.
+Las estaciones de monitoreo de cuencas, lagos y pozos generan mediciones dispersas entre sensores automáticos y muestreos de laboratorio. No hay un sistema que combine el histórico con las lecturas en vivo para **anticipar** un episodio de deterioro de la calidad del agua antes de que se convierta en un riesgo sanitario o ambiental.
 
-## Dimensiones
+Pregunta central: **¿cómo anticipar el deterioro de la calidad del agua combinando el histórico con las lecturas en tiempo real?**
 
-| Integrante | Variables | Evento de negocio | Documentación |
+## Solución
+
+Un sistema Big Data con arquitectura **Lambda**, integrado en una sola ejecución:
+
+- **Capa batch (Unidad 1).** Spark procesa 1 250 000 mediciones de 180 estaciones, valida su calidad y deja una salida Parquet particionada por región (1 245 817 filas). Sobre ella se entrenan los modelos de la Unidad 1.
+- **Capa de velocidad (Unidad 2).** Lecturas **reales** de 13 sensores del USGS (Servicio Geológico de los Estados Unidos) entran por MQTT, pasan a Kafka y las procesa Spark Structured Streaming. Un modelo de series de tiempo pronostica el valor de la próxima hora y calcula el riesgo de salir del rango de la estación.
+- **Decisión.** Cuando el riesgo pasa de 0,5, el sistema publica un evento de negocio en Kafka: una **orden de inspección** (Patricia) o una **alerta de calidad** (Jhenderson).
+- **Observabilidad.** Métricas en Prometheus y un tablero de Grafana con el estado del flujo, el pronóstico, el riesgo y la última ejecución integrada.
+- **DataOps (Unidad 3).** El sistema se levanta con un solo script, con comprobación de salud en cada servicio, y se verifica con una ejecución integrada que tiene compuertas de calidad y deja un manifiesto.
+
+## Dimensiones del equipo
+
+| Integrante | Unidad 1 (batch) | Unidad 2 (tiempo real) | Evento de negocio |
 |---|---|---|---|
-| Patricia Apaza | temperatura y oxígeno disuelto | orden de inspección (`orden-eventos`) | [Producto U2](patricia/u2-producto.md) · [Costos](patricia/costos.md) |
-| Jhenderson Machaca | pH y turbidez | alerta de calidad (`alerta-eventos`) | [Producto U2](jhenderson/u2-producto.md) · [Costos](jhenderson/costos.md) |
+| Patricia Apaza | porcentaje de mediciones fuera de rango por estación y mes | temperatura y oxígeno disuelto | orden de inspección (`orden-eventos`) |
+| Jhenderson Machaca | pH y turbidez promedio por estación y mes | pH y turbidez | alerta de calidad (`alerta-eventos`) |
 
-Las dos dimensiones comparten la ingesta (`agua-usgs-eventos`) y el tablero de Grafana; cada una tiene su modelo, su umbral y su evento de negocio.
+## Cómo recorrer esta documentación
 
-## Cifras clave
+| Si quiere... | Vaya a |
+|---|---|
+| Levantar el sistema desde cero | [Instalación y ejecución](instalacion.md) |
+| Probar el flujo completo | [Uso del sistema](uso.md) |
+| Entender los componentes | [Arquitectura](arquitectura.md), [Módulos](modulos.md) y [Datos](datos.md) |
+| Ver que funciona | [Pruebas y evidencias](evidencias.md) |
+| Saber quién hizo qué | [Equipo y aporte individual](equipo.md) |
+| Revisar el repositorio | [Repositorio y estándares](repositorio.md) |
+| Conocer los límites | [Limitaciones y mejoras](limitaciones.md) |
 
-| | Patricia | Jhenderson |
-|---|---|---|
-| Mensajes verificados (100 % válidos) | 6 072 | 9 867 |
-| Watermark medido | 85 min | 85 min |
-| Mejora del modelo sobre repetir el último valor (RMSE) | +45,1 % y +32,1 % | +9,4 % y +4,2 % |
-| Eventos de negocio publicados | 1 orden | 7 alertas |
-
-## Código
-
-El código está en el repositorio, en `pyspark/sesiones/AquaVigia_Producto_U2/`, con una carpeta por integrante: productor del USGS, cuadernos `12a` (streaming), `12b` (modelo) y `12c` (negocio y métricas), y el tablero de Grafana.
-
-!!! note "Fuente de datos"
-    Los sensores del USGS son estaciones reales de monitoreo en Maryland y Virginia, consultadas por su API pública. La fuente está declarada en el Brief del proyecto y fue aceptada por el docente. La clave de la API se usa solo como variable de entorno y nunca se versiona.
+!!! note "Fuentes de datos"
+    El dataset de la Unidad 1 es una **muestra simulada** con rangos realistas inspirados en los estándares de la Autoridad Nacional del Agua (ANA) del Perú, como declara el Brief. Las lecturas de la Unidad 2 son **reales**, de 13 estaciones del USGS en el este de los Estados Unidos, consultadas por su API pública. La clave de la API se usa solo como variable de entorno y nunca se versiona.

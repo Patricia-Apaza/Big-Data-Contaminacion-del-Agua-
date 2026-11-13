@@ -25,6 +25,8 @@ Pipeline Lambda sobre sensores reales de calidad de agua del USGS (EE. UU.), no 
 
 ## Cómo reproducirlo
 
+> **Rutas vigentes desde la Unidad 3:** esta guía describe la reproducción de la Unidad 2, con la carpeta `s12-u2-usgs` del repositorio del curso. Desde la Unidad 3 los cuadernos usan `AquaVigia_Producto_U2/<integrante>/artifacts` y el historial va en `AquaVigia_Producto_U2/data/`. Los pasos vigentes están en `docs/instalacion.md`.
+
 Requisitos: Docker con Kafka, Prometheus, Grafana, Pushgateway y el contenedor de PySpark del curso; Python con `kafka-python`; una clave gratuita del USGS (https://api.waterdata.usgs.gov/signup).
 
 1. Crear el tópico: `kafka-topics.sh --create --topic agua-usgs-eventos --partitions 1 --replication-factor 1`.

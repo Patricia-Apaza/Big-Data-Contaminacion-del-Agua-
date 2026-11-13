@@ -1,5 +1,5 @@
-site_name: AquaVigía · Producto de Unidad 2
-site_description: Monitoreo y predicción de la calidad del agua en tiempo real con datos reales del USGS. Equipo 02, Big Data, UPeU.
+site_name: AquaVigía · Producto Final (Unidad 3)
+site_description: Sistema Big Data batch y streaming para anticipar el deterioro de la calidad del agua. Equipo 02, Big Data, UPeU.
 site_author: Celia Patricia Apaza Hilasaca y Jhenderson Aaron Machaca Mamani
 site_url: https://patricia-apaza.github.io/Big-Data-Contaminacion-del-Agua-/
 repo_url: https://github.com/Patricia-Apaza/Big-Data-Contaminacion-del-Agua-
@@ -31,14 +31,22 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 nav:
   - Inicio: index.md
+  - Instalación y ejecución: instalacion.md
+  - Uso del sistema: uso.md
   - Arquitectura: arquitectura.md
-  - Patricia Apaza:
-      - Producto U2: patricia/u2-producto.md
-      - Costos y escalado: patricia/costos.md
-  - Jhenderson Machaca:
-      - Producto U2: jhenderson/u2-producto.md
-      - Costos y escalado: jhenderson/costos.md
-  - Unidad 3:
+  - Módulos: modulos.md
+  - Datos: datos.md
+  - Pruebas y evidencias:
+      - Resumen: evidencias.md
       - Ejecución integrada: u3/integracion.md
       - Hardening y revisión técnica: u3/hardening.md
-  - Rúbrica: rubrica.md
+  - Equipo y aporte: equipo.md
+  - Repositorio y estándares: repositorio.md
+  - Limitaciones y mejoras: limitaciones.md
+  - Producto U3: u3-producto.md
+  - Unidad 2:
+      - Patricia, producto U2: patricia/u2-producto.md
+      - Patricia, costos: patricia/costos.md
+      - Jhenderson, producto U2: jhenderson/u2-producto.md
+      - Jhenderson, costos: jhenderson/costos.md
+      - Rúbrica U2: rubrica.md

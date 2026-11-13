@@ -9,7 +9,8 @@ __pycache__/
 .env
 
 # Datos: lecturas_agua.csv pesa ~208 MB, supera el limite de 100 MB de GitHub
-sesiones/*/data/
+sesiones/*/data/*
+!sesiones/*/data/README.md
 
 # Otros
 .DS_Store
