@@ -20,7 +20,7 @@ El Brief aclara que el énfasis es de coordinación: los dos integrantes trabaja
 
 ## Evidencia en el repositorio
 
-Al 13 de noviembre de 2026, el historial tiene 27 commits: 15 de `Patricia-Apaza` y 12 de `JhendersonAaron`, desde el 10 de septiembre de 2026. Cada integrante puede verificarse con:
+El historial empieza el 10 de septiembre de 2026 y tiene commits de los dos usuarios a lo largo de las tres unidades. Los de cada integrante se ven con:
 
 ```
 git log --author="Patricia-Apaza" --format="%h %ad %s" --date=short

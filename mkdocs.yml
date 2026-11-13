@@ -13,7 +13,6 @@ theme:
     primary: blue grey
     accent: cyan
   features:
-    - navigation.tabs
     - navigation.sections
     - navigation.top
     - content.code.copy

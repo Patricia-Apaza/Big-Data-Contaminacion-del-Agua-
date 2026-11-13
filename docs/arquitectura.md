@@ -42,7 +42,7 @@ Los diagramas muestran los flujos de las Unidades 1 y 2. En la Unidad 3 se agreg
 - **Ejecución integrada** (cuaderno 13 de cada integrante): lee el Parquet gold de la U1, corre el streaming de la U2 con el modelo del 12b, publica eventos y métricas, y verifica cada paso con compuertas. El resultado aparece en la fila "Ejecución integrada U3" de Grafana.
 
 ```mermaid
-flowchart LR
+flowchart TB
   A[Compuertas previas] --> B[Batch U1: Parquet gold + compuertas de calidad]
   B --> C[Streaming U2: 240 s con el modelo del 12b]
   C --> D[Compuertas de salida: eventos en Kafka]
