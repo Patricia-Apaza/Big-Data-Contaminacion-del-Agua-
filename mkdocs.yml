@@ -24,6 +24,11 @@ markdown_extensions:
   - attr_list
   - toc:
       permalink: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 nav:
   - Inicio: index.md
   - Arquitectura: arquitectura.md
@@ -34,5 +39,6 @@ nav:
       - Producto U2: jhenderson/u2-producto.md
       - Costos y escalado: jhenderson/costos.md
   - Unidad 3:
+      - Ejecución integrada: u3/integracion.md
       - Hardening y revisión técnica: u3/hardening.md
   - Rúbrica: rubrica.md

@@ -1,0 +1,33 @@
+Cuaderno: AquaVigia_Producto_U3/jhenderson/13_integracion_jhenderson.ipynb
+runId: 20261113T110211Z (13/11/2026, 11:02 UTC) | Spark 4.2.0
+Extracto de la salida (copiada tal cual del cuaderno)
+
+1. Compuertas previas
+OK    Parquet de la U1 (gold) existe
+OK    Modelo de la U1 existe
+OK    Modelos de la U2 (12b) existen
+OK    Kafka: topico agua-usgs-eventos-v2 con datos
+OK    Kafka: topico alerta-eventos existe
+OK    MQTT (mosquitto:1883) acepta conexiones
+OK    Pushgateway listo
+OK    Prometheus listo
+OK    Grafana saludable
+
+2. Batch: Parquet de la Unidad 1 con compuertas de calidad
+OK    Hay filas
+FALLA Completitud: 1 245 817 filas de la U1
+OK    ph sin nulos
+OK    ph dentro del rango fisico
+OK    ph: p50 plausible (5.5 a 9.0)
+OK    turbidez_ntu sin nulos
+OK    turbidez_ntu dentro del rango fisico
+OK    turbidez_ntu: p50 plausible (0 a 100)
+
+Filas: 794,866 | regiones (5): Cusco, Junín, Lima, Piura, Puno
+  ph                     p50=7.20  p95=8.19  promedio=7.20
+  turbidez_ntu           p50=4.15  p95=17.99  promedio=6.00
+
+AssertionError: La calidad del batch no pasa: ['Completitud: 1 245 817 filas de la U1']
+
+La ejecucion se detuvo en la seccion 2: no se proceso streaming, no se publico en Pushgateway
+y no se escribio manifiesto (el manifiesto se escribe en la seccion 6).

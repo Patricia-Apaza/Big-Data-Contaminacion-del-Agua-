@@ -1,0 +1,10 @@
+# Carga automatica del tablero de AquaVigia al arrancar Grafana (reproducible sin importar a mano).
+apiVersion: 1
+providers:
+  - name: aquavigia
+    folder: AquaVigia
+    type: file
+    disableDeletion: false
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/json
