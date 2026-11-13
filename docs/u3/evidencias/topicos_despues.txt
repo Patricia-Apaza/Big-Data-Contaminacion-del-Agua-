@@ -1,0 +1,14 @@
+Topicos DESPUES - 2026-11-13 09:38:49
+Topic: orden-eventos	TopicId: ZAYREqP7SAC_old0_NWPQA	PartitionCount: 1	ReplicationFactor: 1	Configs: min.insync.replicas=1
+	Topic: orden-eventos	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+Topic: agua-usgs-eventos-v2	TopicId: aP1JhQtLRkaLMknrvOqh8g	PartitionCount: 3	ReplicationFactor: 1	Configs: min.insync.replicas=1
+	Topic: agua-usgs-eventos-v2	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: agua-usgs-eventos-v2	Partition: 1	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: agua-usgs-eventos-v2	Partition: 2	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+Topic: alerta-eventos	TopicId: ck0O94RoQOatq0T2GA-biQ	PartitionCount: 1	ReplicationFactor: 1	Configs: min.insync.replicas=1
+	Topic: alerta-eventos	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+agua-usgs-eventos-v2:0:0
+agua-usgs-eventos-v2:1:0
+agua-usgs-eventos-v2:2:0
+alerta-eventos:0:0
+orden-eventos:0:0
