@@ -1,0 +1,15 @@
+docker ps DESPUES - 2026-11-13 09:38:49
+lambda26-puente-usgs	Up 23 seconds (healthy)
+lambda26-mosquitto	Up 27 seconds (healthy)
+lambda26-grafana	Up 43 seconds (healthy)
+lambda26-prometheus	Up 49 seconds (healthy)
+lambda26-pushgateway	Up 49 seconds (healthy)
+agua-pyspark	Up About a minute (healthy)
+lambda26-kafka-exporter	Up About a minute (healthy)
+lambda26-kafka	Up About a minute (healthy)
+lambda26-kafka-ui	Up 10 hours
+lambda26-uso-agua-iot	Up 10 hours
+lambda26-postgres-ec-pago-dev	Up 10 hours
+lambda26-postgres-ec-orden-dev	Up 10 hours
+ltx_nginx	Up 10 hours
+ltx_core	Up 10 hours

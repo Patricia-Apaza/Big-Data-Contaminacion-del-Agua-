@@ -1,0 +1,1445 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Sistema Big Data batch y streaming para anticipar el deterioro de la calidad del agua. Equipo 02, Big Data, UPeU.">
+      
+      
+        <meta name="author" content="Celia Patricia Apaza Hilasaca y Jhenderson Aaron Machaca Mamani">
+      
+      
+        <link rel="canonical" href="https://patricia-apaza.github.io/Big-Data-Contaminacion-del-Agua-/u3/integracion/">
+      
+      
+        <link rel="prev" href="../../evidencias/">
+      
+      
+        <link rel="next" href="../hardening/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Ejecución integrada - AquaVigía · Producto Final (Unidad 3)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ejecucion-integrada-s13" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="AquaVigía · Producto Final (Unidad 3)" class="md-header__button md-logo" aria-label="AquaVigía · Producto Final (Unidad 3)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AquaVigía · Producto Final (Unidad 3)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ejecución integrada
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Patricia-Apaza/Big-Data-Contaminacion-del-Agua-" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Big-Data-Contaminacion-del-Agua-
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AquaVigía · Producto Final (Unidad 3)" class="md-nav__button md-logo" aria-label="AquaVigía · Producto Final (Unidad 3)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AquaVigía · Producto Final (Unidad 3)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Patricia-Apaza/Big-Data-Contaminacion-del-Agua-" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Big-Data-Contaminacion-del-Agua-
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalación y ejecución
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../uso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uso del sistema
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Módulos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pruebas y evidencias
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pruebas y evidencias
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../evidencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejecución integrada
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejecución integrada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-flujo-de-la-ejecucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Flujo de la ejecución
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-dependencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Dependencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-pasos-de-ejecucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Pasos de ejecución
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-corridas-y-comparacion-de-manifiestos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Corridas y comparación de manifiestos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Corridas y comparación de manifiestos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#corridas-de-patricia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Corridas de Patricia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corridas-de-jhenderson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Corridas de Jhenderson
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-bitacora-de-integracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Bitácora de integración
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardening y revisión técnica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../equipo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Equipo y aporte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../repositorio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Repositorio y estándares
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../limitaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Limitaciones y mejoras
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../u3-producto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Producto U3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unidad 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unidad 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../patricia/u2-producto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Patricia, producto U2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../patricia/costos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Patricia, costos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jhenderson/u2-producto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jhenderson, producto U2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jhenderson/costos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jhenderson, costos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rubrica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rúbrica U2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-flujo-de-la-ejecucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Flujo de la ejecución
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-dependencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Dependencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-pasos-de-ejecucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Pasos de ejecución
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-corridas-y-comparacion-de-manifiestos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Corridas y comparación de manifiestos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Corridas y comparación de manifiestos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#corridas-de-patricia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Corridas de Patricia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corridas-de-jhenderson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Corridas de Jhenderson
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-bitacora-de-integracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Bitácora de integración
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ejecucion-integrada-s13">Ejecución integrada (S13)<a class="headerlink" href="#ejecucion-integrada-s13" title="Permanent link">&para;</a></h1>
+<p>Cuadernos: <code>pyspark/sesiones/AquaVigia_Producto_U3/&lt;integrante&gt;/13_integracion_&lt;integrante&gt;.ipynb</code>. En una sola corrida comprueban sus dependencias, procesan el batch de la Unidad 1, procesan el streaming de la Unidad 2 con el modelo en una ventana fija, publican sus métricas en Prometheus y escriben un manifiesto.</p>
+<h2 id="1-flujo-de-la-ejecucion">1. Flujo de la ejecución<a class="headerlink" href="#1-flujo-de-la-ejecucion" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TB
+    PRE["Compuertas previas: 9 dependencias"] --&gt; BAT["Batch U1: Parquet gold + compuertas de calidad"]
+    PRE --&gt; STR["Streaming U2: Kafka, validación, dedup, pronóstico sin estado, riesgo, evento de negocio"]
+    BAT --&gt; KPI["KPI de tiempo con p50 y p95 + compuerta de plausibilidad"]
+    STR --&gt; KPI
+    KPI --&gt; PG["Pushgateway"] --&gt; PR[("Prometheus")] --&gt; GR["Grafana: fila U3"]
+    PR --&gt; MAN[/"Manifiesto JSON"/]</code></pre>
+<h2 id="2-dependencias">2. Dependencias<a class="headerlink" href="#2-dependencias" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Necesita</th>
+<th>Compuerta previa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Batch U1</td>
+<td><code>AquaVigia_Producto_U1/&lt;integrante&gt;/artifacts/mediciones_particionado</code> (lo genera <code>04_producto_u1_&lt;integrante&gt;.ipynb</code>)</td>
+<td>Parquet de la U1 (gold) existe</td>
+</tr>
+<tr>
+<td>Batch U1</td>
+<td>Modelo de la U1 (lo genera el mismo cuaderno)</td>
+<td>Modelo de la U1 existe</td>
+</tr>
+<tr>
+<td>Streaming U2</td>
+<td><code>AquaVigia_Producto_U2/&lt;integrante&gt;/artifacts/modelos_&lt;integrante&gt;</code> (lo genera <code>12b_modelo_usgs_&lt;integrante&gt;.ipynb</code>)</td>
+<td>Modelos de la U2 existen</td>
+</tr>
+<tr>
+<td>Streaming U2</td>
+<td>Kafka con <code>agua-usgs-eventos-v2</code> con mensajes y el tópico de negocio</td>
+<td>Kafka: tópico con datos; tópico de negocio existe</td>
+</tr>
+<tr>
+<td>Ingesta</td>
+<td>Mosquitto y el productor enviando</td>
+<td>MQTT acepta conexiones</td>
+</tr>
+<tr>
+<td>Observabilidad</td>
+<td>Pushgateway, Prometheus y Grafana</td>
+<td>Pushgateway listo; Prometheus listo; Grafana saludable</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-pasos-de-ejecucion">3. Pasos de ejecución<a class="headerlink" href="#3-pasos-de-ejecucion" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>powershell -ExecutionPolicy Bypass -File scripts\levantar.ps1</code> (o, antes del hardening, los contenedores ya levantados).</li>
+<li>Jupyter (<code>http://localhost:4488</code>) → <code>AquaVigia_Producto_U3/&lt;integrante&gt;/13_integracion_&lt;integrante&gt;.ipynb</code> → Kernel → Restart Kernel and Run All Cells. Un solo cuaderno a la vez: dos kernels que arrancan juntos se bloquean al resolver el conector de Kafka (bitácora, fila 2).</li>
+<li>Cuando el cuaderno imprime <code>Streaming 240 s ...</code>, en otra terminal se arranca el productor. El streaming lee solo lo nuevo (<code>latest</code>), así que lo enviado antes no entra. <code>--velocidad</code> es lecturas por segundo, no un multiplicador:
+   <div class="highlight"><pre><span></span><code>py usgs_productor.py reproducir --archivo historial.jsonl --desde 2026-10-16T22:00 --hasta 2026-10-17T04:00 --velocidad 10 --salida mqtt
+</code></pre></div>
+   El archivo <code>historial.jsonl</code> se genera una vez con el modo <code>historial</code> del productor (90 días; no se versiona por su tamaño).</li>
+<li>Grafana → carpeta AquaVigia → tablero "AquaVigia U3: sistema integrado (Equipo 02)" → fila "Ejecución integrada U3".</li>
+</ol>
+<h2 id="4-corridas-y-comparacion-de-manifiestos">4. Corridas y comparación de manifiestos<a class="headerlink" href="#4-corridas-y-comparacion-de-manifiestos" title="Permanent link">&para;</a></h2>
+<h3 id="corridas-de-patricia">Corridas de Patricia<a class="headerlink" href="#corridas-de-patricia" title="Permanent link">&para;</a></h3>
+<p>Dos corridas de Patricia el 13/11/2026, mismo cuaderno y mismos parámetros (streaming de 240 s, disparador de 10 s, umbral de riesgo 0,5). Solo cambió el tramo que reprodujo el productor. Los manifiestos completos están en <a href="https://github.com/Patricia-Apaza/Big-Data-Contaminacion-del-Agua-/tree/main/docs/u3/evidencias/manifiestos"><code>evidencias/manifiestos/</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>Indicador</th>
+<th>Corrida 1</th>
+<th>Corrida 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>runId</td>
+<td>20261113T102832Z</td>
+<td>20261113T104634Z</td>
+</tr>
+<tr>
+<td>Tramo reproducido (UTC)</td>
+<td>16/10 desde 20:00, 5 lecturas/s</td>
+<td>16/10 22:00 a 17/10 04:00, 10 lecturas/s</td>
+</tr>
+<tr>
+<td>Compuertas que pasan</td>
+<td>21 de 21</td>
+<td>21 de 21</td>
+</tr>
+<tr>
+<td>Filas batch U1</td>
+<td>1 245 817</td>
+<td>1 245 817</td>
+</tr>
+<tr>
+<td>Micro-lotes (con datos)</td>
+<td>20</td>
+<td>23 (22)</td>
+</tr>
+<tr>
+<td>Pronósticos</td>
+<td>427</td>
+<td>971</td>
+</tr>
+<tr>
+<td>Eventos de negocio (en Kafka)</td>
+<td>0 (0)</td>
+<td>4 (4)</td>
+</tr>
+<tr>
+<td>Riesgo máximo</td>
+<td>0,497</td>
+<td>0,745</td>
+</tr>
+<tr>
+<td>Latencia p50 / p95 / máx.</td>
+<td>7,2 s / 11,9 s / 12,8 s</td>
+<td>7,4 s / 11,9 s / 12,9 s</td>
+</tr>
+<tr>
+<td>Micro-lote p50 / p95</td>
+<td>2 886 ms / 3 100 ms</td>
+<td>2 883 ms / 3 642 ms</td>
+</tr>
+<tr>
+<td>RMSE vivo temperatura, modelo / persistencia</td>
+<td>0,2067 / 0,1394 (69 comp.)</td>
+<td>0,1127 / 0,1921 (341 comp.)</td>
+</tr>
+<tr>
+<td>RMSE vivo oxígeno, modelo / persistencia</td>
+<td>0,1946 / 0,2790</td>
+<td>0,1210 / 0,1962 (342 comp.)</td>
+</tr>
+<tr>
+<td>Métricas confirmadas en Prometheus</td>
+<td>15 de 15</td>
+<td>15 de 15</td>
+</tr>
+<tr>
+<td>Advertencias</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Duración total</td>
+<td>256,5 s</td>
+<td>254,8 s</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Lectura.</strong></p>
+<ul>
+<li><strong>Lo que no cambió es el procedimiento:</strong> mismas compuertas, mismas dependencias y el mismo batch (1 245 817 filas). Las latencias también se mantuvieron: p50 de unos 7 s y p95 de 12 s, muy por debajo del límite de 60 s. No hay regresión.</li>
+<li><strong>Lo que cambió son las lecturas.</strong></li>
+<li>La corrida 1 cubrió unas 2 horas antes del episodio. El riesgo quedó en 0,497, por debajo del umbral, así que no emitió eventos.</li>
+<li>La corrida 2 cayó dentro del episodio y emitió 4 eventos. Los 4 aparecieron en <code>orden-eventos</code>: la compuerta comparó los offsets antes y después.</li>
+<li><strong>Advertencia de la corrida 1.</strong> Con solo 69 comparaciones en un tramo de temperatura casi constante, la persistencia ganó al modelo. El cuaderno lo registró como advertencia y no lo ocultó. En la corrida 2, con 341 comparaciones, el modelo ganó en las dos variables. Los valores quedan cerca del RMSE de validación del 12b: 0,1299 en temperatura y 0,1422 en oxígeno.</li>
+<li><strong>Límite.</strong> Son dos corridas de 4 minutos. Sirven para comprobar que el sistema integrado funciona y es repetible, no para evaluar el modelo a largo plazo.</li>
+</ul>
+<h3 id="corridas-de-jhenderson">Corridas de Jhenderson<a class="headerlink" href="#corridas-de-jhenderson" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Indicador</th>
+<th>Corrida fallida</th>
+<th>Corrida tras la corrección</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>runId</td>
+<td>20261113T110211Z</td>
+<td>20261113T112336Z</td>
+</tr>
+<tr>
+<td>Gold de la U1</td>
+<td>794 866 filas, 5 regiones</td>
+<td>1 245 817 filas, 8 regiones</td>
+</tr>
+<tr>
+<td>Compuertas</td>
+<td>Se detuvo en la sección 2: <code>FALLA Completitud</code></td>
+<td>21 de 21</td>
+</tr>
+<tr>
+<td>Pronósticos</td>
+<td>sin streaming</td>
+<td>1 043</td>
+</tr>
+<tr>
+<td>Eventos de negocio (en Kafka)</td>
+<td>sin streaming</td>
+<td>15 (15)</td>
+</tr>
+<tr>
+<td>Riesgo máximo</td>
+<td>sin streaming</td>
+<td>1,000</td>
+</tr>
+<tr>
+<td>Latencia p50 / p95 / máx.</td>
+<td>sin streaming</td>
+<td>7,5 s / 11,9 s / 12,7 s</td>
+</tr>
+<tr>
+<td>Micro-lote p50 / p95</td>
+<td>sin streaming</td>
+<td>2 974 ms / 3 258 ms</td>
+</tr>
+<tr>
+<td>RMSE vivo pH, modelo / persistencia</td>
+<td>sin streaming</td>
+<td>0,0570 / 0,0703 (366 comp.)</td>
+</tr>
+<tr>
+<td>RMSE vivo turbidez, modelo / persistencia</td>
+<td>sin streaming</td>
+<td>6,2517 / 7,8381 (365 comp.)</td>
+</tr>
+<tr>
+<td>Métricas confirmadas en Prometheus</td>
+<td>no publicó</td>
+<td>15 de 15</td>
+</tr>
+<tr>
+<td>Manifiesto</td>
+<td>no se escribe (se detiene antes de la sección 6); evidencia en <a href="../evidencias/jhenderson_corrida_fallida_20261113T110211Z.txt">texto</a></td>
+<td><a href="https://github.com/Patricia-Apaza/Big-Data-Contaminacion-del-Agua-/tree/main/docs/u3/evidencias/manifiestos"><code>evidencias/manifiestos/</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Lectura.</strong></p>
+<ul>
+<li>La corrida fallida muestra que la ejecución se detiene en la compuerta que corresponde y no publica nada con datos incompletos.</li>
+<li>Tras regenerar el gold, la misma ventana del episodio que usó Patricia produjo 15 eventos, y los 15 están en <code>alerta-eventos</code>. Un riesgo de 1,000 significa que el pronóstico quedó tan lejos del umbral de la estación que la probabilidad de cruzarlo, redondeada, es 1. Los eventos con su variable y estación están en <code>alerta-eventos</code>.</li>
+<li>En pH el modelo gana en RMSE (0,0570 frente a 0,0703), pero en MAE la persistencia es algo mejor (0,0396 frente a 0,0411). El modelo reduce los errores grandes, no el error típico. En turbidez el modelo gana en las dos métricas.</li>
+</ul>
+<h2 id="5-bitacora-de-integracion">5. Bitácora de integración<a class="headerlink" href="#5-bitacora-de-integracion" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Hallazgo</th>
+<th>Causa</th>
+<th>Corrección</th>
+<th>Prueba de corrección</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Corrida 20261113T110211Z de Jhenderson detenida en la sección 2: <code>FALLA Completitud: 1 245 817 filas de la U1</code>. El gold tiene 794 866 filas y 5 regiones; faltan Arequipa, Lambayeque y Loreto (450 951 filas). Las otras compuertas de calidad pasaron, así que solo la de completitud detecta el problema (<a href="../evidencias/jhenderson_corrida_fallida_20261113T110211Z.txt">evidencia</a>).</td>
+<td>Faltan en el disco 12 de los 32 archivos Parquet del gold, los de esas 3 regiones. El 04 verificó la escritura completa en su momento (celda de ida y vuelta), así que los archivos se perdieron después. No se pudo confirmar en qué paso.</td>
+<td>Volver a ejecutar <code>04_producto_u1_jhenderson.ipynb</code>, que reescribe el gold con <code>mode("overwrite")</code> desde <code>data/</code>.</td>
+<td>Corrida 20261113T112336Z: el 04 vuelve a escribir 32 archivos en 8 regiones (<code>Verificado: 1,245,817 filas</code>) con el mismo modelo de la U1 (RMSE 0,0355, R2 0,0008), y en el 13 pasan las 21 compuertas, incluida la de completitud.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Run All no mostraba salida en ninguna celda durante varios minutos.</td>
+<td>Los cuadernos de los dos integrantes se iniciaron a la vez y los dos kernels quedaron esperando al resolver el paquete <code>spark-sql-kafka</code> en la misma caché de Ivy.</td>
+<td>Apagar los dos kernels y ejecutar un solo cuaderno a la vez (paso 2 de la sección 3).</td>
+<td>Corrida 20261113T102832Z completa: preflight en segundos y duración total de 256,5 s.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>La corrida 1 terminó sin eventos de negocio.</td>
+<td>No es un fallo: a 5 lecturas/s, los 240 s de streaming cubrieron el tramo previo al episodio (riesgo máximo 0,497 &lt; 0,5).</td>
+<td>Arrancar el productor cuando empieza el streaming y reproducir desde las 22:00 UTC a 10 lecturas/s.</td>
+<td>Corrida 20261113T104634Z: 4 eventos emitidos y 4 confirmados en Kafka.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>En las corridas 20261113T163113Z y 20261113T163824Z (después del hardening), al detener el streaming a los 240 s apareció <code>SPARK_JOB_CANCELLED</code> seguido de <code>java.lang.StackOverflowError</code> en el hilo del stream.</td>
+<td><code>q.stop()</code> llegó en medio de un micro-lote y Spark canceló ese lote mientras leía sus datos. Al cerrar, el hilo del stream se desbordó procesando el mensaje de la cancelación. El lote cancelado no llegó a contarse ni a publicar eventos: en las dos corridas la compuerta "eventos emitidos = eventos en Kafka" dio 4 = 4 y 16 = 16.</td>
+<td>Parada ordenada: antes de <code>q.stop()</code>, el cuaderno espera hasta 30 s a que termine el micro-lote en curso (<code>q.status["isTriggerActive"]</code>).</td>
+<td>Pendiente: la próxima corrida termina la sección 3 sin ese error.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "content.code.copy", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

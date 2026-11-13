@@ -1,0 +1,9 @@
+Prueba manual de healthchecks - 2026-11-12 23:27:38
+lambda26-kafka             codigo=0  OK
+lambda26-kafka-exporter    codigo=0  OK
+lambda26-prometheus        codigo=0  OK
+lambda26-pushgateway       codigo=0  OK
+lambda26-grafana           codigo=0  OK
+lambda26-mosquitto         codigo=0  OK
+lambda26-puente-usgs       codigo=0  OK
+agua-pyspark               codigo=0  OK

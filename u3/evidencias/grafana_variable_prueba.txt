@@ -1,0 +1,8 @@
+Prueba de la variable GRAFANA_ADMIN_PASSWORD - 2026-11-13 09:38:55
+-- Sin variable (valor por defecto):
+GF_SECURITY_ADMIN_PASSWORD: admin
+GF_SECURITY_ADMIN_USER: admin
+-- Con $env:GRAFANA_ADMIN_PASSWORD='prueba-variable-s14':
+GF_SECURITY_ADMIN_PASSWORD: prueba-variable-s14
+GF_SECURITY_ADMIN_USER: admin
+(La prueba solo usa 'config': no recrea Grafana ni cambia su clave real.)

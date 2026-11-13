@@ -1,0 +1,156 @@
+{
+  "runId": "20261113T163113Z",
+  "integrante": "Patricia Apaza",
+  "inicioUtc": "2026-11-13T16:31:13.421254+00:00",
+  "versiones": {
+    "spark": "4.2.0",
+    "pyspark": "4.2.0",
+    "python": "3.10.22"
+  },
+  "parametros": {
+    "duracionS": 240,
+    "triggerS": 10,
+    "maxPorLote": 600,
+    "riesgoAlerta": 0.5,
+    "watermark": "85 minutes",
+    "p50LatenciaMaxS": 60,
+    "p95LatenciaAvisoS": 300
+  },
+  "compuertasPrevias": {
+    "Parquet de la U1 (gold) existe": true,
+    "Modelo de la U1 existe": true,
+    "Modelos de la U2 (12b) existen": true,
+    "Kafka: topico agua-usgs-eventos-v2 con datos": true,
+    "Kafka: topico orden-eventos existe": true,
+    "MQTT (mosquitto:1883) acepta conexiones": true,
+    "Pushgateway listo": true,
+    "Prometheus listo": true,
+    "Grafana saludable": true
+  },
+  "batch": {
+    "filas": 1245817,
+    "regiones": [
+      "Arequipa",
+      "Cusco",
+      "Junín",
+      "Lambayeque",
+      "Lima",
+      "Loreto",
+      "Piura",
+      "Puno"
+    ],
+    "kpi": {
+      "temperatura_c__nulos": 0.0,
+      "temperatura_c__fuera_fisico": 0.0,
+      "temperatura_c__p50": 16.0,
+      "temperatura_c__p95": 25.0,
+      "temperatura_c__promedio": 16.00778003510948,
+      "oxigeno_disuelto_mgl__nulos": 0.0,
+      "oxigeno_disuelto_mgl__fuera_fisico": 0.0,
+      "oxigeno_disuelto_mgl__p50": 7.0,
+      "oxigeno_disuelto_mgl__p95": 9.63,
+      "oxigeno_disuelto_mgl__promedio": 7.000074874560229
+    },
+    "indicadorU1": {
+      "0": 964746,
+      "1": 281071
+    },
+    "calidad": {
+      "Hay filas": true,
+      "Completitud: 1 245 817 filas de la U1": true,
+      "temperatura_c sin nulos": true,
+      "temperatura_c dentro del rango fisico": true,
+      "temperatura_c: p50 plausible (2 a 30)": true,
+      "oxigeno_disuelto_mgl sin nulos": true,
+      "oxigeno_disuelto_mgl dentro del rango fisico": true,
+      "oxigeno_disuelto_mgl: p50 plausible (3 a 14)": true
+    }
+  },
+  "streaming": {
+    "duracionS": 240,
+    "microlotes": 23,
+    "lotesConDatos": 22,
+    "pronosticos": 1015,
+    "eventosNegocio": 4,
+    "eventosNegocioEnKafka": 4,
+    "riesgoMax": 0.7447,
+    "error": [
+      {
+        "variable": "temperatura_c",
+        "RMSE_validacion_12b": 0.1299,
+        "RMSE_validacion_persistencia": 0.2365,
+        "RMSE_vivo_modelo": 0.1131,
+        "MAE_vivo_modelo": 0.0883,
+        "RMSE_vivo_persistencia": 0.1926,
+        "MAE_vivo_persistencia": 0.1342,
+        "comparaciones": 363
+      },
+      {
+        "variable": "oxigeno_mgl",
+        "RMSE_validacion_12b": 0.1422,
+        "RMSE_validacion_persistencia": 0.2096,
+        "RMSE_vivo_modelo": 0.126,
+        "MAE_vivo_modelo": 0.0952,
+        "RMSE_vivo_persistencia": 0.1957,
+        "MAE_vivo_persistencia": 0.1324,
+        "comparaciones": 364
+      }
+    ],
+    "compuertas": {
+      "El stream entrego filas": true,
+      "Los 4 eventos de negocio emitidos estan en Kafka": true
+    }
+  },
+  "kpiTiempo": {
+    "latenciaPuntaAPunta": {
+      "n": 1015,
+      "promedioS": 6.727983903649992,
+      "p50S": 6.714502811431885,
+      "p95S": 11.27508180141449,
+      "maxS": 12.105979204177856,
+      "fraccionMayor1Min": 0.0
+    },
+    "duracionMicrolote": {
+      "n": 22,
+      "promedioMs": 2123.0454545454545,
+      "p50Ms": 2033.5,
+      "p95Ms": 2652.2499999999995
+    },
+    "retrasoUsgs": {
+      "n": 0,
+      "p50Min": null,
+      "p95Min": null
+    },
+    "compuertas": {
+      "Latencia tipica (p50) menor a 60 s": true,
+      "Micro-lote tipico (p50) menor al disparador (10 s)": true
+    }
+  },
+  "observabilidad": {
+    "metricas": {
+      "aquavigia_int_batch_filas": "1245817",
+      "aquavigia_int_compuertas_ok": "21",
+      "aquavigia_int_stream_pronosticos": "1015",
+      "aquavigia_int_eventos_negocio": "4",
+      "aquavigia_int_riesgo_max": "0.7447",
+      "aquavigia_int_latencia_p50_s": "6.715",
+      "aquavigia_int_latencia_p95_s": "11.275",
+      "aquavigia_int_latencia_promedio_s": "6.728",
+      "aquavigia_int_lote_p50_ms": "2033.5",
+      "aquavigia_int_lote_p95_ms": "2652.2",
+      "aquavigia_int_ultima_ejecucion_timestamp": "1794587731",
+      "aquavigia_int_rmse_vivo{variable=\"temperatura_c\",modelo=\"modelo\"}": "0.1131",
+      "aquavigia_int_rmse_vivo{variable=\"temperatura_c\",modelo=\"persistencia\"}": "0.1926",
+      "aquavigia_int_rmse_vivo{variable=\"oxigeno_mgl\",modelo=\"modelo\"}": "0.126",
+      "aquavigia_int_rmse_vivo{variable=\"oxigeno_mgl\",modelo=\"persistencia\"}": "0.1957"
+    },
+    "todasEnPrometheus": true
+  },
+  "advertencias": [],
+  "kafka": {
+    "mensajesEntrada": 306,
+    "mensajesNegocioAntes": 0
+  },
+  "duracionTotalS": 263.0,
+  "finUtc": "2026-11-13T16:35:36.456761+00:00"
+}

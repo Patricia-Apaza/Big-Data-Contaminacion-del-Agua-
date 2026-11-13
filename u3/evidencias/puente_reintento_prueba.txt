@@ -1,0 +1,17 @@
+Prueba de reintentos del puente - 2026-11-13 09:38:56
+-- 2026-11-13 09:38:56 docker stop lambda26-kafka
+-- 2026-11-13 09:38:58 docker restart lambda26-puente-usgs
+-- 2026-11-13 09:39:24 estado del puente con Kafka detenido: starting
+-- 2026-11-13 09:39:25 docker start lambda26-kafka
+-- 2026-11-13 09:39:36 Kafka: healthy
+-- Log del puente desde el reinicio:
+{"service": "puente-usgs", "status": "kafka_no_disponible", "intento": 1, "error": "NoBrokersAvailable"}
+{"service": "puente-usgs", "status": "kafka_no_disponible", "intento": 2, "error": "NoBrokersAvailable"}
+{"service": "puente-usgs", "status": "kafka_no_disponible", "intento": 3, "error": "NoBrokersAvailable"}
+{"service": "puente-usgs", "status": "starting", "mqttHost": "mosquitto", "mqttPort": 1883, "kafka": "kafka:9092", "kafkaTopic": "agua-usgs-eventos-v2"}
+{"service": "puente-usgs", "status": "connected", "mqttHost": "mosquitto", "mqttTopic": "aquavigia/equipo02/usgs/#"}
+-- 2026-11-13 09:40:21 estado final del puente: healthy
+-- Topicos tras detener y arrancar Kafka (el contenedor no se recrea, los datos siguen):
+agua-usgs-eventos-v2
+alerta-eventos
+orden-eventos

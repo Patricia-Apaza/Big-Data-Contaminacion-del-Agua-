@@ -1,0 +1,15 @@
+docker ps ANTES - 2026-11-12 23:27:38
+lambda26-kafka-ui	Up 9 minutes
+lambda26-puente-usgs	Up 9 minutes
+lambda26-mosquitto	Up 9 minutes
+lambda26-pushgateway	Up 9 minutes
+lambda26-grafana	Up 9 minutes
+lambda26-prometheus	Up 9 minutes
+agua-pyspark	Up 9 minutes
+lambda26-uso-agua-iot	Up 9 minutes
+lambda26-postgres-ec-pago-dev	Up 9 minutes
+lambda26-kafka-exporter	Up 9 minutes
+lambda26-kafka	Up 9 minutes
+lambda26-postgres-ec-orden-dev	Up 9 minutes
+ltx_nginx	Up 9 minutes
+ltx_core	Up 9 minutes

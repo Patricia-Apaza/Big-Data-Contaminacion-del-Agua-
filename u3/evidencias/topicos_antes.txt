@@ -1,0 +1,127 @@
+Topicos ANTES - 2026-11-12 23:27:38
+Topic: agua-calidad-eventos	TopicId: yXPVRgRaR1aLmARknPyR9Q	PartitionCount: 1	ReplicationFactor: 1	Configs: min.insync.replicas=1
+	Topic: agua-calidad-eventos	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+Topic: agua-usgs-eventos	TopicId: 2IA_7wjUTe2E7-UgDc5JLA	PartitionCount: 1	ReplicationFactor: 1	Configs: min.insync.replicas=1
+	Topic: agua-usgs-eventos	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+Topic: orden-eventos	TopicId: ITxJzThzQ7a6y-CP-A6MtA	PartitionCount: 1	ReplicationFactor: 1	Configs: min.insync.replicas=1
+	Topic: orden-eventos	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+Topic: agua-eventos	TopicId: f5MKKBDoRoqmuVV9O6nxzw	PartitionCount: 1	ReplicationFactor: 1	Configs: min.insync.replicas=1
+	Topic: agua-eventos	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+Topic: agua-usgs-eventos-v2	TopicId: QquU_KKES-KBnePNm8IaPw	PartitionCount: 3	ReplicationFactor: 1	Configs: min.insync.replicas=1
+	Topic: agua-usgs-eventos-v2	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: agua-usgs-eventos-v2	Partition: 1	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: agua-usgs-eventos-v2	Partition: 2	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+Topic: alerta-eventos	TopicId: phd6qJNeTWqNU_nfri-NBw	PartitionCount: 1	ReplicationFactor: 1	Configs: min.insync.replicas=1
+	Topic: alerta-eventos	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+Topic: pago-eventos	TopicId: PEG40fA1TpyfM4wCKv9sAA	PartitionCount: 1	ReplicationFactor: 1	Configs: min.insync.replicas=1
+	Topic: pago-eventos	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+Topic: __consumer_offsets	TopicId: sjqGzR9mTH6cyiRp_0YSiQ	PartitionCount: 50	ReplicationFactor: 1	Configs: compression.type=producer,min.insync.replicas=1,cleanup.policy=compact,segment.bytes=104857600
+	Topic: __consumer_offsets	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 1	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 2	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 3	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 4	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 5	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 6	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 7	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 8	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 9	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 10	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 11	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 12	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 13	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 14	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 15	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 16	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 17	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 18	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 19	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 20	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 21	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 22	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 23	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 24	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 25	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 26	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 27	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 28	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 29	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 30	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 31	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 32	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 33	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 34	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 35	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 36	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 37	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 38	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 39	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 40	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 41	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 42	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 43	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 44	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 45	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 46	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 47	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 48	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 49	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+__consumer_offsets:0:0
+__consumer_offsets:1:0
+__consumer_offsets:10:0
+__consumer_offsets:11:0
+__consumer_offsets:12:0
+__consumer_offsets:13:0
+__consumer_offsets:14:0
+__consumer_offsets:15:0
+__consumer_offsets:16:0
+__consumer_offsets:17:690
+__consumer_offsets:18:0
+__consumer_offsets:19:0
+__consumer_offsets:2:0
+__consumer_offsets:20:0
+__consumer_offsets:21:0
+__consumer_offsets:22:0
+__consumer_offsets:23:0
+__consumer_offsets:24:2022
+__consumer_offsets:25:0
+__consumer_offsets:26:0
+__consumer_offsets:27:0
+__consumer_offsets:28:0
+__consumer_offsets:29:0
+__consumer_offsets:3:0
+__consumer_offsets:30:0
+__consumer_offsets:31:0
+__consumer_offsets:32:0
+__consumer_offsets:33:0
+__consumer_offsets:34:0
+__consumer_offsets:35:0
+__consumer_offsets:36:0
+__consumer_offsets:37:0
+__consumer_offsets:38:0
+__consumer_offsets:39:0
+__consumer_offsets:4:0
+__consumer_offsets:40:0
+__consumer_offsets:41:15
+__consumer_offsets:42:0
+__consumer_offsets:43:0
+__consumer_offsets:44:0
+__consumer_offsets:45:0
+__consumer_offsets:46:0
+__consumer_offsets:47:0
+__consumer_offsets:48:0
+__consumer_offsets:49:0
+__consumer_offsets:5:0
+__consumer_offsets:6:0
+__consumer_offsets:7:0
+__consumer_offsets:8:0
+__consumer_offsets:9:0
+agua-calidad-eventos:0:1944
+agua-eventos:0:4558
+agua-usgs-eventos:0:16268
+agua-usgs-eventos-v2:0:20662
+agua-usgs-eventos-v2:1:19896
+agua-usgs-eventos-v2:2:10990
+alerta-eventos:0:81
+orden-eventos:0:49
+pago-eventos:0:7

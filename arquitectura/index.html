@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Monitoreo y predicción de la calidad del agua en tiempo real con datos reales del USGS. Equipo 02, Big Data, UPeU.">
+        <meta name="description" content="Sistema Big Data batch y streaming para anticipar el deterioro de la calidad del agua. Equipo 02, Big Data, UPeU.">
       
       
         <meta name="author" content="Celia Patricia Apaza Hilasaca y Jhenderson Aaron Machaca Mamani">
@@ -15,10 +15,10 @@
         <link rel="canonical" href="https://patricia-apaza.github.io/Big-Data-Contaminacion-del-Agua-/arquitectura/">
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../uso/">
       
       
-        <link rel="next" href="../patricia/u2-producto/">
+        <link rel="next" href="../modulos/">
       
       
         
@@ -29,7 +29,7 @@
     
     
       
-        <title>Arquitectura - AquaVigía · Producto de Unidad 2</title>
+        <title>Arquitectura - AquaVigía · Producto Final (Unidad 3)</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#arquitectura-lambda" class="md-skip">
+        <a href="#arquitectura" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -90,9 +90,11 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Cabecera">
-    <a href=".." title="AquaVigía · Producto de Unidad 2" class="md-header__button md-logo" aria-label="AquaVigía · Producto de Unidad 2" data-md-component="logo">
+    <a href=".." title="AquaVigía · Producto Final (Unidad 3)" class="md-header__button md-logo" aria-label="AquaVigía · Producto Final (Unidad 3)" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -106,7 +108,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            AquaVigía · Producto de Unidad 2
+            AquaVigía · Producto Final (Unidad 3)
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -186,114 +188,6 @@
       
         
           
-            
-<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
-        
-  
-  
-    
-  
-  Inicio
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    
-  
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
-        
-  
-  
-    
-  
-  Arquitectura
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../patricia/u2-producto/" class="md-tabs__link">
-          
-  
-  
-  Patricia Apaza
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../jhenderson/u2-producto/" class="md-tabs__link">
-          
-  
-  
-  Jhenderson Machaca
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../rubrica/" class="md-tabs__link">
-        
-  
-  
-    
-  
-  Rúbrica
-
-      </a>
-    </li>
-  
-
-      
-    </ul>
-  </div>
-</nav>
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -307,18 +201,16 @@
                     
 
 
-  
 
-
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="AquaVigía · Producto de Unidad 2" class="md-nav__button md-logo" aria-label="AquaVigía · Producto de Unidad 2" data-md-component="logo">
+    <a href=".." title="AquaVigía · Producto Final (Unidad 3)" class="md-nav__button md-logo" aria-label="AquaVigía · Producto Final (Unidad 3)" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    AquaVigía · Producto de Unidad 2
+    AquaVigía · Producto Final (Unidad 3)
   </label>
   
     <div class="md-nav__source">
@@ -350,6 +242,60 @@
     
   
     Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalación y ejecución
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uso del sistema
   
 
     
@@ -429,10 +375,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#contrato-del-evento-de-sensor" class="md-nav__link">
+  <a href="#nivel-1-vista-general" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Contrato del evento de sensor
+        Nivel 1: vista general
       
     </span>
   </a>
@@ -440,10 +386,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#infraestructura" class="md-nav__link">
+  <a href="#nivel-2-vista-detallada" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Infraestructura
+        Nivel 2: vista detallada
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nivel 2: vista detallada">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capa-de-integracion-unidad-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capa de integración (Unidad 3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#carpetas-principales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Carpetas principales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decisiones-tecnicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decisiones técnicas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contratos-de-los-eventos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contratos de los eventos
       
     </span>
   </a>
@@ -464,31 +460,85 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Módulos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
     
     
     
     
       
-      
+        
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
             
   
   
   <span class="md-ellipsis">
     
   
-    Patricia Apaza
+    Pruebas y evidencias
   
 
     
@@ -499,12 +549,263 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Patricia Apaza
+    Pruebas y evidencias
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evidencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../u3/integracion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejecución integrada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../u3/hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardening y revisión técnica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../equipo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Equipo y aporte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repositorio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Repositorio y estándares
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../limitaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Limitaciones y mejoras
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../u3-producto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Producto U3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unidad 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unidad 2
   
 
           </label>
@@ -524,7 +825,7 @@
   <span class="md-ellipsis">
     
   
-    Producto U2
+    Patricia, producto U2
   
 
     
@@ -552,7 +853,7 @@
   <span class="md-ellipsis">
     
   
-    Costos y escalado
+    Patricia, costos
   
 
     
@@ -565,65 +866,6 @@
   
 
               
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Jhenderson Machaca
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Jhenderson Machaca
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -639,7 +881,7 @@
   <span class="md-ellipsis">
     
   
-    Producto U2
+    Jhenderson, producto U2
   
 
     
@@ -667,7 +909,35 @@
   <span class="md-ellipsis">
     
   
-    Costos y escalado
+    Jhenderson, costos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rubrica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rúbrica U2
   
 
     
@@ -684,33 +954,6 @@
           </ul>
         </nav>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../rubrica/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Rúbrica
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -742,10 +985,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#contrato-del-evento-de-sensor" class="md-nav__link">
+  <a href="#nivel-1-vista-general" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Contrato del evento de sensor
+        Nivel 1: vista general
       
     </span>
   </a>
@@ -753,10 +996,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#infraestructura" class="md-nav__link">
+  <a href="#nivel-2-vista-detallada" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Infraestructura
+        Nivel 2: vista detallada
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nivel 2: vista detallada">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capa-de-integracion-unidad-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capa de integración (Unidad 3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#carpetas-principales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Carpetas principales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decisiones-tecnicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decisiones técnicas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contratos-de-los-eventos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contratos de los eventos
       
     </span>
   </a>
@@ -783,94 +1076,305 @@
   
 
 
-<h1 id="arquitectura-lambda">Arquitectura Lambda<a class="headerlink" href="#arquitectura-lambda" title="Permanent link">&para;</a></h1>
-<pre><code>USGS (sensores reales, API pública)
-   |  historial de 90 días  -&gt;  data/historial.jsonl   (capa batch: entrenamiento)
-   |  lecturas nuevas cada 120 s
-   v
-Kafka: agua-usgs-eventos (1 partición, key = estacion_id)
-   v
-Spark Structured Streaming
-   ventana 15 min + watermark 85 min + checkpoint
-   modelo de pronóstico a 1 hora  -&gt;  riesgo de salir del rango
-   |                         |                                  |
-Parquet               Kafka: orden-eventos / alerta-eventos   Pushgateway
-                                                                 |
-kafka-exporter  -&gt;  Prometheus  &lt;---------- scrape --------------+
-                        |
-                    Grafana (tablero único del equipo)
-</code></pre>
+<h1 id="arquitectura">Arquitectura<a class="headerlink" href="#arquitectura" title="Permanent link">&para;</a></h1>
+<p>AquaVigía usa una arquitectura <strong>Lambda</strong>: una capa batch para el histórico y el entrenamiento, una capa de velocidad para las lecturas en vivo, y una capa de servicio común (Kafka para los eventos de negocio y Grafana para el tablero). Elegimos Lambda porque el caso necesita las dos cosas: tendencias y modelos sobre el histórico, y alertas sobre lo que está pasando ahora.</p>
+<p>La arquitectura se muestra en dos niveles: una vista general y una vista detallada con los nombres de los componentes, las API y los puertos.</p>
+<h2 id="nivel-1-vista-general">Nivel 1: vista general<a class="headerlink" href="#nivel-1-vista-general" title="Permanent link">&para;</a></h2>
+<p><img alt="Arquitectura nivel 1" src="../img/arquitectura_nivel1.png" /></p>
+<p>Los dos flujos corren <strong>en paralelo</strong>:</p>
 <ul>
-<li><strong>Capa batch:</strong> historial de 90 días (1 309 777 lecturas en 13 estaciones) para entrenar los modelos.</li>
-<li><strong>Capa de velocidad:</strong> lecturas nuevas del USGS a Kafka cada 120 segundos, procesadas por Spark.</li>
-<li><strong>Capa de servicio:</strong> Grafana, con KPIs del flujo, pronóstico y riesgo en la misma pantalla.</li>
+<li><strong>Batch (Unidad 1):</strong> datos históricos → Spark batch → data lake en Parquet → modelos, calidad de datos y reportes.</li>
+<li><strong>Tiempo real (Unidad 2):</strong> sensores del USGS → productor → MQTT y puente → Kafka → Spark Streaming → pronóstico y riesgo, eventos de negocio y métricas.</li>
 </ul>
-<h2 id="contrato-del-evento-de-sensor">Contrato del evento de sensor<a class="headerlink" href="#contrato-del-evento-de-sensor" title="Permanent link">&para;</a></h2>
-<p><img alt="Mensaje real en Kafka UI" src="../img/kafka_sensores.jpg" /></p>
+<p>Se conectan en un punto: el modelo se entrena por lotes sobre el historial y Spark Streaming lo carga <strong>sin reentrenar</strong> (flecha discontinua).</p>
+<h2 id="nivel-2-vista-detallada">Nivel 2: vista detallada<a class="headerlink" href="#nivel-2-vista-detallada" title="Permanent link">&para;</a></h2>
+<p><img alt="Arquitectura nivel 2" src="../img/arquitectura_nivel2.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Imagen o código</th>
+<th>Dirección dentro de Docker</th>
+<th>Desde Windows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Productor del USGS</td>
+<td><code>usgs_productor.py</code> (Python en Windows)</td>
+<td></td>
+<td>consulta <code>api.waterdata.usgs.gov/ogcapi/v0</code></td>
+</tr>
+<tr>
+<td>Mosquitto (MQTT)</td>
+<td><code>eclipse-mosquitto:2.0.20</code></td>
+<td><code>mosquitto:1883</code></td>
+<td><code>localhost:41883</code></td>
+</tr>
+<tr>
+<td>Puente MQTT a Kafka</td>
+<td><code>uso-agua-usgs/app/bridge_mqtt_kafka_usgs.py</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Kafka (modo KRaft)</td>
+<td><code>apache/kafka:4.3.1</code></td>
+<td><code>kafka:9092</code></td>
+<td><code>localhost:49092</code></td>
+</tr>
+<tr>
+<td>Kafka UI</td>
+<td><code>ghcr.io/kafbat/kafka-ui:v1.5.0</code></td>
+<td></td>
+<td><code>localhost:48085</code></td>
+</tr>
+<tr>
+<td>Kafka Exporter</td>
+<td><code>danielqsj/kafka-exporter:v1.10.0</code></td>
+<td><code>kafka-exporter:9308</code></td>
+<td><code>localhost:49308</code></td>
+</tr>
+<tr>
+<td>PySpark 4.2 + Jupyter</td>
+<td><code>pyspark/Dockerfile</code></td>
+<td></td>
+<td><code>localhost:4488</code> (Jupyter), <code>localhost:4042</code> (Spark UI)</td>
+</tr>
+<tr>
+<td>Pushgateway</td>
+<td><code>prom/pushgateway:v1.11.1</code></td>
+<td><code>pushgateway:9091</code></td>
+<td><code>localhost:49091</code></td>
+</tr>
+<tr>
+<td>Prometheus</td>
+<td><code>prom/prometheus:v3.14.0</code></td>
+<td><code>prometheus:9090</code></td>
+<td><code>localhost:49090</code></td>
+</tr>
+<tr>
+<td>Grafana</td>
+<td><code>grafana/grafana:11.4.0</code></td>
+<td><code>grafana:3000</code></td>
+<td><code>localhost:43000</code></td>
+</tr>
+</tbody>
+</table>
+<p>Las versiones exactas de todas las imágenes están en la <a href="../u3/hardening/#2-lista-de-comprobacion-de-configuracion">lista de comprobación</a>.</p>
+<h3 id="capa-de-integracion-unidad-3">Capa de integración (Unidad 3)<a class="headerlink" href="#capa-de-integracion-unidad-3" title="Permanent link">&para;</a></h3>
+<p>Los diagramas muestran los flujos de las Unidades 1 y 2. En la Unidad 3 se agregaron dos piezas que los envuelven:</p>
+<ul>
+<li><strong>Arranque ordenado</strong> (<code>scripts/levantar.ps1</code>): cada servicio declara cuándo está listo (<code>healthcheck</code>) y los que dependen de otro esperan a que lo esté (<code>depends_on</code> con <code>service_healthy</code>).</li>
+<li><strong>Ejecución integrada</strong> (cuaderno 13 de cada integrante): lee el Parquet gold de la U1, corre el streaming de la U2 con el modelo del 12b, publica eventos y métricas, y verifica cada paso con compuertas. El resultado aparece en la fila "Ejecución integrada U3" de Grafana.</li>
+</ul>
+<pre class="mermaid"><code>flowchart TB
+  A[Compuertas previas] --&gt; B[Batch U1: Parquet gold + compuertas de calidad]
+  B --&gt; C[Streaming U2: 240 s con el modelo del 12b]
+  C --&gt; D[Compuertas de salida: eventos en Kafka]
+  D --&gt; E[KPI de tiempo p50 y p95]
+  E --&gt; F[Pushgateway y confirmación en Prometheus]
+  F --&gt; G[Manifiesto JSON]</code></pre>
+<h2 id="carpetas-principales">Carpetas principales<a class="headerlink" href="#carpetas-principales" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Carpeta</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kafka/</code></td>
+<td>Compose de Kafka, Kafka UI y Kafka Exporter</td>
+</tr>
+<tr>
+<td><code>pyspark/</code></td>
+<td>Imagen de PySpark con Jupyter y su Compose. <code>pyspark/sesiones/</code> se monta en <code>/opt</code> dentro del contenedor</td>
+</tr>
+<tr>
+<td><code>pyspark/sesiones/AquaVigia_Producto_U1/&lt;integrante&gt;/</code></td>
+<td>Cuaderno batch <code>04</code>, datos de entrada (<code>data/</code>) y artefactos (<code>artifacts/</code>, no versionado)</td>
+</tr>
+<tr>
+<td><code>pyspark/sesiones/AquaVigia_Producto_U2/&lt;integrante&gt;/</code></td>
+<td>Cuadernos <code>12a</code> a <code>12e</code>, productor del USGS, costos y tableros de la Unidad 2</td>
+</tr>
+<tr>
+<td><code>pyspark/sesiones/AquaVigia_Producto_U2/data/</code></td>
+<td><code>historial.jsonl</code> del USGS (no versionado)</td>
+</tr>
+<tr>
+<td><code>pyspark/sesiones/AquaVigia_Producto_U3/&lt;integrante&gt;/</code></td>
+<td>Cuaderno <code>13</code> de ejecución integrada y sus manifiestos (no versionados)</td>
+</tr>
+<tr>
+<td><code>obs/</code></td>
+<td>Prometheus, Pushgateway, Grafana y el tablero que Grafana carga al arrancar</td>
+</tr>
+<tr>
+<td><code>uso-agua-usgs/</code></td>
+<td>Mosquitto y el puente MQTT a Kafka</td>
+</tr>
+<tr>
+<td><code>scripts/</code></td>
+<td>Levantar el sistema, crear tópicos y probar la salud</td>
+</tr>
+<tr>
+<td><code>docs/</code></td>
+<td>Esta documentación (MkDocs) y las evidencias de la Unidad 3</td>
+</tr>
+</tbody>
+</table>
+<h2 id="decisiones-tecnicas">Decisiones técnicas<a class="headerlink" href="#decisiones-tecnicas" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Decisión</th>
+<th>Por qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lambda y no Kappa</td>
+<td>El modelo se entrena sobre 90 días de historial y el Parquet de la U1 se analiza por lotes. Reprocesar todo como stream no aportaba nada al caso.</td>
+</tr>
+<tr>
+<td>Datos reales del USGS en la Unidad 2</td>
+<td>Con datos simulados no se puede medir el retraso real de publicación ni validar el modelo frente a lo que de verdad pasó. El USGS publica lecturas cada 5 minutos con una API pública.</td>
+</tr>
+<tr>
+<td>MQTT y un puente, en lugar de escribir directo a Kafka</td>
+<td>Un dispositivo de campo habla MQTT, no Kafka. El puente agrega la cabecera <code>canal=mqtt</code> y usa la estación como key.</td>
+</tr>
+<tr>
+<td>3 particiones con key <code>estacion_id</code></td>
+<td>Las lecturas de una estación quedan en orden dentro de su partición, y el consumo se puede repartir.</td>
+</tr>
+<tr>
+<td>Tiempo del evento = <code>fecha_medicion_utc</code></td>
+<td>El USGS publica con 40 a 54 minutos de retraso. La ventana y el watermark se basan en cuándo midió el sensor, no en cuándo llegó el dato.</td>
+</tr>
+<tr>
+<td>Watermark de 85 minutos</td>
+<td>Medido en el 12a: percentil 99 del retraso por 1,2.</td>
+</tr>
+<tr>
+<td>Deduplicación dentro del watermark</td>
+<td>Kafka garantiza entrega "al menos una vez". Una lectura repetida no debe pronosticarse dos veces.</td>
+</tr>
+<tr>
+<td>Inferencia sin estado</td>
+<td>Cada evento trae su contexto (rezagos y variables simultáneas), así que una sola lectura basta para pronosticar y no hay estado que perder al reiniciar.</td>
+</tr>
+<tr>
+<td><code>evento_id</code> determinista (UUID v5)</td>
+<td>Si un micro-lote se reprocesa, el evento de negocio tiene el mismo id y el consumidor puede descartarlo.</td>
+</tr>
+<tr>
+<td>Pushgateway para las métricas de Spark</td>
+<td>Un cuaderno no expone <code>/metrics</code> para que Prometheus lo lea. Su limitación (el último valor persiste) se mitiga con el panel de antigüedad.</td>
+</tr>
+<tr>
+<td>Compuerta en el p50 de la latencia, no en el promedio</td>
+<td>Una cola de mensajes acumulados infla el promedio sin describir al evento típico. El p95 solo advierte.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="contratos-de-los-eventos">Contratos de los eventos<a class="headerlink" href="#contratos-de-los-eventos" title="Permanent link">&para;</a></h2>
+<p><strong>Evento de sensor, versión 2</strong> (<code>agua-usgs-eventos-v2</code>, key = <code>estacion_id</code>):</p>
 <table>
 <thead>
 <tr>
 <th>Campo</th>
-<th>Tipo</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>version_esquema</code></td>
+<td>2</td>
+</tr>
+<tr>
+<td><code>evento_id</code></td>
+<td>identificador único</td>
+</tr>
+<tr>
+<td><code>estacion_id</code></td>
+<td>estación USGS, por ejemplo <code>USGS-01491000</code></td>
+</tr>
+<tr>
+<td><code>variable</code>, <code>codigo_parametro</code></td>
+<td><code>temperatura_c</code> (00010), <code>oxigeno_mgl</code> (00300), <code>ph</code> (00400), <code>turbidez_fnu</code> (63680), y también conductividad y nitrato</td>
+</tr>
+<tr>
+<td><code>valor</code></td>
+<td>lectura del sensor</td>
+</tr>
+<tr>
+<td><code>fecha_medicion_utc</code></td>
+<td><strong>tiempo del evento</strong>: cuándo midió el sensor</td>
+</tr>
+<tr>
+<td><code>fecha_ingesta_utc</code>, <code>retraso_min</code></td>
+<td>cuándo llegó al pipeline y cuántos minutos después</td>
+</tr>
+<tr>
+<td><code>origen</code>, <code>fuente</code></td>
+<td><code>vivo</code>, <code>historial</code> o <code>reproduccion</code>; <code>USGS</code></td>
+</tr>
+<tr>
+<td><code>contexto.rezagos</code></td>
+<td>la misma variable 5, 10, 15, 30 y 60 minutos antes (<code>l1</code>, <code>l2</code>, <code>l3</code>, <code>l6</code>, <code>l12</code>)</td>
+</tr>
+<tr>
+<td><code>contexto.simultaneas</code></td>
+<td>las otras variables de la estación en el mismo bloque de 5 minutos</td>
+</tr>
+</tbody>
+</table>
+<p>Un consumidor de la versión 1 sigue funcionando: solo ignora <code>contexto</code>.</p>
+<p><img alt="Mensaje real en Kafka UI" src="../img/kafka_sensores.jpg" /></p>
+<p><strong>Evento de negocio, versión 1</strong> (<code>orden-eventos</code> y <code>alerta-eventos</code>, key = <code>estacion_id|variable</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
 <th>Significado</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>evento_id</code></td>
-<td>string</td>
-<td>identificador único</td>
+<td>UUID v5 de tipo, estación, variable y bloque de 5 minutos (idempotente)</td>
 </tr>
 <tr>
-<td><code>estacion_id</code></td>
-<td>string</td>
-<td>estación USGS, por ejemplo <code>USGS-01491000</code></td>
+<td><code>tipo</code>, <code>integrante</code></td>
+<td><code>orden_inspeccion</code> (Patricia) o <code>alerta_calidad</code> (Jhenderson)</td>
 </tr>
 <tr>
-<td><code>variable</code></td>
-<td>string</td>
-<td>ph, oxigeno_mgl, turbidez_fnu, temperatura_c, conductividad_uscm, nitrato_mgl</td>
+<td><code>estacion_id</code>, <code>variable</code></td>
+<td>dónde y qué</td>
 </tr>
 <tr>
-<td><code>codigo_parametro</code></td>
-<td>string</td>
-<td>código USGS del parámetro</td>
+<td><code>valor_actual</code>, <code>pronostico_1h</code>, <code>riesgo</code></td>
+<td>el dato, el pronóstico a una hora y la probabilidad de salir del rango</td>
 </tr>
 <tr>
-<td><code>valor</code></td>
-<td>double</td>
-<td>lectura del sensor</td>
+<td><code>umbral_p05</code>, <code>umbral_p95</code>, <code>direccion</code></td>
+<td>rango de la estación y qué lado preocupa</td>
 </tr>
 <tr>
-<td><code>fecha_medicion_utc</code></td>
-<td>ISO-8601</td>
-<td><strong>tiempo del evento</strong>: cuándo midió el sensor</td>
+<td><code>ts_medicion_utc</code>, <code>creado_utc</code>, <code>estado</code></td>
+<td>cuándo se midió, cuándo se creó el evento y su estado (<code>creada</code>)</td>
 </tr>
 <tr>
-<td><code>fecha_ingesta_utc</code></td>
-<td>ISO-8601</td>
-<td>cuándo llegó a nuestro pipeline</td>
-</tr>
-<tr>
-<td><code>retraso_min</code></td>
-<td>double</td>
-<td>minutos entre medición e ingesta</td>
-</tr>
-<tr>
-<td><code>origen</code></td>
-<td>string</td>
-<td>vivo, historial o reproducción</td>
-</tr>
-<tr>
-<td><code>fuente</code></td>
-<td>string</td>
-<td>USGS</td>
+<td><code>modelo</code>, <code>evento_origen_id</code>, <code>runId</code></td>
+<td>modelo que pronosticó, lectura que lo originó y corrida</td>
 </tr>
 </tbody>
 </table>
-<p>El tiempo del evento es <code>fecha_medicion_utc</code>, no la hora de llegada: es la base de la ventana y del watermark.</p>
-<h2 id="infraestructura">Infraestructura<a class="headerlink" href="#infraestructura" title="Permanent link">&para;</a></h2>
-<p>Contenedores Docker: Kafka 4.3 (creación automática de tópicos desactivada), Kafka UI, kafka-exporter, PySpark 4.2 con Jupyter, Pushgateway, Prometheus 3.14 y Grafana 11.4.</p>
+<p>Regla de negocio: no se repite el evento para la misma estación y variable antes de 60 minutos.</p>
 
 
 
@@ -926,7 +1430,7 @@ kafka-exporter  -&gt;  Prometheus  &lt;---------- scrape --------------+
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "content.code.copy", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "content.code.copy", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
