@@ -45,9 +45,22 @@ Tamaño medio: unos 500 bytes (medido sobre 2 221 eventos v2 reales), frente a 3
 
 En el ejemplo del curso, el modelo se valida una vez, fuera de línea, y se lleva a producción. Mi mejora sobre la persistencia es pequeña (+9,4 % en pH y +4,2 % en turbidez, y en MAE no le gana), así que no basta con validarlo una vez. El 12c v3 compara cada pronóstico con la lectura real una hora después, y también lo que habría dicho la persistencia, y lo muestra en Grafana junto al RMSE de validación. La regla: si la persistencia gana de forma sostenida en vivo, se vuelve a ella y se reentrena. Ese registro de pronósticos pendientes es estado de monitoreo, no de inferencia: la inferencia sigue siendo sin estado porque los rezagos viajan en el evento.
 
-### Episodio de la demostración
+### Episodio de la demostración y ejecución guardada
 
-Se reproduce por MQTT un tramo real del periodo de prueba: del 16-oct-2026 22:00 al 17-oct-2026 04:00 UTC, con el umbral de operación 0,5. En la prueba previa a la sustentación, ese tramo generó 24 alertas de calidad (pH y turbidez en 6 estaciones), y el RMSE en vivo del modelo fue menor que el de la persistencia en las dos variables. Los valores definitivos son los que muestra el cuaderno ejecutado.
+La demo reproduce por MQTT un tramo real del periodo de prueba (16-oct-2026 desde las 20:00 UTC) y, después, recibe las lecturas del USGS en vivo. Umbral de operación 0,5, sin ajustes.
+
+Ejecución guardada en `12c_negocio_usgs_jhenderson_v3.ipynb` (6-nov-2026, modo reproducción sobre el tópico completo: episodio más lecturas en vivo del USGS):
+
+| Resultado | Valor |
+|---|---|
+| Mensajes leídos de Kafka | 26 330 en 24 lotes |
+| Pronósticos | 3 055 |
+| Alertas de calidad (umbral 0,5) | 43, de pH y turbidez en varias estaciones |
+| RMSE en vivo, pH | modelo 0,0647 frente a persistencia 0,0683 (1 201 comparaciones) |
+| RMSE en vivo, turbidez | modelo 18,38 frente a persistencia 18,60 (1 206 comparaciones) |
+| Único operador con estado | deduplicación dentro del watermark |
+
+En turbidez el RMSE en vivo (18,4) es mucho mayor que el de validación (8,2) porque el 6 de noviembre hubo turbidez alta (hasta 52 FNU) en USGS-0164578734 y USGS-01649500. El modelo sigue ganándole a la persistencia, pero por poco: es justo lo que el monitoreo en vivo debe mostrar.
 
 ### Rúbrica de la Unidad 2 y trazabilidad (u2-producto, Tabla 2)
 
