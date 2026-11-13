@@ -8,7 +8,7 @@ Instrumento `u3-producto.md` del curso, adaptado a AquaVigía. Según el sílabo
 
 | Componente exigido | En AquaVigía | Evidencia |
 |---|---|---|
-| Problema de datos delimitado y arquitectura justificada (Lambda o Kappa) | Anticipar el deterioro de la calidad del agua; arquitectura Lambda | [Inicio](index.md), [Arquitectura](arquitectura.md#decisiones-tecnicas) |
+| Problema de datos delimitado y arquitectura justificada (Lambda o Kappa) | Anticipar el deterioro de la calidad del agua; arquitectura Lambda | [Inicio](index.md), [Arquitectura](arquitectura.md#decisiones-tecnicas-y-lo-que-cuestan) |
 | Pipeline batch con Spark: extracción, transformaciones, agregaciones y validación de calidad | Cuaderno `04` de cada integrante | [Datos](datos.md#2-dataset-de-la-unidad-1), [Evidencias](evidencias.md#3-batch-unidad-1) |
 | Salida analítica en Parquet particionado | `mediciones_particionado`, `partitionBy("region")`, 1 245 817 filas | [Datos](datos.md#2-dataset-de-la-unidad-1) |
 | Ingesta de eventos empresariales e IoT con Kafka | Sensores del USGS por MQTT a `agua-usgs-eventos-v2`; órdenes y alertas en `orden-eventos` y `alerta-eventos` | [Arquitectura](arquitectura.md#contratos-de-los-eventos) |

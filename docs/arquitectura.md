@@ -66,21 +66,26 @@ flowchart TB
 | `scripts/` | Levantar el sistema, crear tópicos y probar la salud |
 | `docs/` | Esta documentación (MkDocs) y las evidencias de la Unidad 3 |
 
-## Decisiones técnicas
+## Decisiones técnicas y lo que cuestan
 
-| Decisión | Por qué |
-|---|---|
-| Lambda y no Kappa | El modelo se entrena sobre 90 días de historial y el Parquet de la U1 se analiza por lotes. Reprocesar todo como stream no aportaba nada al caso. |
-| Datos reales del USGS en la Unidad 2 | Con datos simulados no se puede medir el retraso real de publicación ni validar el modelo frente a lo que de verdad pasó. El USGS publica lecturas cada 5 minutos con una API pública. |
-| MQTT y un puente, en lugar de escribir directo a Kafka | Un dispositivo de campo habla MQTT, no Kafka. El puente agrega la cabecera `canal=mqtt` y usa la estación como key. |
-| 3 particiones con key `estacion_id` | Las lecturas de una estación quedan en orden dentro de su partición, y el consumo se puede repartir. |
-| Tiempo del evento = `fecha_medicion_utc` | El USGS publica con 40 a 54 minutos de retraso. La ventana y el watermark se basan en cuándo midió el sensor, no en cuándo llegó el dato. |
-| Watermark de 85 minutos | Medido en el 12a: percentil 99 del retraso por 1,2. |
-| Deduplicación dentro del watermark | Kafka garantiza entrega "al menos una vez". Una lectura repetida no debe pronosticarse dos veces. |
-| Inferencia sin estado | Cada evento trae su contexto (rezagos y variables simultáneas), así que una sola lectura basta para pronosticar y no hay estado que perder al reiniciar. |
-| `evento_id` determinista (UUID v5) | Si un micro-lote se reprocesa, el evento de negocio tiene el mismo id y el consumidor puede descartarlo. |
-| Pushgateway para las métricas de Spark | Un cuaderno no expone `/metrics` para que Prometheus lo lea. Su limitación (el último valor persiste) se mitiga con el panel de antigüedad. |
-| Compuerta en el p50 de la latencia, no en el promedio | Una cola de mensajes acumulados infla el promedio sin describir al evento típico. El p95 solo advierte. |
+Cada decisión tiene un costo. Esta tabla dice por qué se tomó y qué se pierde con ella (S14, 3.9).
+
+| Decisión | Por qué | Qué se pierde |
+|---|---|---|
+| Lambda y no Kappa | El modelo se entrena sobre 90 días de historial y el Parquet de la U1 se analiza por lotes. Reprocesar todo como stream no aportaba nada al caso. | Dos caminos que mantener (batch y streaming) y el riesgo de que den resultados distintos para el mismo dato. |
+| Datos reales del USGS en la Unidad 2 | Con datos simulados no se puede medir el retraso real de publicación ni validar el modelo frente a lo que de verdad pasó. | Las estaciones son de Estados Unidos, no del Perú, y dependemos de que la API esté disponible. |
+| MQTT y un puente, en lugar de escribir directo a Kafka | Un dispositivo de campo habla MQTT, no Kafka. El puente agrega la cabecera `canal=mqtt` y usa la estación como key. | Un servicio más que puede caerse (por eso reintenta) y unos milisegundos más de latencia. |
+| 3 particiones con key `estacion_id` | Las lecturas de una estación quedan en orden dentro de su partición, y el consumo se puede repartir. | Si una estación envía mucho más que las otras, su partición se carga más (se ve en el panel "Mensajes por partición"). |
+| Tiempo del evento = `fecha_medicion_utc` | El USGS publica con 40 a 54 minutos de retraso. La ventana y el watermark se basan en cuándo midió el sensor, no en cuándo llegó el dato. | Una ventana no se cierra hasta que pasa el watermark: los resultados por ventana salen con ese atraso. |
+| Watermark de 85 minutos | Medido en el 12a: percentil 99 del retraso por 1,2. | Un dato que llegue con más de 85 minutos de atraso se descarta. Y el estado de Spark guarda 85 minutos de lecturas. |
+| Deduplicación dentro del watermark | Kafka garantiza entrega "al menos una vez". Una lectura repetida no debe pronosticarse dos veces. | Memoria para recordar las claves vistas durante 85 minutos. |
+| Inferencia sin estado | Cada evento trae su contexto (rezagos y variables simultáneas), así que una sola lectura basta para pronosticar y no hay estado que perder al reiniciar. | Los mensajes son más grandes y el productor debe calcular el contexto; si el contexto llega incompleto, esa lectura no se pronostica. |
+| `evento_id` determinista (UUID v5) | Si un micro-lote se reprocesa, el evento de negocio tiene el mismo id y el consumidor puede descartarlo. | Dos alertas legítimas en el mismo bloque de 5 minutos tendrían el mismo id. La regla de 60 minutos sin repetir lo evita. |
+| Pushgateway para las métricas de Spark | Un cuaderno no expone `/metrics` para que Prometheus lo lea, y la ejecución integrada corre y termina. | Prometheus no sabe si el dato es reciente: un valor viejo parece vivo. Por eso el tablero tiene el panel de antigüedad de la última ejecución. |
+| Compuerta en el p50 de la latencia, no en el promedio | Una cola de mensajes acumulados infla el promedio sin describir al evento típico. El p95 solo advierte. | Más métricas y paneles que explicar. Y una advertencia del p95 puede ignorarse si nadie la revisa. |
+| Compuertas que detienen la ejecución | Un resultado vacío o incompleto se detecta donde nace, como el Parquet al que le faltaban 3 regiones. | Una compuerta mal calibrada detiene un pipeline sano; por eso las comparaciones con la persistencia solo advierten. |
+| Streaming acotado a 240 s en la ejecución integrada | Una ejecución integrada tiene que terminar para poder comprobarse y registrarse. | Cada corrida evalúa el modelo sobre unas 340 a 380 comparaciones por variable, no sobre días de operación. |
+| Kafka sin volumen y sin autenticación | Es un laboratorio que se levanta desde cero con un script. | Los tópicos no sobreviven a recrear el contenedor, y cualquiera en la red local podría publicar. |
 
 ## Contratos de los eventos
 
