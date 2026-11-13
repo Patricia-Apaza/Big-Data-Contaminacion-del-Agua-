@@ -29,6 +29,28 @@ La Unidad 2 usa lecturas reales de sensores del USGS (EE. UU.) en lugar de datos
 
 Los pasos para reproducirla están en `pyspark/sesiones/AquaVigia_Producto_U2/patricia/README.md`.
 
+## Cómo levantar el sistema
+
+Requisitos: Docker Desktop y PowerShell. Desde la raíz del repositorio:
+
+```powershell
+copy pyspark\.env.example pyspark\.env
+copy obs\.env.example obs\.env
+powershell -ExecutionPolicy Bypass -File scripts\levantar.ps1
+```
+
+El script levanta, en orden y esperando a que cada servicio esté listo (`healthcheck` + `docker compose up -d --wait`): Kafka, los tópicos, PySpark con Jupyter, la observabilidad y el puente MQTT. La revisión de configuración y los riesgos aceptados están en `docs/u3/hardening.md`.
+
+| Servicio | Enlace |
+|---|---|
+| Jupyter | http://localhost:4488 |
+| Spark UI | http://localhost:4042 |
+| Kafka UI | http://localhost:48085 |
+| Prometheus | http://localhost:49090 |
+| Pushgateway | http://localhost:49091 |
+| Grafana | http://localhost:43000 |
+| MQTT (productor) | localhost:41883 |
+
 ## Tecnologías
 
 Python, PySpark, Apache Kafka, Prometheus, Grafana, Docker, Jupyter.

@@ -1,0 +1,12 @@
+# Une el contenedor agua-pyspark a la red de Kafka, sin tocar compose.yml.
+# Se usa combinado: docker compose -f compose.yml -f compose.kafka.yml up -d
+services:
+  pyspark:
+    networks:
+      - default
+      - lambda26-kafka-net
+
+networks:
+  lambda26-kafka-net:
+    external: true
+    name: lambda26-kafka_default

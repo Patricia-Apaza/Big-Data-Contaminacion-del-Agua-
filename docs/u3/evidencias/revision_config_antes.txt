@@ -1,0 +1,55 @@
+# Revision de configuracion ANTES del hardening (2026-11-13T04:22Z), archivos: kafka/ obs/ pyspark/ uso-agua-usgs/
+## image:
+kafka/compose.yml:5:    image: apache/kafka:4.3.1
+kafka/compose.yml:23:    image: ghcr.io/kafbat/kafka-ui:v1.5.0
+kafka/compose.yml:35:    image: danielqsj/kafka-exporter:v1.10.0
+obs/compose.yml:5:    image: prom/prometheus:v3.14.0
+obs/compose.yml:17:    image: grafana/grafana:11.4.0
+obs/compose.yml:34:    image: prom/pushgateway:v1.11.1
+pyspark/compose.yml:6:    build:
+uso-agua-usgs/compose.yml:8:    image: eclipse-mosquitto:2.0.20
+uso-agua-usgs/compose.yml:19:    build: .
+## restart:
+kafka/compose.yml:7:    restart: unless-stopped
+kafka/compose.yml:25:    restart: unless-stopped
+kafka/compose.yml:37:    restart: unless-stopped
+obs/compose.yml:7:    restart: unless-stopped
+obs/compose.yml:19:    restart: unless-stopped
+obs/compose.yml:36:    restart: unless-stopped
+pyspark/compose.yml:8:    restart: unless-stopped
+uso-agua-usgs/compose.yml:10:    restart: unless-stopped
+uso-agua-usgs/compose.yml:21:    restart: unless-stopped
+## healthcheck (conteo):
+kafka/compose.yml:0
+obs/compose.yml:0
+pyspark/compose.yml:0
+uso-agua-usgs/compose.yml:0
+## depends_on:
+kafka/compose.yml:31:    depends_on:
+kafka/compose.yml-32-      - kafka
+kafka/compose.yml-33-
+--
+kafka/compose.yml:41:    depends_on:
+kafka/compose.yml-42-      - kafka
+--
+obs/compose.yml:28:    depends_on:
+obs/compose.yml-29-      - prometheus
+obs/compose.yml-30-    networks:
+--
+uso-agua-usgs/compose.yml:28:    depends_on:
+uso-agua-usgs/compose.yml-29-      - mosquitto
+uso-agua-usgs/compose.yml-30-    networks:
+## secretos (password|token|admin|key):
+obs/compose.yml:23:      GF_SECURITY_ADMIN_USER: admin
+obs/compose.yml:24:      GF_SECURITY_ADMIN_PASSWORD: admin
+pyspark/compose.yml:15:      - JUPYTER_TOKEN=${JUPYTER_TOKEN}
+## puertos publicados:
+kafka/compose.yml:9:      - "49092:9093"
+kafka/compose.yml:27:      - "48085:8080"
+kafka/compose.yml:40:      - "49308:9308"
+obs/compose.yml:9:      - "49090:9090"
+obs/compose.yml:21:      - "43000:3000"
+obs/compose.yml:38:      - "49091:9091"
+pyspark/compose.yml:10:      - "4488:8888"
+pyspark/compose.yml:11:      - "4042:4040"
+uso-agua-usgs/compose.yml:12:      - "41883:1883"        # el productor en Windows publica en localhost:41883

@@ -1,3 +1,7 @@
+# PySpark + Jupyter del sistema AquaVigia (Equipo 02).
+# Hardening de S14: healthcheck de Jupyter y token leido de pyspark/.env (no versionado; ver .env.example).
+# Levantar (desde la raiz, unido a la red de Kafka):
+#   docker compose -f pyspark/compose.yml -f pyspark/compose.kafka.yml up -d --build --wait
 name: agua-pyspark
 
 services:
@@ -12,4 +16,10 @@ services:
     volumes:
       - ./sesiones:/opt
     environment:
-      - JUPYTER_TOKEN=${JUPYTER_TOKEN}
+      - JUPYTER_TOKEN=${JUPYTER_TOKEN:-sintoken}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8888/api', timeout=5)"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s

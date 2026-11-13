@@ -1,0 +1,52 @@
+# Dispositivo -> MQTT -> puente -> Kafka (AquaVigia, Equipo 02)
+# Hardening de S14: healthcheck en Mosquitto y en el puente; el puente espera a Mosquitto LISTO
+# y, como Kafka vive en otro proyecto de Compose, reintenta la conexion a Kafka al arrancar.
+# Requiere Kafka arriba y los topicos creados (scripts/crear_topicos.ps1).
+# Levantar (desde la raiz):  docker compose -f uso-agua-usgs/compose.yml up -d --build --wait
+name: lambda26-uso-agua-usgs
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2.0.20
+    container_name: lambda26-mosquitto
+    restart: unless-stopped
+    ports:
+      - "41883:1883"        # el productor en Windows publica en localhost:41883
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+    healthcheck:
+      test: ["CMD", "mosquitto_sub", "-h", "localhost", "-p", "1883", "-t", "$$SYS/broker/uptime", "-C", "1", "-W", "5"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 5s
+    networks:
+      - lambda26-kafka-net
+
+  puente:
+    build: .
+    container_name: lambda26-puente-usgs
+    restart: unless-stopped
+    environment:
+      MQTT_HOST: mosquitto
+      MQTT_PORT: "1883"
+      MQTT_TOPIC: "aquavigia/equipo02/usgs/#"
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_TOPIC: agua-usgs-eventos-v2
+    healthcheck:
+      # listo = alcanza a Mosquitto y a Kafka por la red de Docker
+      test: ["CMD", "python", "-c", "import socket; socket.create_connection(('mosquitto',1883),3); socket.create_connection(('kafka',9092),3)"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+    depends_on:
+      mosquitto:
+        condition: service_healthy
+    networks:
+      - lambda26-kafka-net
+
+networks:
+  lambda26-kafka-net:
+    external: true
+    name: lambda26-kafka_default

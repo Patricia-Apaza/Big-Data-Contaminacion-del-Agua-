@@ -33,4 +33,6 @@ nav:
   - Jhenderson Machaca:
       - Producto U2: jhenderson/u2-producto.md
       - Costos y escalado: jhenderson/costos.md
+  - Unidad 3:
+      - Hardening y revisión técnica: u3/hardening.md
   - Rúbrica: rubrica.md

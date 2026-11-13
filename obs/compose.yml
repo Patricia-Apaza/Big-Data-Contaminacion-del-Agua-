@@ -1,0 +1,74 @@
+# Observabilidad del sistema AquaVigia (Equipo 02): Prometheus, Pushgateway y Grafana.
+# Hardening de S14: healthcheck en los tres servicios, Grafana espera a Prometheus LISTO,
+# y las credenciales de Grafana se leen de variables (obs/.env, que no se versiona).
+# Requiere la red de Kafka: levantar antes kafka/compose.yml.
+# Levantar (desde la raiz):  docker compose -f obs/compose.yml up -d --wait
+name: lambda26-obs
+
+services:
+  prometheus:
+    image: prom/prometheus:v3.14.0
+    container_name: lambda26-prometheus
+    restart: unless-stopped
+    ports:
+      - "49090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - lambda26_prometheus_data:/prometheus
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:9090/-/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - lambda26-kafka-net
+
+  grafana:
+    image: grafana/grafana:11.4.0
+    container_name: lambda26-grafana
+    restart: unless-stopped
+    ports:
+      - "43000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - lambda26_grafana_data:/var/lib/grafana
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    depends_on:
+      prometheus:
+        condition: service_healthy
+    networks:
+      - lambda26-kafka-net
+
+  pushgateway:
+    image: prom/pushgateway:v1.11.1
+    container_name: lambda26-pushgateway
+    restart: unless-stopped
+    ports:
+      - "49091:9091"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:9091/-/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    networks:
+      - lambda26-kafka-net
+
+volumes:
+  lambda26_prometheus_data:
+  lambda26_grafana_data:
+
+# La red de Kafka se llama lambda26-kafka_default (la crea kafka/compose.yml).
+networks:
+  lambda26-kafka-net:
+    external: true
+    name: lambda26-kafka_default

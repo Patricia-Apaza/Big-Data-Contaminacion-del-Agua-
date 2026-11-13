@@ -5,15 +5,23 @@ __pycache__/
 # Jupyter
 .ipynb_checkpoints/
 
-# Variables de entorno (contiene el token real; .env.example si se versiona)
+# Variables de entorno con credenciales reales (se versiona solo el .env.example de cada carpeta)
 .env
+**/.env
 
-# Datos: lecturas_agua.csv pesa ~208 MB, supera el limite de 100 MB de GitHub
-sesiones/*/data/
+# Salidas generadas por los cuadernos: Parquet, modelos, checkpoints de streaming y manifiestos.
+# No se versionan (S13/S16): cada copia las genera ejecutando los cuadernos; las compuertas
+# previas del cuaderno de integracion nombran el artefacto que falte.
+**/artifacts/
+**/checkpoint*/
+**/checkpoints/
+
+# Historial descargado de la API del USGS (se genera con usgs_productor.py historial)
+**/historial*.jsonl
 
 # Otros
 .DS_Store
-sesiones/*/artifacts/
+Thumbs.db
 
 # Sitio MkDocs generado (se publica en la rama gh-pages)
 site/

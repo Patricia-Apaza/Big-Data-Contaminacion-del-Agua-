@@ -1,0 +1,16 @@
+# Revision de configuracion DESPUES del hardening (2026-11-13T04:23Z), archivos del repositorio del proyecto
+## healthcheck (conteo):
+kafka/compose.yml:2
+obs/compose.yml:3
+pyspark/compose.yml:1
+uso-agua-usgs/compose.yml:2
+## depends_on con condicion:
+kafka/compose.yml:42:        condition: service_healthy
+kafka/compose.yml:59:        condition: service_healthy
+obs/compose.yml:47:        condition: service_healthy
+uso-agua-usgs/compose.yml:45:        condition: service_healthy
+## secretos (password|token|admin|key):
+obs/compose.yml:34:      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+obs/compose.yml:35:      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+pyspark/compose.yml:2:# Hardening de S14: healthcheck de Jupyter y token leido de pyspark/.env (no versionado; ver .env.example).
+pyspark/compose.yml:19:      - JUPYTER_TOKEN=${JUPYTER_TOKEN:-sintoken}
