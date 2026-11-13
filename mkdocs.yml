@@ -39,6 +39,7 @@ nav:
       - Resumen: evidencias.md
       - Ejecución integrada: u3/integracion.md
       - Hardening y revisión técnica: u3/hardening.md
+      - Guion de demostración: u3/demo.md
   - Equipo y aporte: equipo.md
   - Repositorio y estándares: repositorio.md
   - Limitaciones y mejoras: limitaciones.md

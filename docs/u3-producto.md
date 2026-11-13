@@ -18,7 +18,7 @@ Instrumento `u3-producto.md` del curso, adaptado a AquaVigía. Según el sílabo
 | DataOps: comprobación de salud y espera por dependencias, configuración fuera del código, ejecución integrada con compuertas y manifiesto | `healthcheck` en 8 servicios, `depends_on: service_healthy`, `up -d --wait`, credenciales por variables, cuaderno `13` con compuertas y manifiesto | [Hardening](u3/hardening.md), [Ejecución integrada](u3/integracion.md) |
 | Revisión técnica final: checklist, no regresión, riesgos aceptados | Lista de comprobación aplicada, prueba antes y después, 7 riesgos aceptados con justificación | [Hardening](u3/hardening.md) |
 | Evidencias reproducibles de ejecución | Manifiestos JSON de cada corrida y salidas de las pruebas | [Evidencias](evidencias.md) |
-| Documentación técnica, operativa y demo de punta a punta | Este sitio; la demo es la ejecución integrada | [Instalación](instalacion.md), [Uso](uso.md#1-ejecucion-integrada-recomendada) |
+| Documentación técnica, operativa y demo de punta a punta | Este sitio; la demo es la ejecución integrada, con guion y plan alternativo | [Instalación](instalacion.md), [Uso](uso.md#1-ejecucion-integrada-recomendada), [Guion de demostración](u3/demo.md) |
 
 ## 2. Entregables de S15
 
@@ -40,7 +40,7 @@ La calificación la asigna el docente. La última columna indica dónde está la
 | 2. Prácticas DataOps/DevOps aplicadas al empaquetado o despliegue | 15 % | `scripts/`, `healthcheck` y `depends_on`, `.env.example`, compuertas y manifiesto |
 | 3. Documentación operativa completa | 15 % | Este sitio, en especial [Instalación](instalacion.md) y [Uso](uso.md) |
 | 4. Hardening y revisión técnica final | 10 % | [Hardening](u3/hardening.md): checklist, bitácora, riesgos aceptados y no regresión |
-| 5. Demo reproducible | 15 % | [Uso, sección 1](uso.md#1-ejecucion-integrada-recomendada) |
+| 5. Demo reproducible | 15 % | [Guion de demostración](u3/demo.md) y [Uso, sección 1](uso.md#1-ejecucion-integrada-recomendada) |
 | 6. Sustentación técnica con evidencias, métricas, resultados y valor para la toma de decisiones | 25 % | Presentación, demo y defensa individual |
 
 ## 4. Valor para la toma de decisiones
