@@ -554,10 +554,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-capturas" class="md-nav__link">
+  <a href="#5-metricas-para-la-demostracion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Capturas
+        5. Métricas para la demostración
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-capturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Capturas
       
     </span>
   </a>
@@ -1014,10 +1025,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-capturas" class="md-nav__link">
+  <a href="#5-metricas-para-la-demostracion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Capturas
+        5. Métricas para la demostración
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-capturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Capturas
       
     </span>
   </a>
@@ -1207,7 +1229,106 @@
 </tr>
 </tbody>
 </table>
-<h2 id="5-capturas">5. Capturas<a class="headerlink" href="#5-capturas" title="Permanent link">&para;</a></h2>
+<h2 id="5-metricas-para-la-demostracion">5. Métricas para la demostración<a class="headerlink" href="#5-metricas-para-la-demostracion" title="Permanent link">&para;</a></h2>
+<p>Cada cifra que se dice en la demostración se puede señalar en un manifiesto o en Prometheus (S14, 3.7). Valores de las últimas corridas: Patricia <code>20261113T163113Z</code> y Jhenderson <code>20261113T163824Z</code>, las dos con el episodio del 16 al 17 de octubre.</p>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Patricia</th>
+<th>Jhenderson</th>
+<th>Origen: campo del manifiesto · métrica en Prometheus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Filas del Parquet gold de la U1</td>
+<td>1 245 817</td>
+<td>1 245 817</td>
+<td><code>batch.filas</code> · <code>aquavigia_int_batch_filas</code></td>
+</tr>
+<tr>
+<td>Indicador de la U1</td>
+<td>22,56 % fuera de rango (281 071)</td>
+<td>86,54 % pH aceptable; 11,76 % ácido; 1,70 % fuera de rango</td>
+<td><code>batch.indicadorU1</code></td>
+</tr>
+<tr>
+<td>Mediana (p50) y p95 del batch</td>
+<td>temperatura 16,0 y 25,0 °C; oxígeno 7,0 y 9,63 mg/L</td>
+<td>pH 7,20 y 8,19; turbidez 4,15 y 17,97 NTU</td>
+<td><code>batch.kpi</code></td>
+</tr>
+<tr>
+<td>Compuertas que pasaron</td>
+<td>21 de 21</td>
+<td>21 de 21</td>
+<td><code>compuertasPrevias</code>, <code>batch.calidad</code>, <code>streaming.compuertas</code>, <code>kpiTiempo.compuertas</code> · <code>aquavigia_int_compuertas_ok</code></td>
+</tr>
+<tr>
+<td>Pronósticos en 240 s de streaming</td>
+<td>1 015</td>
+<td>1 077</td>
+<td><code>streaming.pronosticos</code> · <code>aquavigia_int_stream_pronosticos</code></td>
+</tr>
+<tr>
+<td>Eventos de negocio emitidos (confirmados en Kafka)</td>
+<td>4 órdenes (4)</td>
+<td>16 alertas (16)</td>
+<td><code>streaming.eventosNegocio</code> y <code>eventosNegocioEnKafka</code> · <code>aquavigia_int_eventos_negocio</code></td>
+</tr>
+<tr>
+<td>Riesgo máximo</td>
+<td>0,745</td>
+<td>1,000</td>
+<td><code>streaming.riesgoMax</code> · <code>aquavigia_int_riesgo_max</code></td>
+</tr>
+<tr>
+<td>Latencia de punta a punta p50 / p95 / máx.</td>
+<td>6,7 / 11,3 / 12,1 s</td>
+<td>7,0 / 11,4 / 12,3 s</td>
+<td><code>kpiTiempo.latenciaPuntaAPunta</code> · <code>aquavigia_int_latencia_p50_s</code>, <code>_p95_s</code></td>
+</tr>
+<tr>
+<td>Eventos con más de 1 minuto de latencia</td>
+<td>0 %</td>
+<td>0 %</td>
+<td><code>kpiTiempo.latenciaPuntaAPunta.fraccionMayor1Min</code></td>
+</tr>
+<tr>
+<td>Duración del micro-lote p50 / p95</td>
+<td>2 034 / 2 652 ms</td>
+<td>2 142 / 2 835 ms</td>
+<td><code>kpiTiempo.duracionMicrolote</code> · <code>aquavigia_int_lote_p50_ms</code>, <code>_p95_ms</code></td>
+</tr>
+<tr>
+<td>RMSE en vivo, modelo frente a repetir el último valor</td>
+<td>temperatura 0,1131 frente a 0,1926; oxígeno 0,1260 frente a 0,1957</td>
+<td>pH 0,0570 frente a 0,0697; turbidez 6,1172 frente a 7,6671</td>
+<td><code>streaming.error</code> · <code>aquavigia_int_rmse_vivo</code></td>
+</tr>
+<tr>
+<td>RMSE de validación del 12b (referencia)</td>
+<td>temperatura 0,1299; oxígeno 0,1422</td>
+<td>pH 0,0683; turbidez 8,2011</td>
+<td><code>meta.json</code> del 12b, y <code>streaming.error</code></td>
+</tr>
+<tr>
+<td>Duración de la ejecución integrada</td>
+<td>263,0 s</td>
+<td>263,8 s</td>
+<td><code>duracionTotalS</code></td>
+</tr>
+<tr>
+<td>Métricas devueltas por Prometheus con el valor recién publicado</td>
+<td>15 de 15</td>
+<td>15 de 15</td>
+<td><code>observabilidad.todasEnPrometheus</code></td>
+</tr>
+</tbody>
+</table>
+<p>Los valores de streaming cambian entre corridas porque cada una lee lecturas distintas; lo que no debe cambiar es que pasen las compuertas (<a href="../u3/hardening/#5-prueba-de-no-regresion">no regresión</a>).</p>
+<h2 id="6-capturas">6. Capturas<a class="headerlink" href="#6-capturas" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
