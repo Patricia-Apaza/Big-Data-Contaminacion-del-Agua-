@@ -17,6 +17,8 @@ El productor `usgs_productor.py` está en `../patricia/` (es compartido).
 
 ## Como reproducirlo
 
+> **Rutas vigentes desde la Unidad 3:** esta guía describe la reproducción de la Unidad 2, con la carpeta `s12-u2-usgs` del repositorio del curso. Desde la Unidad 3 los cuadernos usan `AquaVigia_Producto_U2/<integrante>/artifacts` y el historial va en `AquaVigia_Producto_U2/data/`. Los pasos vigentes están en `docs/instalacion.md`.
+
 Los cuadernos se ejecutan dentro del contenedor de PySpark del curso, con la carpeta `sesiones/s12-u2-usgs` montada como `/opt/s12-u2-usgs` (ahi viven `data/historial.jsonl` y `artifacts/`, que no se suben al repositorio). Los pasos completos estan en la sección 8 de `u2-producto.md`. Resumen:
 
 1. Crear el tópico: `kafka-topics.sh --create --topic alerta-eventos --partitions 1 --replication-factor 1`.
